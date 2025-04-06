@@ -123,6 +123,9 @@ local.properties
 *.tar.gz
 *.rar
 
+# But keep the layout library
+!lib/AbsoluteLayout.jar
+
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
 
