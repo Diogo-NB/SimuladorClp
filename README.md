@@ -5,11 +5,6 @@ Inspirado no funcionamento de CLPs convencionais, o simulador apresenta funciona
 
 /*![image](https://github.com/user-attachments/assets/e3b4bd74-e9bc-44b2-a732-981592ebdbd2)*/
 
-# **Entradas e saídas disponíveis**
-
-- Entradas: I1 até I8
-- Saídas: Q1 até Q8
-
 # **Operações disponíveis da lista de instruções**
 
 - **LD:** Carrega um valor para o acumulador.
