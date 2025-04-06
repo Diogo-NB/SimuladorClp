@@ -13,9 +13,7 @@ import ilcompiler.memoryvariable.MemoryVariable;
 import ilcompiler.output.OutputActions;
 import ilcompiler.uppercasedocumentfilter.UpperCaseDocumentFilter;
 import java.awt.Color;
-import java.awt.LayoutManager;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -31,66 +29,53 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextArea;
 import javax.swing.SwingConstants;
 import javax.swing.Timer;
-import javax.swing.border.Border;
-import javax.swing.border.CompoundBorder;
-import javax.swing.border.EmptyBorder;
-import javax.swing.border.LineBorder;
 import javax.swing.text.AbstractDocument;
 import javax.swing.text.BadLocationException;
 import save.Save;
 
-/**
- *
- * @author vinic
- */
 public final class HomePg extends javax.swing.JFrame {
 
     /**
      * Creates new form HomePg
      */
-
-     // Cria variáveis
+    // Cria variáveis
     static Map<String, Integer> inputsType;
     static Map<String, Boolean> inputs;
     static Map<String, Boolean> outputs;
-    @SuppressWarnings("Convert2Diamond")
-    static Map<String, MemoryVariable> memoryVariables = new HashMap<String, MemoryVariable>();
+    static Map<String, MemoryVariable> memoryVariables = new HashMap<>();
     static Integer mode = 1;
     static Integer color = 1;
     ListaDeVariaveisPg tela2 = new ListaDeVariaveisPg();
     private JTextArea Lista_de_variaveis = null;
     private boolean updating = false;
-    
+
     @SuppressWarnings("unchecked")
     public HomePg() {
         initComponents();
         Lista_de_variaveis = tela2.getListaDeVariaveis();
         //setando informaçoes iniciais
         ImageIcon iconplay = new ImageIcon(getClass().getResource("/Assets/start.png"));
-        iconplay.setImage( iconplay.getImage().getScaledInstance(Run_BT.getWidth(), Run_BT.getHeight(),1));
+        iconplay.setImage(iconplay.getImage().getScaledInstance(Run_BT.getWidth(), Run_BT.getHeight(), 1));
         Run_BT.setIcon(iconplay);
         ImageIcon iconpause = new ImageIcon(getClass().getResource("/Assets/pause.png"));
-        
-        iconpause.setImage( iconpause.getImage().getScaledInstance(Pause_BT.getWidth(), Pause_BT.getHeight(),1));
+
+        iconpause.setImage(iconpause.getImage().getScaledInstance(Pause_BT.getWidth(), Pause_BT.getHeight(), 1));
         Pause_BT.setIcon(iconpause);
-        
-        
+
         ImageIcon iconBarra = new ImageIcon(getClass().getResource("/Assets/Barra_Lateral.png"));
-        iconBarra.setImage( iconBarra.getImage().getScaledInstance(Variaveis_BT.getWidth(),Variaveis_BT.getHeight(),1));
+        iconBarra.setImage(iconBarra.getImage().getScaledInstance(Variaveis_BT.getWidth(), Variaveis_BT.getHeight(), 1));
         Variaveis_BT.setIcon(iconBarra);
-        
-        
+
         ImageIcon iconCampo = new ImageIcon(getClass().getResource("/Assets/bloco_notas.png"));
-        iconCampo.setImage( iconCampo.getImage().getScaledInstance(Codigo_Camp.getWidth(),Codigo_Camp.getHeight(),1));
+        iconCampo.setImage(iconCampo.getImage().getScaledInstance(Codigo_Camp.getWidth(), Codigo_Camp.getHeight(), 1));
         Image_Camp.setIcon(iconCampo);
-        
-        
+
         Codigo_Camp.setOpaque(false);
-        
+
         //adicionando icones de contador e timer
         ImageIcon icontimer = new ImageIcon(getClass().getResource("/Assets/temporizador.png"));
-        icontimer.setImage( icontimer.getImage().getScaledInstance(Timer_1.getWidth(), Timer_1.getHeight(),1));
-        Timer_1.setIcon(icontimer);       
+        icontimer.setImage(icontimer.getImage().getScaledInstance(Timer_1.getWidth(), Timer_1.getHeight(), 1));
+        Timer_1.setIcon(icontimer);
         Timer_2.setIcon(icontimer);
         Timer_3.setIcon(icontimer);
         Timer_4.setIcon(icontimer);
@@ -101,7 +86,7 @@ public final class HomePg extends javax.swing.JFrame {
         Timer_9.setIcon(icontimer);
         Timer_10.setIcon(icontimer);
         ImageIcon iconCont = new ImageIcon(getClass().getResource("/Assets/contador.png"));
-        iconCont.setImage( iconCont.getImage().getScaledInstance(Contador_1.getWidth(), Contador_1.getHeight(),1));
+        iconCont.setImage(iconCont.getImage().getScaledInstance(Contador_1.getWidth(), Contador_1.getHeight(), 1));
         Contador_1.setIcon(iconCont);
         Contador_2.setIcon(iconCont);
         Contador_3.setIcon(iconCont);
@@ -112,8 +97,7 @@ public final class HomePg extends javax.swing.JFrame {
         Contador_8.setIcon(iconCont);
         Contador_9.setIcon(iconCont);
         Contador_10.setIcon(iconCont);
-        
-        
+
         AbstractDocument doc = (AbstractDocument) Codigo_Camp.getDocument();
         doc.setDocumentFilter(new UpperCaseDocumentFilter());
         //Inicializa entradas e saídas
@@ -127,10 +111,9 @@ public final class HomePg extends javax.swing.JFrame {
         System.out.println("HashMap de saídas criado:" + outputs);
         // Atualiza entradas e saídas na tela
         updateScreen();
-        
-        
+
     }
-    
+
     public void setColor(Boolean value, JLabel label) {
         if (value) {
             label.setForeground(Color.green);
@@ -159,30 +142,27 @@ public final class HomePg extends javax.swing.JFrame {
         ImageIcon icon6 = new ImageIcon(getClass().getResource("/Assets/buttom_pi.png"));
         icon6.setImage(icon6.getImage().getScaledInstance(Saida_1.getWidth(), Saida_1.getHeight(), 1));
 
+        Entrada_1.setIcon(inputsType.get("I1") == 0 ? inputs.get("I1") ? icon2 : icon1 : inputsType.get("I1") == 1 ? inputs.get("I1") ? icon4 : icon3 : inputsType.get("I1") == 2 ? inputs.get("I1") ? icon6 : icon5 : icon1);
+        Entrada_2.setIcon(inputsType.get("I2") == 0 ? inputs.get("I2") ? icon2 : icon1 : inputsType.get("I2") == 1 ? inputs.get("I2") ? icon4 : icon3 : inputsType.get("I2") == 2 ? inputs.get("I2") ? icon6 : icon5 : icon1);
+        Entrada_3.setIcon(inputsType.get("I3") == 0 ? inputs.get("I3") ? icon2 : icon1 : inputsType.get("I3") == 1 ? inputs.get("I3") ? icon4 : icon3 : inputsType.get("I3") == 2 ? inputs.get("I3") ? icon6 : icon5 : icon1);
+        Entrada_4.setIcon(inputsType.get("I4") == 0 ? inputs.get("I4") ? icon2 : icon1 : inputsType.get("I4") == 1 ? inputs.get("I4") ? icon4 : icon3 : inputsType.get("I4") == 2 ? inputs.get("I4") ? icon6 : icon5 : icon1);
+        Entrada_5.setIcon(inputsType.get("I5") == 0 ? inputs.get("I5") ? icon2 : icon1 : inputsType.get("I5") == 1 ? inputs.get("I5") ? icon4 : icon3 : inputsType.get("I5") == 2 ? inputs.get("I5") ? icon6 : icon5 : icon1);
+        Entrada_6.setIcon(inputsType.get("I6") == 0 ? inputs.get("I6") ? icon2 : icon1 : inputsType.get("I6") == 1 ? inputs.get("I6") ? icon4 : icon3 : inputsType.get("I6") == 2 ? inputs.get("I6") ? icon6 : icon5 : icon1);
+        Entrada_7.setIcon(inputsType.get("I7") == 0 ? inputs.get("I7") ? icon2 : icon1 : inputsType.get("I7") == 1 ? inputs.get("I7") ? icon4 : icon3 : inputsType.get("I7") == 2 ? inputs.get("I7") ? icon6 : icon5 : icon1);
+        Entrada_8.setIcon(inputsType.get("I8") == 0 ? inputs.get("I8") ? icon2 : icon1 : inputsType.get("I8") == 1 ? inputs.get("I8") ? icon4 : icon3 : inputsType.get("I8") == 2 ? inputs.get("I8") ? icon6 : icon5 : icon1);
 
-        
-        Entrada_1.setIcon(inputsType.get("I1") == 0? inputs.get("I1")?icon2:icon1:inputsType.get("I1") == 1?inputs.get("I1")?icon4:icon3:inputsType.get("I1") == 2? inputs.get("I1")?icon6:icon5:icon1);
-        Entrada_2.setIcon(inputsType.get("I2") == 0? inputs.get("I2")?icon2:icon1:inputsType.get("I2") == 1?inputs.get("I2")?icon4:icon3:inputsType.get("I2") == 2? inputs.get("I2")?icon6:icon5:icon1);
-        Entrada_3.setIcon(inputsType.get("I3") == 0? inputs.get("I3")?icon2:icon1:inputsType.get("I3") == 1?inputs.get("I3")?icon4:icon3:inputsType.get("I3") == 2? inputs.get("I3")?icon6:icon5:icon1);
-        Entrada_4.setIcon(inputsType.get("I4") == 0? inputs.get("I4")?icon2:icon1:inputsType.get("I4") == 1?inputs.get("I4")?icon4:icon3:inputsType.get("I4") == 2? inputs.get("I4")?icon6:icon5:icon1);
-        Entrada_5.setIcon(inputsType.get("I5") == 0? inputs.get("I5")?icon2:icon1:inputsType.get("I5") == 1?inputs.get("I5")?icon4:icon3:inputsType.get("I5") == 2? inputs.get("I5")?icon6:icon5:icon1);
-        Entrada_6.setIcon(inputsType.get("I6") == 0? inputs.get("I6")?icon2:icon1:inputsType.get("I6") == 1?inputs.get("I6")?icon4:icon3:inputsType.get("I6") == 2? inputs.get("I6")?icon6:icon5:icon1);
-        Entrada_7.setIcon(inputsType.get("I7") == 0? inputs.get("I7")?icon2:icon1:inputsType.get("I7") == 1?inputs.get("I7")?icon4:icon3:inputsType.get("I7") == 2? inputs.get("I7")?icon6:icon5:icon1);
-        Entrada_8.setIcon(inputsType.get("I8") == 0? inputs.get("I8")?icon2:icon1:inputsType.get("I8") == 1?inputs.get("I8")?icon4:icon3:inputsType.get("I8") == 2? inputs.get("I8")?icon6:icon5:icon1);
-        
-        
         icon3 = new ImageIcon(getClass().getResource("/Assets/led_desligado.png"));
-        icon3.setImage( icon3.getImage().getScaledInstance(Saida_1.getWidth(), Saida_1.getHeight(),1));
+        icon3.setImage(icon3.getImage().getScaledInstance(Saida_1.getWidth(), Saida_1.getHeight(), 1));
         icon4 = new ImageIcon(getClass().getResource("/Assets/led_ligado.png"));
-        icon4.setImage( icon4.getImage().getScaledInstance(Saida_1.getWidth(), Saida_1.getHeight(),1));
-        Saida_1.setIcon(outputs.get("Q1")?icon4:icon3);
-        Saida_2.setIcon(outputs.get("Q2")?icon4:icon3);
-        Saida_3.setIcon(outputs.get("Q3")?icon4:icon3);
-        Saida_4.setIcon(outputs.get("Q4")?icon4:icon3);
-        Saida_5.setIcon(outputs.get("Q5")?icon4:icon3);
-        Saida_6.setIcon(outputs.get("Q6")?icon4:icon3);
-        Saida_7.setIcon(outputs.get("Q7")?icon4:icon3);
-        Saida_8.setIcon(outputs.get("Q8")?icon4:icon3);
+        icon4.setImage(icon4.getImage().getScaledInstance(Saida_1.getWidth(), Saida_1.getHeight(), 1));
+        Saida_1.setIcon(outputs.get("Q1") ? icon4 : icon3);
+        Saida_2.setIcon(outputs.get("Q2") ? icon4 : icon3);
+        Saida_3.setIcon(outputs.get("Q3") ? icon4 : icon3);
+        Saida_4.setIcon(outputs.get("Q4") ? icon4 : icon3);
+        Saida_5.setIcon(outputs.get("Q5") ? icon4 : icon3);
+        Saida_6.setIcon(outputs.get("Q6") ? icon4 : icon3);
+        Saida_7.setIcon(outputs.get("Q7") ? icon4 : icon3);
+        Saida_8.setIcon(outputs.get("Q8") ? icon4 : icon3);
     }
 
     // Atualiza o modo atual na tela
@@ -191,41 +171,43 @@ public final class HomePg extends javax.swing.JFrame {
         if (null == mode) {
             Codigo_Camp.setEditable(false);
             ImageIcon icon1 = new ImageIcon(getClass().getResource("/Assets/start_verde.png"));
-            icon1.setImage( icon1.getImage().getScaledInstance(Run_BT.getWidth(), Run_BT.getHeight(),1));
+            icon1.setImage(icon1.getImage().getScaledInstance(Run_BT.getWidth(), Run_BT.getHeight(), 1));
             Run_BT.setIcon(icon1);
-        } else switch (mode) {
-            case 1 ->                 {
+        } else {
+            switch (mode) {
+                case 1 -> {
                     Codigo_Camp.setEditable(true);
                     ImageIcon icon1 = new ImageIcon(getClass().getResource("/Assets/start.png"));
-                    icon1.setImage( icon1.getImage().getScaledInstance(Run_BT.getWidth(), Run_BT.getHeight(),1));
+                    icon1.setImage(icon1.getImage().getScaledInstance(Run_BT.getWidth(), Run_BT.getHeight(), 1));
                     Run_BT.setIcon(icon1);
-                //jSpinner1.setEditable(true);
+                    //jSpinner1.setEditable(true);
                 }
-            case 2 ->                 {
+                case 2 -> {
                     Codigo_Camp.setEditable(false);
                     ImageIcon icon1 = new ImageIcon(getClass().getResource("/Assets/start.png"));
-                    icon1.setImage( icon1.getImage().getScaledInstance(Run_BT.getWidth(), Run_BT.getHeight(),1));
+                    icon1.setImage(icon1.getImage().getScaledInstance(Run_BT.getWidth(), Run_BT.getHeight(), 1));
                     Run_BT.setIcon(icon1);
                 }
-            default ->                 {
+                default -> {
                     Codigo_Camp.setEditable(false);
                     ImageIcon icon1 = new ImageIcon(getClass().getResource("/Assets/start_verde.png"));
-                    icon1.setImage( icon1.getImage().getScaledInstance(Run_BT.getWidth(), Run_BT.getHeight(),1));
+                    icon1.setImage(icon1.getImage().getScaledInstance(Run_BT.getWidth(), Run_BT.getHeight(), 1));
                     Run_BT.setIcon(icon1);
                 }
+            }
         }
     }
 
     // Atualiza as variáveis de memória na tela
     public void updateMemoryVariables() {
         Lista_de_variaveis.setText("");
-    
+
         String line = "";
         List<MemoryVariable> tVariables = new ArrayList<>();
         List<MemoryVariable> cVariables = new ArrayList<>();
         int contC = 1;
         int contT = 1;
-    
+
         for (Map.Entry<String, MemoryVariable> variable : memoryVariables.entrySet()) {
             switch (variable.getKey().charAt(0)) {
                 case 'M' -> {
@@ -246,10 +228,10 @@ public final class HomePg extends javax.swing.JFrame {
                 default -> {
                 }
             }
-    
+
             Lista_de_variaveis.setText(Lista_de_variaveis.getText() + line);
         }
-    
+
         // Exemplo de como você pode usar as listas tVariables e cVariables
         for (MemoryVariable tVariable : tVariables) {
             // System.out.println("ID: " + tVariable.id + ", Counter: " + tVariable.counter + ", MaxTimer: " + tVariable.maxTimer);
@@ -262,7 +244,7 @@ public final class HomePg extends javax.swing.JFrame {
 
                     Temp_atual_1.setText(String.valueOf(tVariable.counter));
                     Temp_atual_1.setHorizontalAlignment(SwingConstants.CENTER);
-            
+
                     Temp_parada_1.setText(String.valueOf(tVariable.maxTimer));
                     Temp_parada_1.setHorizontalAlignment(SwingConstants.CENTER);
                 }
@@ -274,7 +256,7 @@ public final class HomePg extends javax.swing.JFrame {
 
                     Temp_atual_2.setText(String.valueOf(tVariable.counter));
                     Temp_atual_2.setHorizontalAlignment(SwingConstants.CENTER);
-            
+
                     Temp_parada_2.setText(String.valueOf(tVariable.maxTimer));
                     Temp_parada_2.setHorizontalAlignment(SwingConstants.CENTER);
                 }
@@ -286,7 +268,7 @@ public final class HomePg extends javax.swing.JFrame {
 
                     Temp_atual_3.setText(String.valueOf(tVariable.counter));
                     Temp_atual_3.setHorizontalAlignment(SwingConstants.CENTER);
-            
+
                     Temp_parada_3.setText(String.valueOf(tVariable.maxTimer));
                     Temp_parada_3.setHorizontalAlignment(SwingConstants.CENTER);
                 }
@@ -298,7 +280,7 @@ public final class HomePg extends javax.swing.JFrame {
 
                     Temp_atual_4.setText(String.valueOf(tVariable.counter));
                     Temp_atual_4.setHorizontalAlignment(SwingConstants.CENTER);
-            
+
                     Temp_parada_4.setText(String.valueOf(tVariable.maxTimer));
                     Temp_parada_4.setHorizontalAlignment(SwingConstants.CENTER);
                 }
@@ -310,7 +292,7 @@ public final class HomePg extends javax.swing.JFrame {
 
                     Temp_atual_5.setText(String.valueOf(tVariable.counter));
                     Temp_atual_5.setHorizontalAlignment(SwingConstants.CENTER);
-            
+
                     Temp_parada_5.setText(String.valueOf(tVariable.maxTimer));
                     Temp_parada_5.setHorizontalAlignment(SwingConstants.CENTER);
                 }
@@ -322,7 +304,7 @@ public final class HomePg extends javax.swing.JFrame {
 
                     Temp_atual_6.setText(String.valueOf(tVariable.counter));
                     Temp_atual_6.setHorizontalAlignment(SwingConstants.CENTER);
-            
+
                     Temp_parada_6.setText(String.valueOf(tVariable.maxTimer));
                     Temp_parada_6.setHorizontalAlignment(SwingConstants.CENTER);
                 }
@@ -334,7 +316,7 @@ public final class HomePg extends javax.swing.JFrame {
 
                     Temp_atual_7.setText(String.valueOf(tVariable.counter));
                     Temp_atual_7.setHorizontalAlignment(SwingConstants.CENTER);
-            
+
                     Temp_parada_7.setText(String.valueOf(tVariable.maxTimer));
                     Temp_parada_7.setHorizontalAlignment(SwingConstants.CENTER);
                 }
@@ -346,7 +328,7 @@ public final class HomePg extends javax.swing.JFrame {
 
                     Temp_atual_8.setText(String.valueOf(tVariable.counter));
                     Temp_atual_8.setHorizontalAlignment(SwingConstants.CENTER);
-            
+
                     Temp_parada_8.setText(String.valueOf(tVariable.maxTimer));
                     Temp_parada_8.setHorizontalAlignment(SwingConstants.CENTER);
                 }
@@ -358,7 +340,7 @@ public final class HomePg extends javax.swing.JFrame {
 
                     Temp_atual_9.setText(String.valueOf(tVariable.counter));
                     Temp_atual_9.setHorizontalAlignment(SwingConstants.CENTER);
-            
+
                     Temp_parada_9.setText(String.valueOf(tVariable.maxTimer));
                     Temp_parada_9.setHorizontalAlignment(SwingConstants.CENTER);
                 }
@@ -370,7 +352,7 @@ public final class HomePg extends javax.swing.JFrame {
 
                     Temp_atual_10.setText(String.valueOf(tVariable.counter));
                     Temp_atual_10.setHorizontalAlignment(SwingConstants.CENTER);
-            
+
                     Temp_parada_10.setText(String.valueOf(tVariable.maxTimer));
                     Temp_parada_10.setHorizontalAlignment(SwingConstants.CENTER);
                 }
@@ -379,16 +361,16 @@ public final class HomePg extends javax.swing.JFrame {
         }
         for (MemoryVariable cVariable : cVariables) {
             // System.out.println("ID: " + cVariable.id + ", Counter: " + cVariable.counter + ", MaxTimer: " + cVariable.maxTimer);
-            switch(contC) {
+            switch (contC) {
                 case 1 -> {
                     Contador_1.setText(String.valueOf(cVariable.id));
                     Contador_1.setHorizontalTextPosition(JLabel.CENTER);
                     Contador_1.setVerticalTextPosition(JLabel.CENTER);
                     Contador_1.setForeground(Color.WHITE);
-                    
+
                     Contagem_atual_1.setText(String.valueOf(cVariable.counter));
                     Contagem_atual_1.setHorizontalAlignment(SwingConstants.CENTER);
-            
+
                     Contagem_parada_1.setText(String.valueOf(cVariable.maxTimer));
                     Contagem_parada_1.setHorizontalAlignment(SwingConstants.CENTER);
                 }
@@ -400,7 +382,7 @@ public final class HomePg extends javax.swing.JFrame {
 
                     Contagem_atual_2.setText(String.valueOf(cVariable.counter));
                     Contagem_atual_2.setHorizontalAlignment(SwingConstants.CENTER);
-            
+
                     Contagem_parada_2.setText(String.valueOf(cVariable.maxTimer));
                     Contagem_parada_2.setHorizontalAlignment(SwingConstants.CENTER);
                 }
@@ -412,7 +394,7 @@ public final class HomePg extends javax.swing.JFrame {
 
                     Contagem_atual_3.setText(String.valueOf(cVariable.counter));
                     Contagem_atual_3.setHorizontalAlignment(SwingConstants.CENTER);
-            
+
                     Contagem_parada_3.setText(String.valueOf(cVariable.maxTimer));
                     Contagem_parada_3.setHorizontalAlignment(SwingConstants.CENTER);
                 }
@@ -424,7 +406,7 @@ public final class HomePg extends javax.swing.JFrame {
 
                     Contagem_atual_4.setText(String.valueOf(cVariable.counter));
                     Contagem_atual_4.setHorizontalAlignment(SwingConstants.CENTER);
-            
+
                     Contagem_parada_4.setText(String.valueOf(cVariable.maxTimer));
                     Contagem_parada_4.setHorizontalAlignment(SwingConstants.CENTER);
                 }
@@ -436,7 +418,7 @@ public final class HomePg extends javax.swing.JFrame {
 
                     Contagem_atual_5.setText(String.valueOf(cVariable.counter));
                     Contagem_atual_5.setHorizontalAlignment(SwingConstants.CENTER);
-            
+
                     Contagem_parada_5.setText(String.valueOf(cVariable.maxTimer));
                     Contagem_parada_5.setHorizontalAlignment(SwingConstants.CENTER);
                 }
@@ -448,7 +430,7 @@ public final class HomePg extends javax.swing.JFrame {
 
                     Contagem_atual_6.setText(String.valueOf(cVariable.counter));
                     Contagem_atual_6.setHorizontalAlignment(SwingConstants.CENTER);
-            
+
                     Contagem_parada_6.setText(String.valueOf(cVariable.maxTimer));
                     Contagem_parada_6.setHorizontalAlignment(SwingConstants.CENTER);
                 }
@@ -460,7 +442,7 @@ public final class HomePg extends javax.swing.JFrame {
 
                     Contagem_atual_7.setText(String.valueOf(cVariable.counter));
                     Contagem_atual_7.setHorizontalAlignment(SwingConstants.CENTER);
-            
+
                     Contagem_parada_7.setText(String.valueOf(cVariable.maxTimer));
                     Contagem_parada_7.setHorizontalAlignment(SwingConstants.CENTER);
                 }
@@ -472,7 +454,7 @@ public final class HomePg extends javax.swing.JFrame {
 
                     Contagem_atual_8.setText(String.valueOf(cVariable.counter));
                     Contagem_atual_8.setHorizontalAlignment(SwingConstants.CENTER);
-            
+
                     Contagem_parada_8.setText(String.valueOf(cVariable.maxTimer));
                     Contagem_parada_8.setHorizontalAlignment(SwingConstants.CENTER);
                 }
@@ -484,7 +466,7 @@ public final class HomePg extends javax.swing.JFrame {
 
                     Contagem_atual_9.setText(String.valueOf(cVariable.counter));
                     Contagem_atual_9.setHorizontalAlignment(SwingConstants.CENTER);
-            
+
                     Contagem_parada_9.setText(String.valueOf(cVariable.maxTimer));
                     Contagem_parada_9.setHorizontalAlignment(SwingConstants.CENTER);
                 }
@@ -496,7 +478,7 @@ public final class HomePg extends javax.swing.JFrame {
 
                     Contagem_atual_10.setText(String.valueOf(cVariable.counter));
                     Contagem_atual_10.setHorizontalAlignment(SwingConstants.CENTER);
-            
+
                     Contagem_parada_10.setText(String.valueOf(cVariable.maxTimer));
                     Contagem_parada_10.setHorizontalAlignment(SwingConstants.CENTER);
                 }
@@ -510,8 +492,7 @@ public final class HomePg extends javax.swing.JFrame {
         mode = 1;
         JOptionPane.showMessageDialog(null, message);
     }
-    
-    
+
     private List<String> saveLines(List<String> lineList) {
         int quant = Codigo_Camp.getLineCount();
 
@@ -529,9 +510,9 @@ public final class HomePg extends javax.swing.JFrame {
         System.out.println("Lista de linhas: " + lineList);
         return lineList;
     }
-    
+
     @SuppressWarnings("rawtypes")
-    public Map setaBit(Map<String,Boolean> inputs){
+    public Map setaBit(Map<String, Boolean> inputs) {
         Boolean input = inputs.get("I1");
         inputs.clear();
         inputs.put("I1", !input);
@@ -1292,7 +1273,7 @@ public final class HomePg extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_SimulacoesActionPerformed
     private void Run_BTBT_Run_Pressionado(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Run_BTBT_Run_Pressionado
-        if(mode != 3){
+        if (mode != 3) {
             System.out.println("\nBotão run clicado!");
             mode = 3;
             // Verificando tempo de delay
@@ -1322,19 +1303,19 @@ public final class HomePg extends javax.swing.JFrame {
                     inputs = InputActions.read(inputs);
                     outputs = OutputActions.setAllFalse(outputs);
                     outputs = Interpreter.receiveLines(lineList, inputs, outputs, memoryVariables);
-                    for(Map.Entry<String, MemoryVariable> variable : memoryVariables.entrySet()){
-                        if(variable.getKey().charAt(0) == 'T' && variable.getValue().timerType.equals("ON") && variable.getValue().currentValue == true)
+                    for (Map.Entry<String, MemoryVariable> variable : memoryVariables.entrySet()) {
+                        if (variable.getKey().charAt(0) == 'T' && variable.getValue().timerType.equals("ON") && variable.getValue().currentValue == true) {
                             variable.getValue().timer.start();
-                        else if(variable.getKey().charAt(0) == 'T' && variable.getValue().timerType.equals("ON") && variable.getValue().currentValue == false){
+                        } else if (variable.getKey().charAt(0) == 'T' && variable.getValue().timerType.equals("ON") && variable.getValue().currentValue == false) {
                             variable.getValue().timer.stop();
                             variable.getValue().counter = 0;
                             variable.getValue().endTimer = false;
                         }
-                        if(variable.getKey().charAt(0) == 'T' && variable.getValue().timerType.equals("OFF") && variable.getValue().currentValue == true){
+                        if (variable.getKey().charAt(0) == 'T' && variable.getValue().timerType.equals("OFF") && variable.getValue().currentValue == true) {
                             variable.getValue().timer.stop();
                             variable.getValue().counter = 0;
                             variable.getValue().endTimer = true;
-                        }else if(variable.getKey().charAt(0) == 'T' && variable.getValue().timerType.equals("OFF") && variable.getValue().currentValue == false){
+                        } else if (variable.getKey().charAt(0) == 'T' && variable.getValue().timerType.equals("OFF") && variable.getValue().currentValue == false) {
                             variable.getValue().timer.start();
                         }
                     }
@@ -1350,11 +1331,11 @@ public final class HomePg extends javax.swing.JFrame {
 
             timer.setInitialDelay(0); // começa sem atraso
             timer.start();
-        }else{
+        } else {
             System.out.println("\nBotão stop clicado!");
             mode = 2;
             for (Map.Entry<String, MemoryVariable> variable : memoryVariables.entrySet()) {
-                if(variable.getKey().charAt(0) == 'T'){
+                if (variable.getKey().charAt(0) == 'T') {
                     variable.getValue().timer.stop();
                 }
             }
@@ -1362,16 +1343,16 @@ public final class HomePg extends javax.swing.JFrame {
             updateMode();
         }
     }//GEN-LAST:event_Run_BTBT_Run_Pressionado
-    private void Variaveis_BTA(java.awt.event.ActionEvent evt){
+    private void Variaveis_BTA(java.awt.event.ActionEvent evt) {
         tela2.setVisible(true);
         tela2.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        tela2.setLocation(1100,0);
+        tela2.setLocation(1100, 0);
     }
     private void Pause_BTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Pause_BTActionPerformed
         System.out.println("\nBotão program clicado!");
         mode = 1;
         for (Map.Entry<String, MemoryVariable> variable : memoryVariables.entrySet()) {
-            if(variable.getKey().charAt(0) == 'T'){
+            if (variable.getKey().charAt(0) == 'T') {
                 variable.getValue().counter = 0;
                 variable.getValue().timer.stop();
             }
@@ -1385,24 +1366,27 @@ public final class HomePg extends javax.swing.JFrame {
     }//GEN-LAST:event_Sobre_BTActionPerformed
 
     private void Entrada_1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Entrada_1MousePressed
-        if(evt.getButton() == 1){
-            if(inputsType.get("I1") == 0)
+        if (evt.getButton() == 1) {
+            if (inputsType.get("I1") == 0) {
                 inputs.put("I1", !inputs.get("I1"));
-            if(inputsType.get("I1") == 1)
+            }
+            if (inputsType.get("I1") == 1) {
                 inputs.put("I1", true);
-            if(inputsType.get("I1") == 2)
+            }
+            if (inputsType.get("I1") == 2) {
                 inputs.put("I1", false);
+            }
             updateScreen();
-        }else if(evt.getButton() == 3){
+        } else if (evt.getButton() == 3) {
             int val = inputsType.get("I1");
             val++;
-            if(val>=3){
+            if (val >= 3) {
                 val = 0;
             }
             inputsType.put("I1", val);
-            if(val == 0 || val == 1){
+            if (val == 0 || val == 1) {
                 inputs.put("I1", false);
-            }else{
+            } else {
                 inputs.put("I1", true);
             }
             updateScreen();
@@ -1410,24 +1394,27 @@ public final class HomePg extends javax.swing.JFrame {
     }//GEN-LAST:event_Entrada_1MousePressed
 
     private void Entrada_2MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Entrada_2MousePressed
-        if(evt.getButton() == 1){
-            if(inputsType.get("I2") == 0)
+        if (evt.getButton() == 1) {
+            if (inputsType.get("I2") == 0) {
                 inputs.put("I2", !inputs.get("I2"));
-            if(inputsType.get("I2") == 1)
+            }
+            if (inputsType.get("I2") == 1) {
                 inputs.put("I2", true);
-            if(inputsType.get("I2") == 2)
+            }
+            if (inputsType.get("I2") == 2) {
                 inputs.put("I2", false);
+            }
             updateScreen();
-        }else if(evt.getButton() == 3){
+        } else if (evt.getButton() == 3) {
             int val = inputsType.get("I2");
             val++;
-            if(val>=3){
+            if (val >= 3) {
                 val = 0;
             }
             inputsType.put("I2", val);
-            if(val == 0 || val == 1){
+            if (val == 0 || val == 1) {
                 inputs.put("I2", false);
-            }else{
+            } else {
                 inputs.put("I2", true);
             }
             updateScreen();
@@ -1435,24 +1422,27 @@ public final class HomePg extends javax.swing.JFrame {
     }//GEN-LAST:event_Entrada_2MousePressed
 
     private void Entrada_3MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Entrada_3MousePressed
-        if(evt.getButton() == 1){
-            if(inputsType.get("I3") == 0)
+        if (evt.getButton() == 1) {
+            if (inputsType.get("I3") == 0) {
                 inputs.put("I3", !inputs.get("I3"));
-            if(inputsType.get("I3") == 1)
+            }
+            if (inputsType.get("I3") == 1) {
                 inputs.put("I3", true);
-            if(inputsType.get("I3") == 2)
+            }
+            if (inputsType.get("I3") == 2) {
                 inputs.put("I3", false);
+            }
             updateScreen();
-        }else if(evt.getButton() == 3){
+        } else if (evt.getButton() == 3) {
             int val = inputsType.get("I3");
             val++;
-            if(val>=3){
+            if (val >= 3) {
                 val = 0;
             }
             inputsType.put("I3", val);
-            if(val == 0 || val == 1){
+            if (val == 0 || val == 1) {
                 inputs.put("I3", false);
-            }else{
+            } else {
                 inputs.put("I3", true);
             }
             updateScreen();
@@ -1460,24 +1450,27 @@ public final class HomePg extends javax.swing.JFrame {
     }//GEN-LAST:event_Entrada_3MousePressed
 
     private void Entrada_4MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Entrada_4MousePressed
-        if(evt.getButton() == 1){
-            if(inputsType.get("I4") == 0)
+        if (evt.getButton() == 1) {
+            if (inputsType.get("I4") == 0) {
                 inputs.put("I4", !inputs.get("I4"));
-            if(inputsType.get("I4") == 1)
+            }
+            if (inputsType.get("I4") == 1) {
                 inputs.put("I4", true);
-            if(inputsType.get("I4") == 2)
+            }
+            if (inputsType.get("I4") == 2) {
                 inputs.put("I4", false);
+            }
             updateScreen();
-        }else if(evt.getButton() == 3){
+        } else if (evt.getButton() == 3) {
             int val = inputsType.get("I4");
             val++;
-            if(val>=3){
+            if (val >= 3) {
                 val = 0;
             }
             inputsType.put("I4", val);
-            if(val == 0 || val == 1){
+            if (val == 0 || val == 1) {
                 inputs.put("I4", false);
-            }else{
+            } else {
                 inputs.put("I4", true);
             }
             updateScreen();
@@ -1485,49 +1478,55 @@ public final class HomePg extends javax.swing.JFrame {
     }//GEN-LAST:event_Entrada_4MousePressed
 
     private void Entrada_5MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Entrada_5MousePressed
-        if(evt.getButton() == 1){
-            if(inputsType.get("I5") == 0)
+        if (evt.getButton() == 1) {
+            if (inputsType.get("I5") == 0) {
                 inputs.put("I5", !inputs.get("I5"));
-            if(inputsType.get("I5") == 1)
+            }
+            if (inputsType.get("I5") == 1) {
                 inputs.put("I5", true);
-            if(inputsType.get("I5") == 2)
+            }
+            if (inputsType.get("I5") == 2) {
                 inputs.put("I5", false);
+            }
             updateScreen();
-        }else if(evt.getButton() == 3){
+        } else if (evt.getButton() == 3) {
             int val = inputsType.get("I5");
             val++;
-            if(val>=3){
+            if (val >= 3) {
                 val = 0;
             }
             inputsType.put("I5", val);
-            if(val == 0 || val == 1){
+            if (val == 0 || val == 1) {
                 inputs.put("I5", false);
-            }else{
+            } else {
                 inputs.put("I5", true);
             }
             updateScreen();
-        } 
+        }
     }//GEN-LAST:event_Entrada_5MousePressed
 
     private void Entrada_6MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Entrada_6MousePressed
-        if(evt.getButton() == 1){
-            if(inputsType.get("I6") == 0)
+        if (evt.getButton() == 1) {
+            if (inputsType.get("I6") == 0) {
                 inputs.put("I6", !inputs.get("I6"));
-            if(inputsType.get("I6") == 1)
+            }
+            if (inputsType.get("I6") == 1) {
                 inputs.put("I6", true);
-            if(inputsType.get("I6") == 2)
+            }
+            if (inputsType.get("I6") == 2) {
                 inputs.put("I6", false);
+            }
             updateScreen();
-        }else if(evt.getButton() == 3){
+        } else if (evt.getButton() == 3) {
             int val = inputsType.get("I6");
             val++;
-            if(val>=3){
+            if (val >= 3) {
                 val = 0;
             }
             inputsType.put("I6", val);
-            if(val == 0 || val == 1){
+            if (val == 0 || val == 1) {
                 inputs.put("I6", false);
-            }else{
+            } else {
                 inputs.put("I6", true);
             }
             updateScreen();
@@ -1535,24 +1534,27 @@ public final class HomePg extends javax.swing.JFrame {
     }//GEN-LAST:event_Entrada_6MousePressed
 
     private void Entrada_7MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Entrada_7MousePressed
-        if(evt.getButton() == 1){
-            if(inputsType.get("I7") == 0)
+        if (evt.getButton() == 1) {
+            if (inputsType.get("I7") == 0) {
                 inputs.put("I7", !inputs.get("I7"));
-            if(inputsType.get("I7") == 1)
+            }
+            if (inputsType.get("I7") == 1) {
                 inputs.put("I7", true);
-            if(inputsType.get("I7") == 2)
+            }
+            if (inputsType.get("I7") == 2) {
                 inputs.put("I7", false);
+            }
             updateScreen();
-        }else if(evt.getButton() == 3){
+        } else if (evt.getButton() == 3) {
             int val = inputsType.get("I7");
             val++;
-            if(val>=3){
+            if (val >= 3) {
                 val = 0;
             }
             inputsType.put("I7", val);
-            if(val == 0 || val == 1){
+            if (val == 0 || val == 1) {
                 inputs.put("I7", false);
-            }else{
+            } else {
                 inputs.put("I7", true);
             }
             updateScreen();
@@ -1560,24 +1562,27 @@ public final class HomePg extends javax.swing.JFrame {
     }//GEN-LAST:event_Entrada_7MousePressed
 
     private void Entrada_8MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Entrada_8MousePressed
-        if(evt.getButton() == 1){
-            if(inputsType.get("I8") == 0)
+        if (evt.getButton() == 1) {
+            if (inputsType.get("I8") == 0) {
                 inputs.put("I8", !inputs.get("I8"));
-            if(inputsType.get("I8") == 1)
+            }
+            if (inputsType.get("I8") == 1) {
                 inputs.put("I8", true);
-            if(inputsType.get("I8") == 2)
+            }
+            if (inputsType.get("I8") == 2) {
                 inputs.put("I8", false);
+            }
             updateScreen();
-        }else if(evt.getButton() == 3){
+        } else if (evt.getButton() == 3) {
             int val = inputsType.get("I8");
             val++;
-            if(val>=3){
+            if (val >= 3) {
                 val = 0;
             }
             inputsType.put("I8", val);
-            if(val == 0 || val == 1){
+            if (val == 0 || val == 1) {
                 inputs.put("I8", false);
-            }else{
+            } else {
                 inputs.put("I8", true);
             }
             updateScreen();
@@ -1585,163 +1590,181 @@ public final class HomePg extends javax.swing.JFrame {
     }//GEN-LAST:event_Entrada_8MousePressed
 
     private void Editar_BTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Editar_BTActionPerformed
- if(Editar_BT.getItemAt(1) == Editar_BT.getSelectedItem().toString()){
+        if (Editar_BT.getItemAt(1) == Editar_BT.getSelectedItem().toString()) {
             Editar_BT.setSelectedIndex(0);
             color++;
-            if(color >= 5){
+            if (color >= 5) {
                 color = 1;
             }
             setaCores();
         }
-        if(Editar_BT.getItemAt(2) == Editar_BT.getSelectedItem().toString()){
+        if (Editar_BT.getItemAt(2) == Editar_BT.getSelectedItem().toString()) {
             Editar_BT.setSelectedIndex(0);
             Language.setLingua();
             setaLanguage();
         }
-        
+
     }//GEN-LAST:event_Editar_BTActionPerformed
 
     private void Entrada_1MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Entrada_1MouseReleased
-        if(evt.getButton() == 1){
-            if(inputsType.get("I1") == 1)
+        if (evt.getButton() == 1) {
+            if (inputsType.get("I1") == 1) {
                 inputs.put("I1", false);
-            if(inputsType.get("I1") == 2)
+            }
+            if (inputsType.get("I1") == 2) {
                 inputs.put("I1", true);
+            }
             updateScreen();
         }
     }//GEN-LAST:event_Entrada_1MouseReleased
 
     private void Entrada_2MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Entrada_2MouseReleased
-       if(evt.getButton() == 1){
-            if(inputsType.get("I2") == 1)
+        if (evt.getButton() == 1) {
+            if (inputsType.get("I2") == 1) {
                 inputs.put("I2", false);
-            if(inputsType.get("I2") == 2)
+            }
+            if (inputsType.get("I2") == 2) {
                 inputs.put("I2", true);
+            }
             updateScreen();
         }
     }//GEN-LAST:event_Entrada_2MouseReleased
 
     private void Entrada_3MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Entrada_3MouseReleased
-        if(evt.getButton() == 1){
-            if(inputsType.get("I3") == 1)
+        if (evt.getButton() == 1) {
+            if (inputsType.get("I3") == 1) {
                 inputs.put("I3", false);
-            if(inputsType.get("I3") == 2)
+            }
+            if (inputsType.get("I3") == 2) {
                 inputs.put("I3", true);
+            }
             updateScreen();
         }
     }//GEN-LAST:event_Entrada_3MouseReleased
 
     private void Entrada_4MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Entrada_4MouseReleased
-        if(evt.getButton() == 1){
-            if(inputsType.get("I4") == 1)
+        if (evt.getButton() == 1) {
+            if (inputsType.get("I4") == 1) {
                 inputs.put("I4", false);
-            if(inputsType.get("I4") == 2)
+            }
+            if (inputsType.get("I4") == 2) {
                 inputs.put("I4", true);
+            }
             updateScreen();
         }
     }//GEN-LAST:event_Entrada_4MouseReleased
 
     private void Entrada_5MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Entrada_5MouseReleased
-        if(evt.getButton() == 1){
-            if(inputsType.get("I5") == 1)
+        if (evt.getButton() == 1) {
+            if (inputsType.get("I5") == 1) {
                 inputs.put("I5", false);
-            if(inputsType.get("I5") == 2)
+            }
+            if (inputsType.get("I5") == 2) {
                 inputs.put("I5", true);
+            }
             updateScreen();
         }
     }//GEN-LAST:event_Entrada_5MouseReleased
 
     private void Entrada_6MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Entrada_6MouseReleased
-        if(evt.getButton() == 1){
-            if(inputsType.get("I6") == 1)
+        if (evt.getButton() == 1) {
+            if (inputsType.get("I6") == 1) {
                 inputs.put("I6", false);
-            if(inputsType.get("I6") == 2)
+            }
+            if (inputsType.get("I6") == 2) {
                 inputs.put("I6", true);
+            }
             updateScreen();
         }
     }//GEN-LAST:event_Entrada_6MouseReleased
 
     private void Entrada_7MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Entrada_7MouseReleased
-        if(evt.getButton() == 1){
-            if(inputsType.get("I7") == 1)
+        if (evt.getButton() == 1) {
+            if (inputsType.get("I7") == 1) {
                 inputs.put("I7", false);
-            if(inputsType.get("I7") == 2)
+            }
+            if (inputsType.get("I7") == 2) {
                 inputs.put("I7", true);
+            }
             updateScreen();
         }
     }//GEN-LAST:event_Entrada_7MouseReleased
 
     private void Entrada_8MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Entrada_8MouseReleased
-        if(evt.getButton() == 1){
-            if(inputsType.get("I8") == 1)
+        if (evt.getButton() == 1) {
+            if (inputsType.get("I8") == 1) {
                 inputs.put("I8", false);
-            if(inputsType.get("I8") == 2)
+            }
+            if (inputsType.get("I8") == 2) {
                 inputs.put("I8", true);
+            }
             updateScreen();
         }
     }//GEN-LAST:event_Entrada_8MouseReleased
 
     private void Arquivar_BTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Arquivar_BTActionPerformed
-        if (updating) return;
-        
-            if(Language.getArquivar().getItemAt(2) == (Arquivar_BT.getSelectedItem().toString())){
-                JFileChooser c = new JFileChooser();
-                String filename = "";
-                String dir = "";
-                // Demonstrate "Open" dialog:
-                int rVal = c.showOpenDialog(HomePg.this);
-                if (rVal == JFileChooser.APPROVE_OPTION) {
-                  filename = (c.getSelectedFile().getName());
-                  dir = (c.getCurrentDirectory().toString());
+        if (updating) {
+            return;
+        }
+
+        if (Language.getArquivar().getItemAt(2) == (Arquivar_BT.getSelectedItem().toString())) {
+            JFileChooser c = new JFileChooser();
+            String filename = "";
+            String dir = "";
+            // Demonstrate "Open" dialog:
+            int rVal = c.showOpenDialog(HomePg.this);
+            if (rVal == JFileChooser.APPROVE_OPTION) {
+                filename = (c.getSelectedFile().getName());
+                dir = (c.getCurrentDirectory().toString());
+            }
+            List<String> memory = new ArrayList<>();
+            try {
+                memory = Save.load(dir + "\\" + filename);
+                Codigo_Camp.setText("");
+                for (int i = 0; i < memory.size(); i++) {
+                    Codigo_Camp.append(memory.get(i));
+                    Codigo_Camp.append("\n");
                 }
-                List<String> memory = new ArrayList<>();
-                try {
-                    memory = Save.load(dir+"\\"+filename);
-                    Codigo_Camp.setText("");
-                    for(int i = 0; i < memory.size(); i++){
-                        Codigo_Camp.append(memory.get(i));
-                        Codigo_Camp.append("\n");
-                    }
-                } catch (IOException ex) {
-                    Logger.getLogger(HomePg.class.getName()).log(Level.SEVERE, null, ex);
-                }
-                Arquivar_BT.setSelectedIndex(0);
+            } catch (IOException ex) {
+                Logger.getLogger(HomePg.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            Arquivar_BT.setSelectedIndex(0);
+        }
+
+        if (Arquivar_BT.getItemAt(1) == (Arquivar_BT.getSelectedItem())) {
+
+            Arquivar_BT.setSelectedIndex(0);
+
+            JFileChooser c = new JFileChooser();
+            String filename = "";
+            String dir = "";
+            // Demonstrate "Save" dialog:
+            int rVal = c.showSaveDialog(HomePg.this);
+            if (rVal == JFileChooser.APPROVE_OPTION) {
+                filename = (c.getSelectedFile().getName());
+                dir = (c.getCurrentDirectory().toString());
             }
 
-            if(Arquivar_BT.getItemAt(1)==(Arquivar_BT.getSelectedItem()) ){
-
-                Arquivar_BT.setSelectedIndex(0);
-
-                JFileChooser c = new JFileChooser();
-                String filename = "";
-                String dir = "";
-                // Demonstrate "Save" dialog:
-                int rVal = c.showSaveDialog(HomePg.this);
-                if (rVal == JFileChooser.APPROVE_OPTION) {
-                  filename = (c.getSelectedFile().getName());
-                  dir = (c.getCurrentDirectory().toString());
-                }
-
-                List<String> memory = new ArrayList<>();
-                memory = saveLines(memory);
-                try {
-                    Save.save(dir+"\\"+filename, memory);
-                } catch (IOException ex) {
-                    Logger.getLogger(HomePg.class.getName()).log(Level.SEVERE, null, ex);
-                }
+            List<String> memory = new ArrayList<>();
+            memory = saveLines(memory);
+            try {
+                Save.save(dir + "\\" + filename, memory);
+            } catch (IOException ex) {
+                Logger.getLogger(HomePg.class.getName()).log(Level.SEVERE, null, ex);
             }
-        
-        
+        }
+
+
     }//GEN-LAST:event_Arquivar_BTActionPerformed
-    
-    private void setaCores(){
+
+    private void setaCores() {
         Simulacoes.setBackground(Colors.firstColor(color));
         jPanel2.setBackground(Colors.firstColor(color));
         jPanel1.setBackground(Colors.secondColor(color));
         Color_Camp.setBackground(Colors.thirdColor(color));
     }
-    
-    private void setaLanguage(){
+
+    private void setaLanguage() {
         @SuppressWarnings("rawtypes")
         JComboBox aux = Language.getArquivar();
         updating = true;
@@ -1753,7 +1776,7 @@ public final class HomePg extends javax.swing.JFrame {
         Arquivar_BT.insertItemAt(aux.getItemAt(2).toString(), 2);
         Arquivar_BT.setSelectedIndex(0);
         updating = false;
-        
+
         aux = Language.getEditar();
         Editar_BT.removeItemAt(0);
         Editar_BT.removeItemAt(0);
@@ -1762,7 +1785,7 @@ public final class HomePg extends javax.swing.JFrame {
         Editar_BT.insertItemAt(aux.getItemAt(1).toString(), 1);
         Editar_BT.insertItemAt(aux.getItemAt(2).toString(), 2);
         Editar_BT.setSelectedIndex(0);
-        
+
         aux = Language.getSimulação();
         Simulacoes.removeItemAt(0);
         Simulacoes.removeItemAt(0);
@@ -1773,14 +1796,14 @@ public final class HomePg extends javax.swing.JFrame {
         Simulacoes.insertItemAt(aux.getItemAt(2).toString(), 2);
         Simulacoes.insertItemAt(aux.getItemAt(3).toString(), 3);
         Simulacoes.setSelectedIndex(0);
-        
+
         Help_BT.setText(Language.getAjudar());
         Sobre_BT.setText(Language.getSobre());
         Label_Entradas.setText(Language.getEntradas());
         Label_Saidas.setText(Language.getSaidas());
         Label_Delay.setText(Language.getDelay());
     }
-    
+
     /**
      * @param args the command line arguments
      */
@@ -1802,9 +1825,8 @@ public final class HomePg extends javax.swing.JFrame {
         }
         //</editor-fold>
         //</editor-fold>
-        
+
         //</editor-fold>
-        
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(() -> {
             new HomePg().setVisible(true);

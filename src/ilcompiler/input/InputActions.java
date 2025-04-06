@@ -1,22 +1,10 @@
 package ilcompiler.input;
 
 import java.util.Map;
-/*import com.intelligt.modbus.jlibmodbus.Modbus;
-import com.intelligt.modbus.jlibmodbus.master.ModbusMaster;
-import com.intelligt.modbus.jlibmodbus.master.ModbusMasterFactory;
-import com.intelligt.modbus.jlibmodbus.exception.ModbusIOException;
-import com.intelligt.modbus.jlibmodbus.serial.SerialParameters;
-import com.intelligt.modbus.jlibmodbus.serial.SerialPort;
-import com.intelligt.modbus.jlibmodbus.serial.SerialPortFactoryJSSC;
-import com.intelligt.modbus.jlibmodbus.serial.SerialPortFactoryPJC;
-import com.intelligt.modbus.jlibmodbus.serial.SerialPortFactoryRXTX;
-import com.intelligt.modbus.jlibmodbus.serial.SerialUtils;*/
 
 // Classe para as ações relacionadas com as entradas
 public class InputActions {
-    
-    final static private int slaveId = 1;
-    
+
     public static Map create(Map inputs) {
         // Cria as 8 entradas
         Input I1 = new Input("I1", false);
@@ -27,7 +15,7 @@ public class InputActions {
         Input I6 = new Input("I6", false);
         Input I7 = new Input("I7", false);
         Input I8 = new Input("I8", false);
-        
+
         // Adiciona no hash
         inputs.put(I1.id, I1.currentValue);
         inputs.put(I2.id, I2.currentValue);
@@ -37,11 +25,11 @@ public class InputActions {
         inputs.put(I6.id, I6.currentValue);
         inputs.put(I7.id, I7.currentValue);
         inputs.put(I8.id, I8.currentValue);
-        
+
         return inputs;
     }
-    
-    public static Map createType(Map inputsType) {        
+
+    public static Map createType(Map inputsType) {
         // Adiciona no hash
         inputsType.put("I1", 0);
         inputsType.put("I2", 0);
@@ -51,20 +39,19 @@ public class InputActions {
         inputsType.put("I6", 0);
         inputsType.put("I7", 0);
         inputsType.put("I8", 0);
-        
+
         return inputsType;
     }
-    
+
     // "Simula" leitura
     public static Map<String, Boolean> dummyRead(Map inputs) {
         // Lê os valores de cada entrada vindos do módulo
         boolean[] arrayBoolean = convertValueRead(49);
         System.out.println("[Dummy] Valor lido do módulo: 33");
-        
+
         //for (int i = 0; i < 8; i++) {
         //    System.out.println(arrayBoolean[i]);
         //}
-        
         // Atualiza no hash
         inputs.put("I1", arrayBoolean[7]);
         inputs.put("I2", arrayBoolean[6]);
@@ -74,10 +61,10 @@ public class InputActions {
         inputs.put("I6", arrayBoolean[2]);
         inputs.put("I7", arrayBoolean[1]);
         inputs.put("I8", arrayBoolean[0]);
-        
+
         return inputs;
     }
-       
+
     // Leitura
     public static Map read(Map inputs) {
         // Lê os valores de cada entrada vindos do módulo
@@ -147,10 +134,10 @@ public class InputActions {
         inputs.put("I6", arrayBoolean[2]);
         inputs.put("I7", arrayBoolean[1]);
         inputs.put("I8", arrayBoolean[0]);*/
-        
+
         return inputs;
     }
-    
+
     // Converte para boolean
     public static boolean[] convertValueRead(int value) {
         // Converte para binário de 8 bits
@@ -164,7 +151,7 @@ public class InputActions {
         for (int i = 0; i < 8; i++) {
             resultado[i] = importantBits.charAt(i) == '1';
         }
-        
+
         return resultado;
     }
 }

@@ -1,18 +1,10 @@
 package ilcompiler.output;
 
-/*import com.intelligt.modbus.jlibmodbus.Modbus;
-import com.intelligt.modbus.jlibmodbus.exception.ModbusIOException;
-import com.intelligt.modbus.jlibmodbus.master.ModbusMaster;
-import com.intelligt.modbus.jlibmodbus.master.ModbusMasterFactory;
-import com.intelligt.modbus.jlibmodbus.serial.SerialParameters;
-import com.intelligt.modbus.jlibmodbus.serial.SerialPort;
-import com.intelligt.modbus.jlibmodbus.serial.SerialPortFactoryPJC;
-import com.intelligt.modbus.jlibmodbus.serial.SerialUtils;*/
 import java.util.Map;
 
 // Classe para as ações relacionadas com as saídas
 public class OutputActions {
-    
+
     public static Map create(Map outputs) {
         // Cria as 8 saídas
         Output Q1 = new Output("Q1", false);
@@ -23,7 +15,7 @@ public class OutputActions {
         Output Q6 = new Output("Q6", false);
         Output Q7 = new Output("Q7", false);
         Output Q8 = new Output("Q8", false);
-        
+
         // Adiciona no hash
         outputs.put(Q1.id, Q1.currentValue);
         outputs.put(Q2.id, Q2.currentValue);
@@ -33,10 +25,10 @@ public class OutputActions {
         outputs.put(Q6.id, Q6.currentValue);
         outputs.put(Q7.id, Q7.currentValue);
         outputs.put(Q8.id, Q8.currentValue);
-        
+
         return outputs;
     }
-    
+
     // "Limpa" values do hash de saída
     public static Map setAllFalse(Map outputs) {
         outputs.put("Q1", false);
@@ -47,22 +39,22 @@ public class OutputActions {
         outputs.put("Q6", false);
         outputs.put("Q7", false);
         outputs.put("Q8", false);
-        
+
         return outputs;
     }
-    
+
     // "Simula" escrita
     public static Map<String, Boolean> dummyWrite(Map outputs) {
         // Escreve os valores de cada saída no módulo
         // ...
         Integer valueWrite = convertValueWrite(outputs);
         System.out.println("[Dummy] Valor enviado para escrita no módulo: " + valueWrite);
-        
+
         return outputs;
     }
-    
+
     // Escrita
-    public static Map write(Map outputs) {   
+    public static Map write(Map outputs) {
         // Escreve os valores de cada saída no módulo
         /*SerialParameters sp = new SerialParameters();
         Modbus.setLogLevel(Modbus.LogLevel.LEVEL_DEBUG);
@@ -109,10 +101,10 @@ public class OutputActions {
         } catch (Exception e) {
             e.printStackTrace();
         }*/
-        
+
         return outputs;
     }
-    
+
     // Converte para inteiro
     public static int convertValueWrite(Map<String, Boolean> outputs) {
         StringBuilder binaryString = new StringBuilder();

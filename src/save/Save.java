@@ -12,10 +12,6 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- *
- * @author BugWare_
- */
 public class Save {
     
     public static void save(String name, List<String> memory) throws IOException{

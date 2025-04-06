@@ -11,13 +11,16 @@ public class ListaDeVariaveisPg extends javax.swing.JFrame {
     public ListaDeVariaveisPg() {
         initComponents();
     }
-    public JTextArea getListaDeVariaveis(){
+
+    public JTextArea getListaDeVariaveis() {
         return Lista_de_variaveis;
     }
-    public void setText(String text){
+
+    public void setText(String text) {
         Lista_de_variaveis.setText(text);
     }
-    public String getText(){
+
+    public String getText() {
         return Lista_de_variaveis.getText();
     }
 

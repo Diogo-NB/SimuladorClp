@@ -11,7 +11,7 @@ public class Interpreter {
 
     // Cria variáveis
     static Boolean accumulator;
-    static List<String> validOperators = new ArrayList<String>();
+    static List<String> validOperators = new ArrayList<>();
 
     // Define operadores válidos
     public static void initializeValidOperators() {
@@ -154,7 +154,7 @@ public class Interpreter {
 
         if (outputs.get(variables.get(0)) == null) {
             isValid = false;
-            System.out.println("Não é uma saída válida!");
+            System.out.println("Saida invalida!");
         }
         return isValid;
     }
@@ -173,10 +173,10 @@ public class Interpreter {
     // Executa instruções
     public static Map executeInstruction(String operator, ArrayList<String> variables, Map<String, Boolean> inputs, Map<String, Boolean> outputs, Map<String, MemoryVariable> memoryVariables) {
         System.out.println(variables.get(0));
-        // Caso operador seja válido e tenhamos como variável uma entrada ou uma saída
+        // Caso operador seja válido e tenhamos como variável uma entrada ou uma saida
         if (operatorIsValid(operator) && (inputIsValid(variables, inputs) || outputIsValid(variables, outputs))) {
 
-            // Carrega entrada ou saída para o acumulador
+            // Carrega entrada ou saida para o acumulador
             if (operator.equals("LD")) {
                 if (variables.get(0).charAt(0) == 'I') {
                     accumulator = inputs.get(variables.get(0));
@@ -187,7 +187,7 @@ public class Interpreter {
                 }
             }
 
-            // Carrega entrada ou saída negada para o acumulador
+            // Carrega entrada ou saida negada para o acumulador
             if (operator.equals("LDN")) {
                 if (variables.get(0).charAt(0) == 'I') {
                     accumulator = !(inputs.get(variables.get(0)));
@@ -202,14 +202,14 @@ public class Interpreter {
             if (accumulator != null) {
                 if (operator.equals("ST") || operator.equals("STN")) {
                     if (outputIsValid(variables, outputs)) {
-                        // Carrega o valor do acumulador para a variável (saída)
+                        // Carrega o valor do acumulador para a variável (saida)
                         if (operator.equals("ST")) {
                             if (variables.get(0).charAt(0) == 'Q') {
                                 outputs.put(variables.get(0), accumulator);
                             }
                         }
 
-                        // Carrega o valor do acumulador negado para a variável (saída)
+                        // Carrega o valor do acumulador negado para a variável (saida)
                         if (operator.equals("STN")) {
                             if (variables.get(0).charAt(0) == 'Q') {
                                 outputs.put(variables.get(0), !accumulator);
@@ -220,7 +220,7 @@ public class Interpreter {
                     }
                 }
 
-                // Faz operação AND entre o acumulador e a variável (entrada ou saída) e salva no acumulador
+                // Faz operação AND entre o acumulador e a variável (entrada ou saida) e salva no acumulador
                 if (operator.equals("AND")) {
                     if (variables.get(0).charAt(0) == 'I') {
                         accumulator = (accumulator && inputs.get(variables.get(0)));
@@ -231,7 +231,7 @@ public class Interpreter {
                     }
                 }
 
-                // Faz operação AND entre o acumulador e a variável (entrada ou saída) negada e salva no acumulador
+                // Faz operação AND entre o acumulador e a variável (entrada ou saida) negada e salva no acumulador
                 if (operator.equals("ANDN")) {
                     if (variables.get(0).charAt(0) == 'I') {
                         accumulator = (accumulator && !(inputs.get(variables.get(0))));
@@ -242,7 +242,7 @@ public class Interpreter {
                     }
                 }
 
-                // Faz operação OR entre o acumulador e a variável (entrada ou saída) e salva no acumulador
+                // Faz operação OR entre o acumulador e a variável (entrada ou saida) e salva no acumulador
                 if (operator.equals("OR")) {
                     if (variables.get(0).charAt(0) == 'I') {
                         accumulator = (accumulator || inputs.get(variables.get(0)));
@@ -253,7 +253,7 @@ public class Interpreter {
                     }
                 }
 
-                // Faz operação OR entre o acumulador e a variável (entrada ou saída) negada e salva no acumulador
+                // Faz operação OR entre o acumulador e a variável (entrada ou saida) negada e salva no acumulador
                 if (operator.equals("ORN")) {
                     if (variables.get(0).charAt(0) == 'I') {
                         accumulator = (accumulator || !(inputs.get(variables.get(0))));
@@ -266,7 +266,7 @@ public class Interpreter {
 
                 System.out.println("Acumulador: " + accumulator);
                 System.out.println("Entradas: " + inputs);
-                System.out.println("Saídas: " + outputs);
+                System.out.println("Saidas: " + outputs);
             } else {
                 HomePg.showErrorMessage("Acumulador vazio! Carregue inicialmente a variável desejada para o acumulador com as funções LD ou LDN!");
             }
@@ -384,7 +384,7 @@ public class Interpreter {
                 }
                 System.out.println("Acumulador: " + accumulator);
                 System.out.println("Entradas: " + inputs);
-                System.out.println("Saídas: " + outputs);
+                System.out.println("Saidas: " + outputs);
                 System.out.println("Variáveis de memória: " + memoryVariables);
                 // Outras operações
             } else {

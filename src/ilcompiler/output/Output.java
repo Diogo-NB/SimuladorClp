@@ -2,6 +2,7 @@ package ilcompiler.output;
 
 // Classe saída
 public class Output {
+
     String id;
     Boolean currentValue;
 

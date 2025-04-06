@@ -2,6 +2,7 @@ package ilcompiler.input;
 
 // Classe entrada
 public class Input {
+
     String id;
     Boolean currentValue;
 
@@ -29,5 +30,5 @@ public class Input {
     @Override
     public String toString() {
         return "Input{" + "id=" + id + ", currentValue=" + currentValue + '}';
-    }    
+    }
 }
