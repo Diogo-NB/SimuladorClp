@@ -155,6 +155,10 @@ public final class HomePg extends javax.swing.JFrame {
     // Atualiza o modo atual na tela
     public void updateMode() {
         System.out.println("Modo atual: " + mode);
+        
+        boolean isRunningMode = mode == 3;
+        refreshBt.setEnabled(!isRunningMode);
+        
         if (null == mode) {
             Codigo_Camp.setEditable(false);
             ImageIcon icon1 = new ImageIcon(getClass().getResource("/Assets/start_green.png"));
@@ -1670,7 +1674,7 @@ public final class HomePg extends javax.swing.JFrame {
     }//GEN-LAST:event_Arquivar_BTActionPerformed
 
     private void refreshBtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_refreshBtActionPerformed
-        if (mode != 1) {
+        if (mode == 3) {
             return;
         }
 
