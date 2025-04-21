@@ -99,7 +99,6 @@ public final class HomePg extends javax.swing.JFrame {
         System.out.println("HashMap de saídas criado:" + outputs);
         // Atualiza entradas e saídas na tela
         updateScreen();
-
     }
 
     public void setColor(Boolean value, JLabel label) {
@@ -1158,7 +1157,6 @@ public final class HomePg extends javax.swing.JFrame {
 
         startBt.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/start.png"))); // NOI18N
         startBt.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        startBt.setLabel("");
         startBt.setMaximumSize(new java.awt.Dimension(50, 50));
         startBt.setMinimumSize(new java.awt.Dimension(50, 50));
         startBt.setName("start_bt"); // NOI18N
@@ -1669,12 +1667,24 @@ public final class HomePg extends javax.swing.JFrame {
                 Logger.getLogger(HomePg.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-
-
     }//GEN-LAST:event_Arquivar_BTActionPerformed
 
     private void refreshBtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_refreshBtActionPerformed
-        // TODO add your handling code here:
+        if (mode != 1) {
+            return;
+        }
+
+        outputs = OutputActions.resetOutputs(outputs);
+
+        for (Map.Entry<String, MemoryVariable> entry : memoryVariables.entrySet()) {
+            MemoryVariable variable = entry.getValue();
+            variable.timer.stop();
+            variable.counter = 0;
+            variable.currentValue = false;
+        }
+
+        updateMemoryVariables();
+        updateScreen();
     }//GEN-LAST:event_refreshBtActionPerformed
 
     private void simulationsComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_simulationsComboBoxActionPerformed
@@ -1751,7 +1761,6 @@ public final class HomePg extends javax.swing.JFrame {
     }//GEN-LAST:event_startBtActionPerformed
 
     private void pauseBtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pauseBtActionPerformed
-        System.out.println("\nBotão program clicado!");
         mode = 1;
         for (Map.Entry<String, MemoryVariable> variable : memoryVariables.entrySet()) {
             if (variable.getKey().charAt(0) == 'T') {
