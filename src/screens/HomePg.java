@@ -53,18 +53,6 @@ public final class HomePg extends javax.swing.JFrame {
     public HomePg() {
         initComponents();
         Lista_de_variaveis = tela2.getListaDeVariaveis();
-        //setando informaçoes iniciais
-        ImageIcon iconplay = new ImageIcon(getClass().getResource("/Assets/start.png"));
-        iconplay.setImage(iconplay.getImage().getScaledInstance(Run_BT.getWidth(), Run_BT.getHeight(), 1));
-        Run_BT.setIcon(iconplay);
-        ImageIcon iconpause = new ImageIcon(getClass().getResource("/Assets/pause.png"));
-
-        iconpause.setImage(iconpause.getImage().getScaledInstance(Pause_BT.getWidth(), Pause_BT.getHeight(), 1));
-        Pause_BT.setIcon(iconpause);
-
-        ImageIcon iconBarra = new ImageIcon(getClass().getResource("/Assets/Barra_Lateral.png"));
-        iconBarra.setImage(iconBarra.getImage().getScaledInstance(Variaveis_BT.getWidth(), Variaveis_BT.getHeight(), 1));
-        Variaveis_BT.setIcon(iconBarra);
 
         ImageIcon iconCampo = new ImageIcon(getClass().getResource("/Assets/bloco_notas.png"));
         iconCampo.setImage(iconCampo.getImage().getScaledInstance(Codigo_Camp.getWidth(), Codigo_Camp.getHeight(), 1));
@@ -170,29 +158,24 @@ public final class HomePg extends javax.swing.JFrame {
         System.out.println("Modo atual: " + mode);
         if (null == mode) {
             Codigo_Camp.setEditable(false);
-            ImageIcon icon1 = new ImageIcon(getClass().getResource("/Assets/start_verde.png"));
-            icon1.setImage(icon1.getImage().getScaledInstance(Run_BT.getWidth(), Run_BT.getHeight(), 1));
-            Run_BT.setIcon(icon1);
+            ImageIcon icon1 = new ImageIcon(getClass().getResource("/Assets/start_green.png"));
+            startBt.setIcon(icon1);
         } else {
             switch (mode) {
                 case 1 -> {
                     Codigo_Camp.setEditable(true);
                     ImageIcon icon1 = new ImageIcon(getClass().getResource("/Assets/start.png"));
-                    icon1.setImage(icon1.getImage().getScaledInstance(Run_BT.getWidth(), Run_BT.getHeight(), 1));
-                    Run_BT.setIcon(icon1);
-                    //jSpinner1.setEditable(true);
+                    startBt.setIcon(icon1);
                 }
                 case 2 -> {
                     Codigo_Camp.setEditable(false);
                     ImageIcon icon1 = new ImageIcon(getClass().getResource("/Assets/start.png"));
-                    icon1.setImage(icon1.getImage().getScaledInstance(Run_BT.getWidth(), Run_BT.getHeight(), 1));
-                    Run_BT.setIcon(icon1);
+                    startBt.setIcon(icon1);
                 }
                 default -> {
                     Codigo_Camp.setEditable(false);
-                    ImageIcon icon1 = new ImageIcon(getClass().getResource("/Assets/start_verde.png"));
-                    icon1.setImage(icon1.getImage().getScaledInstance(Run_BT.getWidth(), Run_BT.getHeight(), 1));
-                    Run_BT.setIcon(icon1);
+                    ImageIcon icon1 = new ImageIcon(getClass().getResource("/Assets/start_green.png"));
+                    startBt.setIcon(icon1);
                 }
             }
         }
@@ -535,16 +518,11 @@ public final class HomePg extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        Simulacoes = new javax.swing.JComboBox<>();
-        Run_BT = new javax.swing.JButton();
+        jMenu1 = new javax.swing.JMenu();
         Arquivar_BT = new javax.swing.JComboBox<>();
         Editar_BT = new javax.swing.JComboBox<>();
         Help_BT = new javax.swing.JButton();
         Sobre_BT = new javax.swing.JButton();
-        Pause_BT = new javax.swing.JButton();
-        Variaveis_BT = new javax.swing.JButton();
-        jSpinner1 = new javax.swing.JSpinner();
-        Label_Delay = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         Saida_1 = new javax.swing.JLabel();
         Saida_2 = new javax.swing.JLabel();
@@ -648,33 +626,21 @@ public final class HomePg extends javax.swing.JFrame {
         Color_Camp = new javax.swing.JPanel();
         Codigo_Camp = new javax.swing.JTextArea();
         Image_Camp = new javax.swing.JLabel();
+        jPanel3 = new javax.swing.JPanel();
+        simulationsComboBox = new javax.swing.JComboBox<>();
+        startBt = new javax.swing.JButton();
+        pauseBt = new javax.swing.JButton();
+        refreshBt = new javax.swing.JButton();
+        dataTableBt = new javax.swing.JButton();
+        delay_panel = new javax.swing.JPanel();
+        delayLabel = new javax.swing.JLabel();
+        delaySpinner = new javax.swing.JSpinner();
+
+        jMenu1.setText("jMenu1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Lista de Instruçoes CLP");
         setBackground(new java.awt.Color(255, 255, 255));
-
-        Simulacoes.setBackground(new java.awt.Color(8, 94, 131));
-        Simulacoes.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Painel", "Simulação 1", "Simulação 2", "Simulação 3" }));
-        Simulacoes.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                SimulacoesActionPerformed(evt);
-            }
-        });
-
-        Run_BT.setFont(new java.awt.Font("Segoe UI", 0, 5)); // NOI18N
-        Run_BT.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/start.png"))); // NOI18N
-        Run_BT.setToolTipText("");
-        Run_BT.setAlignmentY(0.0F);
-        Run_BT.setAutoscrolls(true);
-        Run_BT.setBorder(null);
-        Run_BT.setIconTextGap(0);
-        Run_BT.setMaximumSize(new java.awt.Dimension(50, 50));
-        Run_BT.setMinimumSize(new java.awt.Dimension(50, 50));
-        Run_BT.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Run_BTBT_Run_Pressionado(evt);
-            }
-        });
 
         Arquivar_BT.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Arquivar", "Salvar", "Carregar" }));
         Arquivar_BT.addActionListener(new java.awt.event.ActionListener() {
@@ -698,25 +664,6 @@ public final class HomePg extends javax.swing.JFrame {
                 Sobre_BTActionPerformed(evt);
             }
         });
-
-        Pause_BT.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/pause.png"))); // NOI18N
-        Pause_BT.setOpaque(true);
-        Pause_BT.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Pause_BTActionPerformed(evt);
-            }
-        });
-
-        Variaveis_BT.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/Barra_Lateral.png"))); // NOI18N
-        Variaveis_BT.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Variaveis_BTA(evt);
-            }
-        });
-
-        jSpinner1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-
-        Label_Delay.setText("Tempo de Delay em ms:");
 
         jPanel1.setBackground(new java.awt.Color(142, 177, 199));
 
@@ -1196,6 +1143,88 @@ public final class HomePg extends javax.swing.JFrame {
         Color_Camp.add(Codigo_Camp, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 350, 750));
         Color_Camp.add(Image_Camp, new org.netbeans.lib.awtextra.AbsoluteConstraints(-3, 6, 370, 750));
 
+        simulationsComboBox.setBackground(new java.awt.Color(8, 94, 131));
+        simulationsComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Painel", "Simulação 1", "Simulação 2", "Simulação 3" }));
+        simulationsComboBox.setMinimumSize(new java.awt.Dimension(120, 50));
+        simulationsComboBox.setName("simulations_combo_box"); // NOI18N
+        simulationsComboBox.setOpaque(true);
+        simulationsComboBox.setPreferredSize(new java.awt.Dimension(120, 50));
+        simulationsComboBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                simulationsComboBoxActionPerformed(evt);
+            }
+        });
+        jPanel3.add(simulationsComboBox);
+
+        startBt.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/start.png"))); // NOI18N
+        startBt.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        startBt.setLabel("");
+        startBt.setMaximumSize(new java.awt.Dimension(50, 50));
+        startBt.setMinimumSize(new java.awt.Dimension(50, 50));
+        startBt.setName("start_bt"); // NOI18N
+        startBt.setPreferredSize(new java.awt.Dimension(50, 50));
+        startBt.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                startBtActionPerformed(evt);
+            }
+        });
+        jPanel3.add(startBt);
+
+        pauseBt.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/pause.png"))); // NOI18N
+        pauseBt.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        pauseBt.setMaximumSize(new java.awt.Dimension(50, 50));
+        pauseBt.setMinimumSize(new java.awt.Dimension(50, 50));
+        pauseBt.setName("pause_br"); // NOI18N
+        pauseBt.setPreferredSize(new java.awt.Dimension(50, 50));
+        pauseBt.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                pauseBtActionPerformed(evt);
+            }
+        });
+        jPanel3.add(pauseBt);
+
+        refreshBt.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/refresh.png"))); // NOI18N
+        refreshBt.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        refreshBt.setMaximumSize(new java.awt.Dimension(50, 50));
+        refreshBt.setMinimumSize(new java.awt.Dimension(50, 50));
+        refreshBt.setName("refresh_bt"); // NOI18N
+        refreshBt.setPreferredSize(new java.awt.Dimension(50, 50));
+        refreshBt.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                refreshBtActionPerformed(evt);
+            }
+        });
+        jPanel3.add(refreshBt);
+
+        dataTableBt.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/menu.png"))); // NOI18N
+        dataTableBt.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        dataTableBt.setMaximumSize(new java.awt.Dimension(50, 50));
+        dataTableBt.setMinimumSize(new java.awt.Dimension(50, 50));
+        dataTableBt.setName("refresh_bt"); // NOI18N
+        dataTableBt.setPreferredSize(new java.awt.Dimension(50, 50));
+        dataTableBt.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                dataTableBtActionPerformed(evt);
+            }
+        });
+        jPanel3.add(dataTableBt);
+
+        delay_panel.setMinimumSize(new java.awt.Dimension(200, 35));
+        delay_panel.setOpaque(false);
+        delay_panel.setPreferredSize(new java.awt.Dimension(200, 35));
+
+        delayLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        delayLabel.setText("Tempo de Delay em ms:");
+        delay_panel.add(delayLabel);
+
+        delaySpinner.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        delaySpinner.setMinimumSize(new java.awt.Dimension(50, 25));
+        delaySpinner.setPreferredSize(new java.awt.Dimension(50, 25));
+        delaySpinner.setRequestFocusEnabled(false);
+        delay_panel.add(delaySpinner);
+
+        jPanel3.add(delay_panel);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -1208,55 +1237,34 @@ public final class HomePg extends javax.swing.JFrame {
                             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(18, 18, 18)
-                        .addComponent(Color_Camp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(43, 43, 43))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(Color_Camp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
+                                .addGap(8, 8, 8)
                                 .addComponent(Arquivar_BT, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(Editar_BT, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(Help_BT)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(Sobre_BT)
-                                .addGap(102, 102, 102))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(Simulacoes, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(7, 7, 7)
-                                .addComponent(Run_BT, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(6, 6, 6)
-                                .addComponent(Pause_BT, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jSpinner1, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(Label_Delay))))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(Variaveis_BT, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(53, 53, 53))))
+                                .addComponent(Sobre_BT)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 464, Short.MAX_VALUE)))
+                .addContainerGap(33, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(29, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(Sobre_BT)
-                            .addComponent(Help_BT)
-                            .addComponent(Editar_BT, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(Arquivar_BT, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(Simulacoes, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(Run_BT, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(Pause_BT, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(Label_Delay)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jSpinner1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addComponent(Variaveis_BT, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(16, 16, 16)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(Sobre_BT)
+                    .addComponent(Help_BT)
+                    .addComponent(Editar_BT, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Arquivar_BT, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(5, 5, 5)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1268,98 +1276,6 @@ public final class HomePg extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void SimulacoesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SimulacoesActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_SimulacoesActionPerformed
-    private void Run_BTBT_Run_Pressionado(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Run_BTBT_Run_Pressionado
-        if (mode != 3) {
-            System.out.println("\nBotão run clicado!");
-            mode = 3;
-            // Verificando tempo de delay
-            String stringTime = jSpinner1.getValue().toString();
-            Integer time = 0;
-
-            if (!stringTime.equals("")) {
-                try {
-                    time = Integer.valueOf(stringTime);
-                } catch (NumberFormatException e) {
-                    mode = 1;
-                    updateMode();
-                    showErrorMessage("Tempo de delay inválido! Insira um número inteiro.");
-                }
-
-                System.out.println("Tempo de delay: " + time + "\n");
-            }
-
-            // Executa o laço corretamente sem travar a tela 
-            @SuppressWarnings("unchecked")
-            Timer timer = new Timer(time, (ActionEvent evt1) -> {
-                // Salva linhas da área de texto
-                List<String> lineList = new ArrayList<>();
-                lineList = saveLines(lineList);
-                if (mode == 3) {
-                    //inputs = InputActions.dummyRead(inputs);
-                    inputs = InputActions.read(inputs);
-                    outputs = OutputActions.setAllFalse(outputs);
-                    outputs = Interpreter.receiveLines(lineList, inputs, outputs, memoryVariables);
-                    for (Map.Entry<String, MemoryVariable> variable : memoryVariables.entrySet()) {
-                        if (variable.getKey().charAt(0) == 'T' && variable.getValue().timerType.equals("ON") && variable.getValue().currentValue == true) {
-                            variable.getValue().timer.start();
-                        } else if (variable.getKey().charAt(0) == 'T' && variable.getValue().timerType.equals("ON") && variable.getValue().currentValue == false) {
-                            variable.getValue().timer.stop();
-                            variable.getValue().counter = 0;
-                            variable.getValue().endTimer = false;
-                        }
-                        if (variable.getKey().charAt(0) == 'T' && variable.getValue().timerType.equals("OFF") && variable.getValue().currentValue == true) {
-                            variable.getValue().timer.stop();
-                            variable.getValue().counter = 0;
-                            variable.getValue().endTimer = true;
-                        } else if (variable.getKey().charAt(0) == 'T' && variable.getValue().timerType.equals("OFF") && variable.getValue().currentValue == false) {
-                            variable.getValue().timer.start();
-                        }
-                    }
-                    //outputs = OutputActions.dummyWrite(outputs);
-                    outputs = OutputActions.write(outputs);
-                    updateMode();
-                    updateScreen();
-                    updateMemoryVariables();
-                } else {
-                    ((Timer) evt1.getSource()).stop();
-                }
-            });
-
-            timer.setInitialDelay(0); // começa sem atraso
-            timer.start();
-        } else {
-            System.out.println("\nBotão stop clicado!");
-            mode = 2;
-            for (Map.Entry<String, MemoryVariable> variable : memoryVariables.entrySet()) {
-                if (variable.getKey().charAt(0) == 'T') {
-                    variable.getValue().timer.stop();
-                }
-            }
-            updateMemoryVariables();
-            updateMode();
-        }
-    }//GEN-LAST:event_Run_BTBT_Run_Pressionado
-    private void Variaveis_BTA(java.awt.event.ActionEvent evt) {
-        tela2.setVisible(true);
-        tela2.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        tela2.setLocation(1100, 0);
-    }
-    private void Pause_BTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Pause_BTActionPerformed
-        System.out.println("\nBotão program clicado!");
-        mode = 1;
-        for (Map.Entry<String, MemoryVariable> variable : memoryVariables.entrySet()) {
-            if (variable.getKey().charAt(0) == 'T') {
-                variable.getValue().counter = 0;
-                variable.getValue().timer.stop();
-            }
-        }
-        updateMemoryVariables();
-        updateMode();
-    }//GEN-LAST:event_Pause_BTActionPerformed
 
     private void Sobre_BTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Sobre_BTActionPerformed
         // TODO add your handling code here:
@@ -1757,8 +1673,107 @@ public final class HomePg extends javax.swing.JFrame {
 
     }//GEN-LAST:event_Arquivar_BTActionPerformed
 
+    private void refreshBtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_refreshBtActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_refreshBtActionPerformed
+
+    private void simulationsComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_simulationsComboBoxActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_simulationsComboBoxActionPerformed
+
+    private void startBtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_startBtActionPerformed
+        if (mode != 3) {
+            System.out.println("\nBotão run clicado!");
+            mode = 3;
+            // Verificando tempo de delay
+            String stringTime = delaySpinner.getValue().toString();
+            Integer time = 0;
+
+            if (!stringTime.equals("")) {
+                try {
+                    time = Integer.valueOf(stringTime);
+                } catch (NumberFormatException e) {
+                    mode = 1;
+                    updateMode();
+                    showErrorMessage("Tempo de delay inválido! Insira um número inteiro.");
+                }
+
+                System.out.println("Tempo de delay: " + time + "\n");
+            }
+
+            // Executa o laço corretamente sem travar a tela 
+            @SuppressWarnings("unchecked")
+            Timer timer = new Timer(time, (ActionEvent evt1) -> {
+                // Salva linhas da área de texto
+                List<String> lineList = new ArrayList<>();
+                lineList = saveLines(lineList);
+                if (mode == 3) {
+                    //inputs = InputActions.dummyRead(inputs);
+                    inputs = InputActions.read(inputs);
+                    outputs = OutputActions.setAllFalse(outputs);
+                    outputs = Interpreter.receiveLines(lineList, inputs, outputs, memoryVariables);
+                    for (Map.Entry<String, MemoryVariable> variable : memoryVariables.entrySet()) {
+                        if (variable.getKey().charAt(0) == 'T' && variable.getValue().timerType.equals("ON") && variable.getValue().currentValue == true) {
+                            variable.getValue().timer.start();
+                        } else if (variable.getKey().charAt(0) == 'T' && variable.getValue().timerType.equals("ON") && variable.getValue().currentValue == false) {
+                            variable.getValue().timer.stop();
+                            variable.getValue().counter = 0;
+                            variable.getValue().endTimer = false;
+                        }
+                        if (variable.getKey().charAt(0) == 'T' && variable.getValue().timerType.equals("OFF") && variable.getValue().currentValue == true) {
+                            variable.getValue().timer.stop();
+                            variable.getValue().counter = 0;
+                            variable.getValue().endTimer = true;
+                        } else if (variable.getKey().charAt(0) == 'T' && variable.getValue().timerType.equals("OFF") && variable.getValue().currentValue == false) {
+                            variable.getValue().timer.start();
+                        }
+                    }
+                    //outputs = OutputActions.dummyWrite(outputs);
+                    outputs = OutputActions.write(outputs);
+                    updateMode();
+                    updateScreen();
+                    updateMemoryVariables();
+                } else {
+                    ((Timer) evt1.getSource()).stop();
+                }
+            });
+
+            timer.setInitialDelay(0); // começa sem atraso
+            timer.start();
+        } else {
+            System.out.println("\nBotão stop clicado!");
+            mode = 2;
+            for (Map.Entry<String, MemoryVariable> variable : memoryVariables.entrySet()) {
+                if (variable.getKey().charAt(0) == 'T') {
+                    variable.getValue().timer.stop();
+                }
+            }
+            updateMemoryVariables();
+            updateMode();
+        }
+    }//GEN-LAST:event_startBtActionPerformed
+
+    private void pauseBtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pauseBtActionPerformed
+        System.out.println("\nBotão program clicado!");
+        mode = 1;
+        for (Map.Entry<String, MemoryVariable> variable : memoryVariables.entrySet()) {
+            if (variable.getKey().charAt(0) == 'T') {
+                variable.getValue().counter = 0;
+                variable.getValue().timer.stop();
+            }
+        }
+        updateMemoryVariables();
+        updateMode();
+    }//GEN-LAST:event_pauseBtActionPerformed
+
+    private void dataTableBtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dataTableBtActionPerformed
+        tela2.setVisible(true);
+        tela2.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        tela2.setLocation(1100, 0);
+    }//GEN-LAST:event_dataTableBtActionPerformed
+
     private void setaCores() {
-        Simulacoes.setBackground(Colors.firstColor(color));
+        simulationsComboBox.setBackground(Colors.firstColor(color));
         jPanel2.setBackground(Colors.firstColor(color));
         jPanel1.setBackground(Colors.secondColor(color));
         Color_Camp.setBackground(Colors.thirdColor(color));
@@ -1787,21 +1802,21 @@ public final class HomePg extends javax.swing.JFrame {
         Editar_BT.setSelectedIndex(0);
 
         aux = Language.getSimulação();
-        Simulacoes.removeItemAt(0);
-        Simulacoes.removeItemAt(0);
-        Simulacoes.removeItemAt(0);
-        Simulacoes.removeItemAt(0);
-        Simulacoes.insertItemAt(aux.getItemAt(0).toString(), 0);
-        Simulacoes.insertItemAt(aux.getItemAt(1).toString(), 1);
-        Simulacoes.insertItemAt(aux.getItemAt(2).toString(), 2);
-        Simulacoes.insertItemAt(aux.getItemAt(3).toString(), 3);
-        Simulacoes.setSelectedIndex(0);
+        simulationsComboBox.removeItemAt(0);
+        simulationsComboBox.removeItemAt(0);
+        simulationsComboBox.removeItemAt(0);
+        simulationsComboBox.removeItemAt(0);
+        simulationsComboBox.insertItemAt(aux.getItemAt(0).toString(), 0);
+        simulationsComboBox.insertItemAt(aux.getItemAt(1).toString(), 1);
+        simulationsComboBox.insertItemAt(aux.getItemAt(2).toString(), 2);
+        simulationsComboBox.insertItemAt(aux.getItemAt(3).toString(), 3);
+        simulationsComboBox.setSelectedIndex(0);
 
         Help_BT.setText(Language.getAjudar());
         Sobre_BT.setText(Language.getSobre());
         Label_Entradas.setText(Language.getEntradas());
         Label_Saidas.setText(Language.getSaidas());
-        Label_Delay.setText(Language.getDelay());
+        delayLabel.setText(Language.getDelay());
     }
 
     /**
@@ -1878,11 +1893,8 @@ public final class HomePg extends javax.swing.JFrame {
     private javax.swing.JLabel Entrada_8;
     private javax.swing.JButton Help_BT;
     private javax.swing.JLabel Image_Camp;
-    private javax.swing.JLabel Label_Delay;
     private javax.swing.JLabel Label_Entradas;
     private javax.swing.JLabel Label_Saidas;
-    private javax.swing.JButton Pause_BT;
-    private javax.swing.JButton Run_BT;
     private javax.swing.JLabel Saida_1;
     private javax.swing.JLabel Saida_2;
     private javax.swing.JLabel Saida_3;
@@ -1891,7 +1903,6 @@ public final class HomePg extends javax.swing.JFrame {
     private javax.swing.JLabel Saida_6;
     private javax.swing.JLabel Saida_7;
     private javax.swing.JLabel Saida_8;
-    private javax.swing.JComboBox<String> Simulacoes;
     private javax.swing.JButton Sobre_BT;
     private javax.swing.JLabel Temp_atual_1;
     private javax.swing.JLabel Temp_atual_10;
@@ -1923,10 +1934,14 @@ public final class HomePg extends javax.swing.JFrame {
     private javax.swing.JLabel Timer_7;
     private javax.swing.JLabel Timer_8;
     private javax.swing.JLabel Timer_9;
-    private javax.swing.JButton Variaveis_BT;
+    private javax.swing.JButton dataTableBt;
+    private javax.swing.JLabel delayLabel;
+    private javax.swing.JSpinner delaySpinner;
+    private javax.swing.JPanel delay_panel;
+    private javax.swing.JMenu jMenu1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JSpinner jSpinner1;
+    private javax.swing.JPanel jPanel3;
     private javax.swing.JLabel label_1;
     private javax.swing.JLabel label_10;
     private javax.swing.JLabel label_11;
@@ -1947,5 +1962,9 @@ public final class HomePg extends javax.swing.JFrame {
     private javax.swing.JLabel label_7;
     private javax.swing.JLabel label_8;
     private javax.swing.JLabel label_9;
+    private javax.swing.JButton pauseBt;
+    private javax.swing.JButton refreshBt;
+    private javax.swing.JComboBox<String> simulationsComboBox;
+    private javax.swing.JButton startBt;
     // End of variables declaration//GEN-END:variables
 }
