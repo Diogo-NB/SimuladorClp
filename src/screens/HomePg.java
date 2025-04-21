@@ -1708,9 +1708,8 @@ public final class HomePg extends javax.swing.JFrame {
                 List<String> lineList = new ArrayList<>();
                 lineList = saveLines(lineList);
                 if (mode == 3) {
-                    //inputs = InputActions.dummyRead(inputs);
                     inputs = InputActions.read(inputs);
-                    outputs = OutputActions.setAllFalse(outputs);
+                    outputs = OutputActions.resetOutputs(outputs);
                     outputs = Interpreter.receiveLines(lineList, inputs, outputs, memoryVariables);
                     for (Map.Entry<String, MemoryVariable> variable : memoryVariables.entrySet()) {
                         if (variable.getKey().charAt(0) == 'T' && variable.getValue().timerType.equals("ON") && variable.getValue().currentValue == true) {
@@ -1728,8 +1727,6 @@ public final class HomePg extends javax.swing.JFrame {
                             variable.getValue().timer.start();
                         }
                     }
-                    //outputs = OutputActions.dummyWrite(outputs);
-                    outputs = OutputActions.write(outputs);
                     updateMode();
                     updateScreen();
                     updateMemoryVariables();
