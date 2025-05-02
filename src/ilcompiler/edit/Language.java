@@ -116,28 +116,20 @@ public class Language {
         JComboBox<String> jComboBox = new JComboBox();
         switch (lingua) {
             case "EN" -> {
-                jComboBox.addItem("Panel");
-                jComboBox.addItem("Simulation 1");
-                jComboBox.addItem("Simulation 2");
-                jComboBox.addItem("Simulation 3");
+                jComboBox.addItem("Painel (padrão)");
+                jComboBox.addItem("Simulação Batch");
             }
             case "JA" -> {
                 jComboBox.addItem("パネル");
                 jComboBox.addItem("シミュレーション 1");
-                jComboBox.addItem("シミュレーション 2");
-                jComboBox.addItem("シミュレーション 3");
             }
             case "DE" -> {
                 jComboBox.addItem("Panel");
                 jComboBox.addItem("Simulation 1");
-                jComboBox.addItem("Simulation 2");
-                jComboBox.addItem("Simulation 3");
             }
             default -> {
                 jComboBox.addItem("Painel");
                 jComboBox.addItem("Simulação 1");
-                jComboBox.addItem("Simulação 2");
-                jComboBox.addItem("Simulação 3");
             }
         }
         return jComboBox;

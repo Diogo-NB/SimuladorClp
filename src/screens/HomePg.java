@@ -152,6 +152,10 @@ public final class HomePg extends javax.swing.JFrame {
     // Atualiza o modo atual na tela
     public void updateMode() {
         System.out.println("Modo atual: " + mode);
+        
+        boolean isRunningMode = mode == 3;
+        scenesComboBox.setEnabled(!isRunningMode);
+        
         if (null == mode) {
             Codigo_Camp.setEditable(false);
             ImageIcon icon1 = new ImageIcon(getClass().getResource("/Assets/start_verde.png"));
@@ -519,7 +523,7 @@ public final class HomePg extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        Simulacoes = new javax.swing.JComboBox<>();
+        scenesComboBox = new javax.swing.JComboBox<>();
         Run_BT = new javax.swing.JButton();
         Arquivar_BT = new javax.swing.JComboBox<>();
         Editar_BT = new javax.swing.JComboBox<>();
@@ -613,18 +617,17 @@ public final class HomePg extends javax.swing.JFrame {
         Color_Camp = new javax.swing.JPanel();
         Codigo_Camp = new javax.swing.JTextArea();
         Image_Camp = new javax.swing.JLabel();
-        testScenePanelButton = new javax.swing.JButton();
         scenesContainer = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Lista de Instruçoes CLP");
         setBackground(new java.awt.Color(255, 255, 255));
 
-        Simulacoes.setBackground(new java.awt.Color(8, 94, 131));
-        Simulacoes.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Painel", "Simulação 1", "Simulação 2", "Simulação 3" }));
-        Simulacoes.addActionListener(new java.awt.event.ActionListener() {
+        scenesComboBox.setBackground(new java.awt.Color(8, 94, 131));
+        scenesComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Painel (Padrão)", "Simulação Batch" }));
+        scenesComboBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                SimulacoesActionPerformed(evt);
+                scenesComboBoxActionPerformed(evt);
             }
         });
 
@@ -962,8 +965,6 @@ public final class HomePg extends javax.swing.JFrame {
         Color_Camp.add(Codigo_Camp, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 350, 750));
         Color_Camp.add(Image_Camp, new org.netbeans.lib.awtextra.AbsoluteConstraints(-3, 6, 370, 750));
 
-        testScenePanelButton.setText("Teste ScenePanel");
-
         javax.swing.GroupLayout scenesContainerLayout = new javax.swing.GroupLayout(scenesContainer);
         scenesContainer.setLayout(scenesContainerLayout);
         scenesContainerLayout.setHorizontalGroup(
@@ -983,29 +984,26 @@ public final class HomePg extends javax.swing.JFrame {
                 .addGap(33, 33, 33)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(Arquivar_BT, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(Editar_BT, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(Help_BT)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(Sobre_BT)
-                                    .addGap(102, 102, 102))
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(Simulacoes, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(7, 7, 7)
-                                    .addComponent(Run_BT, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(6, 6, 6)
-                                    .addComponent(Pause_BT, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(18, 18, 18)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jSpinner1, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(Label_Delay))))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(testScenePanelButton))
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(Arquivar_BT, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(Editar_BT, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(Help_BT)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(Sobre_BT)
+                                .addGap(102, 102, 102))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(scenesComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(7, 7, 7)
+                                .addComponent(Run_BT, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(6, 6, 6)
+                                .addComponent(Pause_BT, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jSpinner1, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(Label_Delay))))
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 624, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(scenesContainer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, Short.MAX_VALUE)
@@ -1020,7 +1018,7 @@ public final class HomePg extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(20, Short.MAX_VALUE)
+                .addContainerGap(29, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -1030,13 +1028,11 @@ public final class HomePg extends javax.swing.JFrame {
                             .addComponent(Arquivar_BT, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(Simulacoes, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(scenesComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(Run_BT, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(Pause_BT, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(Label_Delay)
-                                    .addComponent(testScenePanelButton))
+                                .addComponent(Label_Delay)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jSpinner1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addComponent(Variaveis_BT, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -1053,9 +1049,9 @@ public final class HomePg extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void SimulacoesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SimulacoesActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_SimulacoesActionPerformed
+    private void scenesComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_scenesComboBoxActionPerformed
+        
+    }//GEN-LAST:event_scenesComboBoxActionPerformed
     private void Run_BTBT_Run_Pressionado(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Run_BTBT_Run_Pressionado
         if (mode != 3) {
             System.out.println("\nBotão run clicado!");
@@ -1256,7 +1252,7 @@ public final class HomePg extends javax.swing.JFrame {
     }//GEN-LAST:event_Arquivar_BTActionPerformed
 
     private void setaCores() {
-        Simulacoes.setBackground(Colors.firstColor(color));
+        scenesComboBox.setBackground(Colors.firstColor(color));
         jPanel2.setBackground(Colors.firstColor(color));
         currentScenePanel.setBackground(Colors.secondColor(color));
         Color_Camp.setBackground(Colors.thirdColor(color));
@@ -1285,15 +1281,11 @@ public final class HomePg extends javax.swing.JFrame {
         Editar_BT.setSelectedIndex(0);
 
         aux = Language.getSimulação();
-        Simulacoes.removeItemAt(0);
-        Simulacoes.removeItemAt(0);
-        Simulacoes.removeItemAt(0);
-        Simulacoes.removeItemAt(0);
-        Simulacoes.insertItemAt(aux.getItemAt(0).toString(), 0);
-        Simulacoes.insertItemAt(aux.getItemAt(1).toString(), 1);
-        Simulacoes.insertItemAt(aux.getItemAt(2).toString(), 2);
-        Simulacoes.insertItemAt(aux.getItemAt(3).toString(), 3);
-        Simulacoes.setSelectedIndex(0);
+        scenesComboBox.removeItemAt(0);
+        scenesComboBox.removeItemAt(0);
+        scenesComboBox.insertItemAt(aux.getItemAt(0).toString(), 0);
+        scenesComboBox.insertItemAt(aux.getItemAt(1).toString(), 1);
+        scenesComboBox.setSelectedIndex(0);
 
         Help_BT.setText(Language.getAjudar());
         Sobre_BT.setText(Language.getSobre());
@@ -1370,7 +1362,6 @@ public final class HomePg extends javax.swing.JFrame {
     private javax.swing.JLabel Label_Delay;
     private javax.swing.JButton Pause_BT;
     private javax.swing.JButton Run_BT;
-    private javax.swing.JComboBox<String> Simulacoes;
     private javax.swing.JButton Sobre_BT;
     private javax.swing.JLabel Temp_atual_1;
     private javax.swing.JLabel Temp_atual_10;
@@ -1425,7 +1416,7 @@ public final class HomePg extends javax.swing.JFrame {
     private javax.swing.JLabel label_7;
     private javax.swing.JLabel label_8;
     private javax.swing.JLabel label_9;
+    private javax.swing.JComboBox<String> scenesComboBox;
     private javax.swing.JPanel scenesContainer;
-    private javax.swing.JButton testScenePanelButton;
     // End of variables declaration//GEN-END:variables
 }
