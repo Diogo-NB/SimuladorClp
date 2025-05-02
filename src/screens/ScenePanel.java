@@ -1,0 +1,469 @@
+/*
+ * The MIT License
+ *
+ * Copyright 2025 Diogo.
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+package screens;
+
+import java.util.Map;
+import javax.swing.ImageIcon;
+
+/**
+ *
+ * @author Diogo
+ */
+public class ScenePanel extends javax.swing.JPanel {
+
+    private ScenePanelInputEventListener inputListener;
+    private ImageIcon openSwitchIcon, closedSwitchIcon, buttonIcon, closedButtonIcon, openPiButtonIcon, piButtonIcon, offLedIcon, onLedIcon;
+
+    /**
+     * Creates new form ScenePanel
+     */
+    public ScenePanel() {
+        super();
+        initComponents();
+    }
+
+    public void updateUIState(Map<String, Integer> inputsType, Map<String, Boolean> inputs, Map<String, Boolean> outputs) {
+        int iconWidth = outputLed1.getWidth();
+        int iconHeight = outputLed1.getHeight();
+
+        openSwitchIcon = new ImageIcon(getClass().getResource("/Assets/chave_aberta.png"));
+        openSwitchIcon.setImage(openSwitchIcon.getImage().getScaledInstance(iconWidth, iconHeight, 1));
+
+        closedSwitchIcon = new ImageIcon(getClass().getResource("/Assets/chave_fechada.png"));
+        closedSwitchIcon.setImage(closedSwitchIcon.getImage().getScaledInstance(iconWidth, iconHeight, 1));
+
+        buttonIcon = new ImageIcon(getClass().getResource("/Assets/buttom.png"));
+        buttonIcon.setImage(buttonIcon.getImage().getScaledInstance(iconWidth, iconHeight, 1));
+
+        closedButtonIcon = new ImageIcon(getClass().getResource("/Assets/botao_fechado.png"));
+        closedButtonIcon.setImage(closedButtonIcon.getImage().getScaledInstance(iconWidth, iconHeight, 1));
+
+        openPiButtonIcon = new ImageIcon(getClass().getResource("/Assets/button_pi_aberto.png"));
+        openPiButtonIcon.setImage(openPiButtonIcon.getImage().getScaledInstance(iconWidth, iconHeight, 1));
+
+        piButtonIcon = new ImageIcon(getClass().getResource("/Assets/buttom_pi.png"));
+        piButtonIcon.setImage(piButtonIcon.getImage().getScaledInstance(iconWidth, iconHeight, 1));
+
+        offLedIcon = new ImageIcon(getClass().getResource("/Assets/led_desligado.png"));
+        offLedIcon.setImage(offLedIcon.getImage().getScaledInstance(iconWidth, iconHeight, 1));
+
+        onLedIcon = new ImageIcon(getClass().getResource("/Assets/led_ligado.png"));
+        onLedIcon.setImage(onLedIcon.getImage().getScaledInstance(iconWidth, iconHeight, 1));
+            
+        inputButton1.setIcon(getInputIcon(inputsType.get("I1"), inputs.get("I1")));
+        inputButton2.setIcon(getInputIcon(inputsType.get("I2"), inputs.get("I2")));
+        inputButton3.setIcon(getInputIcon(inputsType.get("I3"), inputs.get("I3")));
+        inputButton4.setIcon(getInputIcon(inputsType.get("I4"), inputs.get("I4")));
+        inputButton5.setIcon(getInputIcon(inputsType.get("I5"), inputs.get("I5")));
+        inputButton6.setIcon(getInputIcon(inputsType.get("I6"), inputs.get("I6")));
+        inputButton7.setIcon(getInputIcon(inputsType.get("I7"), inputs.get("I7")));
+        inputButton8.setIcon(getInputIcon(inputsType.get("I8"), inputs.get("I8")));
+       
+        outputLed1.setIcon(getOutputIcon(outputs.get("Q1")));
+        outputLed2.setIcon(getOutputIcon(outputs.get("Q2")));
+        outputLed3.setIcon(getOutputIcon(outputs.get("Q3")));
+        outputLed4.setIcon(getOutputIcon(outputs.get("Q4")));
+        outputLed5.setIcon(getOutputIcon(outputs.get("Q5")));
+        outputLed6.setIcon(getOutputIcon(outputs.get("Q6")));
+        outputLed7.setIcon(getOutputIcon(outputs.get("Q7")));
+        outputLed8.setIcon(getOutputIcon(outputs.get("Q8")));
+    }
+    
+    private ImageIcon getInputIcon(int inputType, boolean inputState) {
+        return switch (inputType) {
+            case 0 -> inputState ? closedSwitchIcon : openSwitchIcon;
+            case 1 -> inputState ? closedButtonIcon : buttonIcon;
+            case 2 -> inputState ? piButtonIcon : openPiButtonIcon;
+            default -> null;
+        };
+    }
+
+    private ImageIcon getOutputIcon(boolean outputState) {
+        return outputState ? onLedIcon : offLedIcon;
+    }
+    
+    public void setLabels(String inputColumnLabel, String outputColumnLabel) {
+        this.inputColumnLabel.setText(inputColumnLabel);
+        this.outputColumnLabel.setText(outputColumnLabel);
+    }
+
+    /**
+     *
+     * @param listener
+     */
+    public void setInputListener(ScenePanelInputEventListener listener) {
+        this.inputListener = listener;
+    }
+
+    /**
+     * This method is called from within the constructor to initialize the form.
+     * WARNING: Do NOT modify this code. The content of this method is always
+     * regenerated by the Form Editor.
+     */
+    @SuppressWarnings("unchecked")
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    private void initComponents() {
+
+        outputLed1 = new javax.swing.JLabel();
+        outputLed2 = new javax.swing.JLabel();
+        outputLed4 = new javax.swing.JLabel();
+        outputLed3 = new javax.swing.JLabel();
+        outputLed5 = new javax.swing.JLabel();
+        outputLed6 = new javax.swing.JLabel();
+        outputLed7 = new javax.swing.JLabel();
+        outputLed8 = new javax.swing.JLabel();
+        inputColumnLabel = new javax.swing.JLabel();
+        outputColumnLabel = new javax.swing.JLabel();
+        inputButton5 = new javax.swing.JLabel();
+        inputButton1 = new javax.swing.JLabel();
+        inputButton6 = new javax.swing.JLabel();
+        inputButton2 = new javax.swing.JLabel();
+        inputButton8 = new javax.swing.JLabel();
+        inputButton4 = new javax.swing.JLabel();
+        inputButton7 = new javax.swing.JLabel();
+        inputButton3 = new javax.swing.JLabel();
+
+        setBackground(new java.awt.Color(142, 177, 199));
+        setMaximumSize(new java.awt.Dimension(636, 406));
+        setMinimumSize(new java.awt.Dimension(636, 406));
+
+        outputLed1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/led_desligado.png"))); // NOI18N
+
+        outputLed2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/led_desligado.png"))); // NOI18N
+
+        outputLed4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/led_desligado.png"))); // NOI18N
+
+        outputLed3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/led_desligado.png"))); // NOI18N
+
+        outputLed5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/led_desligado.png"))); // NOI18N
+
+        outputLed6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/led_desligado.png"))); // NOI18N
+
+        outputLed7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/led_desligado.png"))); // NOI18N
+
+        outputLed8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/led_desligado.png"))); // NOI18N
+
+        inputColumnLabel.setFont(new java.awt.Font("Segoe UI Black", 2, 24)); // NOI18N
+        inputColumnLabel.setText("Entradas");
+        inputColumnLabel.setFocusable(false);
+        inputColumnLabel.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+
+        outputColumnLabel.setFont(new java.awt.Font("Segoe UI Black", 2, 24)); // NOI18N
+        outputColumnLabel.setText("Saidas");
+        outputColumnLabel.setToolTipText("");
+        outputColumnLabel.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+
+        inputButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/chave_aberta.png"))); // NOI18N
+        inputButton5.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                inputButton5MousePressed(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                inputButton5MouseReleased(evt);
+            }
+        });
+
+        inputButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/chave_aberta.png"))); // NOI18N
+        inputButton1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                inputButton1MousePressed(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                inputButton1MouseReleased(evt);
+            }
+        });
+
+        inputButton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/chave_aberta.png"))); // NOI18N
+        inputButton6.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                inputButton6MousePressed(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                inputButton6MouseReleased(evt);
+            }
+        });
+
+        inputButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/chave_aberta.png"))); // NOI18N
+        inputButton2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                inputButton2MousePressed(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                inputButton2MouseReleased(evt);
+            }
+        });
+
+        inputButton8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/chave_aberta.png"))); // NOI18N
+        inputButton8.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                inputButton8MousePressed(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                inputButton8MouseReleased(evt);
+            }
+        });
+
+        inputButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/chave_aberta.png"))); // NOI18N
+        inputButton4.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                inputButton4MousePressed(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                inputButton4MouseReleased(evt);
+            }
+        });
+
+        inputButton7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/chave_aberta.png"))); // NOI18N
+        inputButton7.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                inputButton7MousePressed(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                inputButton7MouseReleased(evt);
+            }
+        });
+
+        inputButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/chave_aberta.png"))); // NOI18N
+        inputButton3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                inputButton3MousePressed(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                inputButton3MouseReleased(evt);
+            }
+        });
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
+        this.setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 636, Short.MAX_VALUE)
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addGap(49, 49, 49)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(inputButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(26, 26, 26)
+                            .addComponent(inputButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(inputButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(26, 26, 26)
+                            .addComponent(inputButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(inputButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(26, 26, 26)
+                            .addComponent(inputButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(inputButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(26, 26, 26)
+                            .addComponent(inputButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createSequentialGroup()
+                            .addGap(21, 21, 21)
+                            .addComponent(inputColumnLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(outputLed4, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(outputLed3, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(outputLed1, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(outputLed2, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGap(31, 31, 31)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(outputLed8, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(outputLed7, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(outputLed5, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(outputLed6, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGap(46, 46, 46))
+                        .addComponent(outputColumnLabel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGap(49, 49, 49)))
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 406, Short.MAX_VALUE)
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addGap(42, 42, 42)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(inputColumnLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(outputColumnLabel))
+                    .addGap(20, 20, 20)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(outputLed5, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(outputLed8, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createSequentialGroup()
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(outputLed1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(inputButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(inputButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addGap(21, 21, 21)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(inputButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(inputButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGap(29, 29, 29)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(inputButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(inputButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGap(26, 26, 26)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(inputButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(inputButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGroup(layout.createSequentialGroup()
+                                    .addGap(18, 18, 18)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addComponent(outputLed6, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(outputLed2, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGap(18, 18, 18)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(outputLed3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(outputLed7, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGap(21, 21, 21)
+                                    .addComponent(outputLed4, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                    .addContainerGap(43, Short.MAX_VALUE)))
+        );
+    }// </editor-fold>//GEN-END:initComponents
+
+    private void inputButton3MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_inputButton3MouseReleased
+        if (inputListener != null) {
+            inputListener.onReleased("I3", evt);
+        }
+    }//GEN-LAST:event_inputButton3MouseReleased
+
+    private void inputButton3MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_inputButton3MousePressed
+        if (inputListener != null) {
+            inputListener.onPressed("I3", evt);
+        }
+    }//GEN-LAST:event_inputButton3MousePressed
+
+    private void inputButton7MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_inputButton7MouseReleased
+        if (inputListener != null) {
+            inputListener.onReleased("I7", evt);
+        }
+    }//GEN-LAST:event_inputButton7MouseReleased
+
+    private void inputButton7MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_inputButton7MousePressed
+        if (inputListener != null) {
+            inputListener.onPressed("I7", evt);
+        }
+    }//GEN-LAST:event_inputButton7MousePressed
+
+    private void inputButton4MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_inputButton4MouseReleased
+        if (inputListener != null) {
+            inputListener.onReleased("I4", evt);
+        }
+    }//GEN-LAST:event_inputButton4MouseReleased
+
+    private void inputButton4MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_inputButton4MousePressed
+        if (inputListener != null) {
+            inputListener.onPressed("I4", evt);
+        }
+    }//GEN-LAST:event_inputButton4MousePressed
+
+    private void inputButton8MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_inputButton8MouseReleased
+        if (inputListener != null) {
+            inputListener.onReleased("I8", evt);
+        }
+    }//GEN-LAST:event_inputButton8MouseReleased
+
+    private void inputButton8MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_inputButton8MousePressed
+        if (inputListener != null) {
+            inputListener.onPressed("I8", evt);
+        }
+    }//GEN-LAST:event_inputButton8MousePressed
+
+    private void inputButton2MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_inputButton2MouseReleased
+        if (inputListener != null) {
+            inputListener.onReleased("I2", evt);
+        }
+    }//GEN-LAST:event_inputButton2MouseReleased
+
+    private void inputButton2MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_inputButton2MousePressed
+        if (inputListener != null) {
+            inputListener.onPressed("I2", evt);
+        }
+    }//GEN-LAST:event_inputButton2MousePressed
+
+    private void inputButton6MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_inputButton6MouseReleased
+        if (inputListener != null) {
+            inputListener.onReleased("I6", evt);
+        }
+    }//GEN-LAST:event_inputButton6MouseReleased
+
+    private void inputButton6MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_inputButton6MousePressed
+        if (inputListener != null) {
+            inputListener.onPressed("I6", evt);
+        }
+    }//GEN-LAST:event_inputButton6MousePressed
+
+    private void inputButton1MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_inputButton1MouseReleased
+        if (inputListener != null) {
+            inputListener.onReleased("I1", evt);
+        }
+    }//GEN-LAST:event_inputButton1MouseReleased
+
+    private void inputButton1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_inputButton1MousePressed
+        if (inputListener != null) {
+            inputListener.onPressed("I1", evt);
+        }
+    }//GEN-LAST:event_inputButton1MousePressed
+
+    private void inputButton5MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_inputButton5MouseReleased
+        if (inputListener != null) {
+            inputListener.onReleased("I5", evt);
+        }
+    }//GEN-LAST:event_inputButton5MouseReleased
+
+    private void inputButton5MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_inputButton5MousePressed
+        if (inputListener != null) {
+            inputListener.onPressed("I5", evt);
+        }
+    }//GEN-LAST:event_inputButton5MousePressed
+
+
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel inputButton1;
+    private javax.swing.JLabel inputButton2;
+    private javax.swing.JLabel inputButton3;
+    private javax.swing.JLabel inputButton4;
+    private javax.swing.JLabel inputButton5;
+    private javax.swing.JLabel inputButton6;
+    private javax.swing.JLabel inputButton7;
+    private javax.swing.JLabel inputButton8;
+    private javax.swing.JLabel inputColumnLabel;
+    private javax.swing.JLabel outputColumnLabel;
+    private javax.swing.JLabel outputLed1;
+    private javax.swing.JLabel outputLed2;
+    private javax.swing.JLabel outputLed3;
+    private javax.swing.JLabel outputLed4;
+    private javax.swing.JLabel outputLed5;
+    private javax.swing.JLabel outputLed6;
+    private javax.swing.JLabel outputLed7;
+    private javax.swing.JLabel outputLed8;
+    // End of variables declaration//GEN-END:variables
+}
