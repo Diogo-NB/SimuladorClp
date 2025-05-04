@@ -30,7 +30,7 @@ public class OutputActions {
     }
 
     // "Limpa" values do hash de saída
-    public static Map setAllFalse(Map outputs) {
+    public static Map resetOutputs(Map outputs) {
         outputs.put("Q1", false);
         outputs.put("Q2", false);
         outputs.put("Q3", false);
@@ -39,68 +39,6 @@ public class OutputActions {
         outputs.put("Q6", false);
         outputs.put("Q7", false);
         outputs.put("Q8", false);
-
-        return outputs;
-    }
-
-    // "Simula" escrita
-    public static Map<String, Boolean> dummyWrite(Map outputs) {
-        // Escreve os valores de cada saída no módulo
-        // ...
-        Integer valueWrite = convertValueWrite(outputs);
-        System.out.println("[Dummy] Valor enviado para escrita no módulo: " + valueWrite);
-
-        return outputs;
-    }
-
-    // Escrita
-    public static Map write(Map outputs) {
-        // Escreve os valores de cada saída no módulo
-        /*SerialParameters sp = new SerialParameters();
-        Modbus.setLogLevel(Modbus.LogLevel.LEVEL_DEBUG);
-        
-        // Converte para inteiro
-        Integer valueWrite = convertValueWrite(outputs);
-        System.out.println("Valor enviado para escrita no módulo: " + valueWrite);
-        
-        try {
-            // Seta porta
-            sp.setDevice("COM5");
-            
-            if (sp.getDevice() != null) {
-                // Parâmetros de configuração
-                sp.setBaudRate(SerialPort.BaudRate.BAUD_RATE_9600);
-                sp.setDataBits(8);
-                sp.setParity(SerialPort.Parity.NONE);
-                sp.setStopBits(1);
-
-                SerialUtils.setSerialPortFactory(new SerialPortFactoryPJC());
-
-                ModbusMaster m = ModbusMasterFactory.createModbusMasterRTU(sp);
-                //m.connect();
-
-                int writeAddress = 0x0070;
- 
-                try {
-                    m.writeMultipleRegisters(1, writeAddress, new int[]{valueWrite, 0});
-           
-                } catch (RuntimeException e) {
-                    throw e;
-                } catch (Exception e) {
-                    e.printStackTrace();
-                } finally {
-                    try {
-                        m.disconnect();
-                    } catch (ModbusIOException e1) {
-                        e1.printStackTrace();
-                    }
-                }
-            }
-        } catch (RuntimeException e) {
-            throw e;
-        } catch (Exception e) {
-            e.printStackTrace();
-        }*/
 
         return outputs;
     }
