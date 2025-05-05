@@ -145,8 +145,9 @@ public class ScenePanel extends javax.swing.JPanel {
         inputButton3 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(142, 177, 199));
-        setMaximumSize(new java.awt.Dimension(636, 406));
-        setMinimumSize(new java.awt.Dimension(636, 406));
+        setMaximumSize(new java.awt.Dimension(624, 394));
+        setMinimumSize(new java.awt.Dimension(624, 394));
+        setPreferredSize(new java.awt.Dimension(624, 394));
 
         outputLed1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/led_desligado.png"))); // NOI18N
 

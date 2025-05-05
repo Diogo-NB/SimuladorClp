@@ -6,10 +6,13 @@
       <Color blue="c7" green="b1" red="8e" type="rgb"/>
     </Property>
     <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-      <Dimension value="[636, 406]"/>
+      <Dimension value="[624, 394]"/>
     </Property>
     <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-      <Dimension value="[636, 406]"/>
+      <Dimension value="[624, 394]"/>
+    </Property>
+    <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+      <Dimension value="[624, 394]"/>
     </Property>
   </Properties>
   <AuxValues>

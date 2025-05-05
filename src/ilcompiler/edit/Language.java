@@ -116,8 +116,8 @@ public class Language {
         JComboBox<String> jComboBox = new JComboBox();
         switch (lingua) {
             case "EN" -> {
-                jComboBox.addItem("Painel (padrão)");
-                jComboBox.addItem("Simulação Batch");
+                jComboBox.addItem("Panel (default)");
+                jComboBox.addItem("Batch Simulation");
             }
             case "JA" -> {
                 jComboBox.addItem("パネル");
@@ -128,8 +128,8 @@ public class Language {
                 jComboBox.addItem("Simulation 1");
             }
             default -> {
-                jComboBox.addItem("Painel");
-                jComboBox.addItem("Simulação 1");
+                jComboBox.addItem("Painel (padrão)");
+                jComboBox.addItem("Simulação Batch");
             }
         }
         return jComboBox;
