@@ -12,6 +12,7 @@ import ilcompiler.output.OutputActions;
 import ilcompiler.uppercasedocumentfilter.UpperCaseDocumentFilter;
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseEvent;
 import java.io.IOException;
@@ -53,31 +54,28 @@ public final class HomePg extends javax.swing.JFrame {
 
         Codigo_Camp.setOpaque(false);
 
-        ImageIcon icontimer = new ImageIcon(getClass().getResource("/Assets/temporizador.png"));
-        icontimer.setImage(icontimer.getImage().getScaledInstance(Timer_1.getWidth(), Timer_1.getHeight(), 1));
-        Timer_1.setIcon(icontimer);
-        Timer_2.setIcon(icontimer);
-        Timer_3.setIcon(icontimer);
-        Timer_4.setIcon(icontimer);
-        Timer_5.setIcon(icontimer);
-        Timer_6.setIcon(icontimer);
-        Timer_7.setIcon(icontimer);
-        Timer_8.setIcon(icontimer);
-        Timer_9.setIcon(icontimer);
-        Timer_10.setIcon(icontimer);
-        ImageIcon iconCont = new ImageIcon(getClass().getResource("/Assets/contador.png"));
-        iconCont.setImage(iconCont.getImage().getScaledInstance(Contador_1.getWidth(), Contador_1.getHeight(), 1));
-        Contador_1.setIcon(iconCont);
-        Contador_2.setIcon(iconCont);
-        Contador_3.setIcon(iconCont);
-        Contador_4.setIcon(iconCont);
-        Contador_5.setIcon(iconCont);
-        Contador_6.setIcon(iconCont);
-        Contador_7.setIcon(iconCont);
-        Contador_8.setIcon(iconCont);
-        Contador_9.setIcon(iconCont);
-        Contador_10.setIcon(iconCont);
+        // Carrega e redimensiona o ícone do temporizador
+        ImageIcon iconTimer = new ImageIcon(getClass().getResource("/Assets/temporizador.png"));
+        Image imgTimer = iconTimer.getImage().getScaledInstance(Timer_1.getWidth(), Timer_1.getHeight(), java.awt.Image.SCALE_SMOOTH);
+        iconTimer.setImage(imgTimer);
 
+        // Aplica o ícone a todos os temporizadores
+        JLabel[] timers = {Timer_1, Timer_2, Timer_3, Timer_4, Timer_5, Timer_6, Timer_7, Timer_8, Timer_9, Timer_10};
+        for (JLabel timer : timers) {
+            timer.setIcon(iconTimer);
+        }
+        
+        // Carrega e redimensiona o ícone do contador
+        ImageIcon iconCont = new ImageIcon(getClass().getResource("/Assets/contador.png"));
+        Image imgCont = iconCont.getImage().getScaledInstance(Contador_1.getWidth(), Contador_1.getHeight(), java.awt.Image.SCALE_SMOOTH);
+        iconCont.setImage(imgCont);
+
+        // Aplica o ícone a todos os contadores
+        JLabel[] contadores = {Contador_1, Contador_2, Contador_3, Contador_4, Contador_5, Contador_6, Contador_7, Contador_8, Contador_9, Contador_10};
+        for (JLabel contador : contadores) {
+            contador.setIcon(iconCont);
+        }
+        
         AbstractDocument doc = (AbstractDocument) Codigo_Camp.getDocument();
         doc.setDocumentFilter(new UpperCaseDocumentFilter());
 
@@ -258,22 +256,6 @@ public final class HomePg extends javax.swing.JFrame {
         return lineList;
     }
 
-    @SuppressWarnings("rawtypes")
-    public Map setaBit(Map<String, Boolean> inputs) {
-        Boolean input = inputs.get("I1");
-        inputs.clear();
-        inputs.put("I1", !input);
-        inputs.put("I2", !input);
-        inputs.put("I3", !input);
-        inputs.put("I4", !input);
-        inputs.put("I5", !input);
-        inputs.put("I6", !input);
-        inputs.put("I7", !input);
-        inputs.put("I8", !input);
-        return inputs;
-    }
-
- 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -281,7 +263,6 @@ public final class HomePg extends javax.swing.JFrame {
         jMenu1 = new javax.swing.JMenu();
         Arquivar_BT = new javax.swing.JComboBox<>();
         Editar_BT = new javax.swing.JComboBox<>();
-        Help_BT = new javax.swing.JButton();
         Sobre_BT = new javax.swing.JButton();
         sceneContainer = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
@@ -397,8 +378,6 @@ public final class HomePg extends javax.swing.JFrame {
                 Editar_BTActionPerformed(evt);
             }
         });
-
-        Help_BT.setText("Help");
 
         Sobre_BT.setText("Sobre");
         Sobre_BT.addActionListener(new java.awt.event.ActionListener() {
@@ -800,11 +779,9 @@ public final class HomePg extends javax.swing.JFrame {
                         .addComponent(Arquivar_BT, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(Editar_BT, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(Help_BT)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(Sobre_BT)
-                        .addContainerGap(658, Short.MAX_VALUE))))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 645, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -816,7 +793,6 @@ public final class HomePg extends javax.swing.JFrame {
                 .addGap(16, 16, 16)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(Sobre_BT)
-                    .addComponent(Help_BT)
                     .addComponent(Editar_BT, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(Arquivar_BT, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(5, 5, 5)
@@ -835,7 +811,16 @@ public final class HomePg extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void Sobre_BTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Sobre_BTActionPerformed
-        // TODO add your handling code here:
+        String membros = """
+        Membros do Projeto:
+         Grupo 4 
+            - Diogo Nunes  
+            - José Arantes  
+            - Vinicius Barbosa  
+            - Yuri Duarte
+        """;
+
+        javax.swing.JOptionPane.showMessageDialog(this, membros, "Sobre o Projeto", javax.swing.JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_Sobre_BTActionPerformed
 
     private void Editar_BTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Editar_BTActionPerformed
@@ -1002,7 +987,6 @@ public final class HomePg extends javax.swing.JFrame {
         simulationsComboBox.insertItemAt(aux.getItemAt(1).toString(), 1);
         simulationsComboBox.setSelectedIndex(0);
 
-        Help_BT.setText(Language.getAjudar());
         Sobre_BT.setText(Language.getSobre());
         currentScenePanel.setLabels(Language.getEntradas(), Language.getSaidas());
         delayLabel.setText(Language.getDelay());
@@ -1049,7 +1033,6 @@ public final class HomePg extends javax.swing.JFrame {
     private javax.swing.JLabel Contagem_parada_8;
     private javax.swing.JLabel Contagem_parada_9;
     private javax.swing.JComboBox<String> Editar_BT;
-    private javax.swing.JButton Help_BT;
     private javax.swing.JLabel Image_Camp;
     private javax.swing.JButton Sobre_BT;
     private javax.swing.JLabel Temp_atual_1;
