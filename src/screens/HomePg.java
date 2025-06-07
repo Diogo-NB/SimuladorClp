@@ -64,7 +64,7 @@ public final class HomePg extends javax.swing.JFrame {
         for (JLabel timer : timers) {
             timer.setIcon(iconTimer);
         }
-        
+
         // Carrega e redimensiona o ícone do contador
         ImageIcon iconCont = new ImageIcon(getClass().getResource("/Assets/contador.png"));
         Image imgCont = iconCont.getImage().getScaledInstance(Contador_1.getWidth(), Contador_1.getHeight(), java.awt.Image.SCALE_SMOOTH);
@@ -75,7 +75,7 @@ public final class HomePg extends javax.swing.JFrame {
         for (JLabel contador : contadores) {
             contador.setIcon(iconCont);
         }
-        
+
         AbstractDocument doc = (AbstractDocument) Codigo_Camp.getDocument();
         doc.setDocumentFilter(new UpperCaseDocumentFilter());
 
@@ -811,16 +811,7 @@ public final class HomePg extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void Sobre_BTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Sobre_BTActionPerformed
-        String membros = """
-        Membros do Projeto:
-         Grupo 4 
-            - Diogo Nunes  
-            - José Arantes  
-            - Vinicius Barbosa  
-            - Yuri Duarte
-        """;
-
-        javax.swing.JOptionPane.showMessageDialog(this, membros, "Sobre o Projeto", javax.swing.JOptionPane.INFORMATION_MESSAGE);
+        SobrePopup.mostrarSobre();
     }//GEN-LAST:event_Sobre_BTActionPerformed
 
     private void Editar_BTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Editar_BTActionPerformed
