@@ -10,7 +10,7 @@ public class HomePageModel {
     private static Map<String, Boolean> inputs = new HashMap<>();
     private static Map<String, Boolean> outputs = new HashMap<>();
     private static Map<String, MemoryVariable> memoryVariables = new HashMap<>();
-    private static Integer mode = 1;
+    private static ExecutionMode mode = ExecutionMode.IDLE;
     private static Integer color = 1;
 
     public static Map<String, Integer> getInputsType() {
@@ -45,13 +45,6 @@ public class HomePageModel {
         memoryVariables = map;
     }
 
-    public static Integer getMode() {
-        return mode;
-    }
-
-    public static void setMode(Integer newMode) {
-        mode = newMode;
-    }
 
     public static Integer getColor() {
         return color;
@@ -59,5 +52,25 @@ public class HomePageModel {
 
     public static void setColor(Integer newColor) {
         color = newColor;
+    }
+
+    public static void setMode(ExecutionMode newMode) {
+        mode = newMode;
+    }
+
+    public static ExecutionMode getMode() {
+        return mode;
+    }
+
+    public static boolean isRunning() {
+        return mode == ExecutionMode.RUNNING;
+    }
+
+    public static boolean isStopped() {
+        return mode == ExecutionMode.STOPPED;
+    }
+
+    public static boolean isIdle() {
+        return mode == ExecutionMode.IDLE;
     }
 }

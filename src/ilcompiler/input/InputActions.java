@@ -1,52 +1,61 @@
 package ilcompiler.input;
 
 import java.util.Map;
+import java.util.HashMap;
+import Controllers.IOController;
 
-// Classe para as ações relacionadas com as entradas
 public class InputActions {
 
-    public static Map create(Map inputs) {
+    private static IOController ioController = new IOController();
+
+    // Cria Map<String, Boolean> com as 16 entradas, inicializadas a partir do IOController
+    public static Map<String, Boolean> create(Map<String, Boolean> inputs) {
         for (int i = 1; i <= 16; i++) {
-            String id = "I" + i;
-            Input input = new Input(id, false);
-            inputs.put(input.id, input.currentValue);
+            int word = (i - 1) / 8 + 1; // word 1 ou 2
+            int bit = (i - 1) % 8;
+            boolean value = ioController.getInputBit(word, bit);
+            inputs.put("I" + i, value);
         }
         return inputs;
     }
 
-    public static Map createType(Map inputsType) {
+    public static Map<String, Integer> createType(Map<String, Integer> inputsType) {
         for (int i = 1; i <= 16; i++) {
-            String id = "I" + i;
-            inputsType.put(id, 0);
+            inputsType.put("I" + i, 0);
         }
         return inputsType;
     }
 
-    public static Map read(Map inputs) {
-
+    // Atualiza o Map inputs com o estado atual das palavras do IOController
+    public static Map<String, Boolean> updateInputsMap(Map<String, Boolean> inputs) {
+        for (int i = 1; i <= 16; i++) {
+            int word = (i - 1) / 8 + 1;
+            int bit = (i - 1) % 8;
+            inputs.put("I" + i, ioController.getInputBit(word, bit));
+        }
         return inputs;
     }
 
-    /* Não está sendo usado, verificar possibilidade de remoção*/
-//    // "Simula" leitura
-//    public static Map<String, Boolean> dummyRead(Map<String, Boolean> inputs) {
-//        int simulatedValue = 0x1234; // exemplo com 16 bits
-//        boolean[] arrayBoolean = convertValueRead(simulatedValue);
-//        System.out.println("[Dummy] Valor lido do módulo: " + simulatedValue);
-//
-//        for (int i = 0; i < 16; i++) {
-//            inputs.put("I" + (i + 1), arrayBoolean[15 - i]); // MSB em I1
-//        }
-//
-//        return inputs;
-//    }
-//
-//    // Converte para boolean
-//    public static boolean[] convertValueRead(int value) {
-//        boolean[] bits = new boolean[16];
-//        for (int i = 0; i < 16; i++) {
-//            bits[i] = ((value >> i) & 1) == 1;
-//        }
-//        return bits;
-//    }
+    // Atualiza o IOController a partir do Map recebido
+    public static void updateWordsFromMap(Map<String, Boolean> inputs) {
+        for (int i = 1; i <= 16; i++) {
+            String key = "I" + i;
+            Boolean value = inputs.get(key);
+            if (value != null) {
+                int word = (i - 1) / 8 + 1;
+                int bit = (i - 1) % 8;
+                ioController.setInputBit(word, bit, value);
+            }
+        }
+    }
+
+    // Leitura simples que retorna o Map atualizado com o estado das entradas
+    public static Map<String, Boolean> read(Map<String, Boolean> inputs) {
+        return updateInputsMap(inputs);
+    }
+
+    // Método para acessar o IOController de fora, se precisar
+    public static IOController getIOController() {
+        return ioController;
+    }
 }

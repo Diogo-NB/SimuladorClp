@@ -1,12 +1,15 @@
 package screens;
 
 import Controllers.HomePageController;
+import Controllers.IOController;
+import Models.ExecutionMode;
 import Models.HomePageModel;
 import ilcompiler.edit.Colors;
 import ilcompiler.edit.Language;
+import ilcompiler.input.InputActions;
 import javax.swing.ImageIcon;
 import ilcompiler.interpreter.Interpreter;
-import ilcompiler.input.InputActions;
+//import ilcompiler.input.InputActions;
 import ilcompiler.memoryvariable.MemoryVariable;
 import ilcompiler.output.OutputActions;
 import ilcompiler.uppercasedocumentfilter.UpperCaseDocumentFilter;
@@ -37,6 +40,8 @@ import save.Save;
 
 public final class HomePg extends javax.swing.JFrame {
 
+    private final HomePageController controller;
+
     ListaDeVariaveisPg tela2 = new ListaDeVariaveisPg();
     private JTextArea Lista_de_variaveis = null;
     private boolean updating = false;
@@ -45,6 +50,8 @@ public final class HomePg extends javax.swing.JFrame {
 
     @SuppressWarnings("unchecked")
     public HomePg() {
+        controller = new HomePageController(this);
+
         initComponents();
         Lista_de_variaveis = tela2.getListaDeVariaveis();
 
@@ -110,23 +117,54 @@ public final class HomePg extends javax.swing.JFrame {
     }
 
     private void handleInputButtonPressed(String inputKey, java.awt.event.MouseEvent evt) {
+        IOController ioController = InputActions.getIOController();
+
+        var inputsType = HomePageModel.getInputsType();
+        var inputs = HomePageModel.getInputs();
+
         if (evt.getButton() == java.awt.event.MouseEvent.BUTTON1) {
-            switch (HomePageModel.getInputsType().get(inputKey)) {
-                case 0 ->
-                    HomePageModel.getInputs().put(inputKey, !HomePageModel.getInputs().get(inputKey));
-                case 1 ->
-                    HomePageModel.getInputs().put(inputKey, true);
-                case 2 ->
-                    HomePageModel.getInputs().put(inputKey, false);
+            int inputNum = Integer.parseInt(inputKey.substring(1)); // extrai o número (1 a 16)
+            int word = (inputNum - 1) / 8 + 1;
+            int bit = (inputNum - 1) % 8;
+
+            int type = inputsType.get(inputKey);
+
+            switch (type) {
+                case 0 -> {
+                    // toggle bit
+                    boolean currentValue = ioController.getInputBit(word, bit);
+                    ioController.setInputBit(word, bit, !currentValue);
+                    inputs.put(inputKey, !currentValue);
+                }
+                case 1 -> {
+                    // set true
+                    ioController.setInputBit(word, bit, true);
+                    inputs.put(inputKey, true);
+                }
+                case 2 -> {
+                    // set false
+                    ioController.setInputBit(word, bit, false);
+                    inputs.put(inputKey, false);
+                }
             }
             updateSceneUI();
+
         } else if (evt.getButton() == java.awt.event.MouseEvent.BUTTON3) {
-            int val = HomePageModel.getInputsType().get(inputKey) + 1;
+            int val = inputsType.get(inputKey) + 1;
             if (val >= 3) {
                 val = 0;
             }
-            HomePageModel.getInputsType().put(inputKey, val);
-            HomePageModel.getInputs().put(inputKey, (val == 2));
+            inputsType.put(inputKey, val);
+
+            int inputNum = Integer.parseInt(inputKey.substring(1));
+            int word = (inputNum - 1) / 8 + 1;
+            int bit = (inputNum - 1) % 8;
+
+            boolean bitValue = (val == 2);
+
+            ioController.setInputBit(word, bit, bitValue);
+            inputs.put(inputKey, bitValue);
+
             updateSceneUI();
         }
     }
@@ -134,9 +172,18 @@ public final class HomePg extends javax.swing.JFrame {
     private void handleInputButtonReleased(String key, java.awt.event.MouseEvent evt) {
         if (evt.getButton() == java.awt.event.MouseEvent.BUTTON1) {
             int type = HomePageModel.getInputsType().get(key);
+
+            int inputNum = Integer.parseInt(key.substring(1));
+            int word = (inputNum - 1) / 8 + 1;
+            int bit = (inputNum - 1) % 8;
+
+            IOController ioController = InputActions.getIOController();
+
             if (type == 1) {
+                ioController.setInputBit(word, bit, false);
                 HomePageModel.getInputs().put(key, false);
             } else if (type == 2) {
+                ioController.setInputBit(word, bit, true);
                 HomePageModel.getInputs().put(key, true);
             }
             updateSceneUI();
@@ -162,7 +209,7 @@ public final class HomePg extends javax.swing.JFrame {
     public void updateMode() {
         System.out.println("Modo atual: " + HomePageModel.getMode());
 
-        boolean isRunningMode = HomePageModel.getMode() == 3;
+        boolean isRunningMode = HomePageModel.getMode() == ExecutionMode.RUNNING;
         refreshBt.setEnabled(!isRunningMode);
         simulationsComboBox.setEnabled(!isRunningMode);
 
@@ -172,20 +219,20 @@ public final class HomePg extends javax.swing.JFrame {
             startBt.setIcon(icon1);
         } else {
             switch (HomePageModel.getMode()) {
-                case 1 -> {
+                case IDLE -> {
                     Codigo_Camp.setEditable(true);
-                    ImageIcon icon1 = new ImageIcon(getClass().getResource("/Assets/start.png"));
-                    startBt.setIcon(icon1);
+                    ImageIcon icon = new ImageIcon(getClass().getResource("/Assets/start.png"));
+                    startBt.setIcon(icon);
                 }
-                case 2 -> {
+                case STOPPED -> {
                     Codigo_Camp.setEditable(false);
-                    ImageIcon icon1 = new ImageIcon(getClass().getResource("/Assets/start.png"));
-                    startBt.setIcon(icon1);
+                    ImageIcon icon = new ImageIcon(getClass().getResource("/Assets/start.png"));
+                    startBt.setIcon(icon);
                 }
-                default -> {
+                case RUNNING -> {
                     Codigo_Camp.setEditable(false);
-                    ImageIcon icon1 = new ImageIcon(getClass().getResource("/Assets/start_green.png"));
-                    startBt.setIcon(icon1);
+                    ImageIcon icon = new ImageIcon(getClass().getResource("/Assets/start_green.png"));
+                    startBt.setIcon(icon);
                 }
             }
         }
@@ -234,7 +281,7 @@ public final class HomePg extends javax.swing.JFrame {
     }
 
     public static void showErrorMessage(String message) {
-        HomePageModel.setMode(1);
+        HomePageModel.setMode(ExecutionMode.IDLE);
         JOptionPane.showMessageDialog(null, message);
     }
 
@@ -836,21 +883,7 @@ public final class HomePg extends javax.swing.JFrame {
     }//GEN-LAST:event_Arquivar_BTActionPerformed
 
     private void refreshBtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_refreshBtActionPerformed
-        if (HomePageModel.getMode() == 3) {
-            return;
-        }
-
-        HomePageModel.setOutputs(OutputActions.resetOutputs(HomePageModel.getOutputs()));
-
-        for (Map.Entry<String, MemoryVariable> entry : HomePageModel.getMemoryVariables().entrySet()) {
-            MemoryVariable variable = entry.getValue();
-            variable.timer.stop();
-            variable.counter = 0;
-            variable.currentValue = false;
-        }
-
-        updateMemoryVariables();
-        updateSceneUI();
+        controller.handleRefreshAction();
     }//GEN-LAST:event_refreshBtActionPerformed
 
     private void simulationsComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_simulationsComboBoxActionPerformed
@@ -858,75 +891,35 @@ public final class HomePg extends javax.swing.JFrame {
     }//GEN-LAST:event_simulationsComboBoxActionPerformed
 
     private void startBtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_startBtActionPerformed
-        if (HomePageModel.getMode() != 3) {
+        if (!HomePageModel.isRunning()) {
             System.out.println("\nBotão run clicado!");
-            HomePageModel.setMode(3);
+            HomePageModel.setMode(ExecutionMode.RUNNING);
 
-            String stringTime = delaySpinner.getValue().toString();
-            Integer time = 0;
-
-            if (!stringTime.equals("")) {
-                try {
-                    time = Integer.valueOf(stringTime);
-                } catch (NumberFormatException e) {
-                    HomePageModel.setMode(1);
-                    updateMode();
-                    showErrorMessage("Tempo de delay inválido! Insira um número inteiro.");
-                }
-
-                System.out.println("Tempo de delay: " + time + "\n");
+            Integer time = controller.parseDelay(delaySpinner.getValue().toString());
+            if (time == null) {
+                HomePageModel.setMode(ExecutionMode.IDLE);
+                updateMode();
+                showErrorMessage("Tempo de delay inválido! Insira um número inteiro.");
+                return;
             }
 
-            @SuppressWarnings("unchecked")
-            Timer timer = new Timer(time, (ActionEvent evt1) -> {
-                // Salva linhas da área de texto
-                List<String> lineList = new ArrayList<>();
-                lineList = saveLines(lineList);
-                if (HomePageModel.getMode() == 3) {
-                    HomePageModel.setInputs(InputActions.read(HomePageModel.getInputs()));
-                    HomePageModel.setOutputs(OutputActions.resetOutputs(HomePageModel.getOutputs()));
-                    HomePageModel.setOutputs(Interpreter.receiveLines(lineList, HomePageModel.getInputs(), HomePageModel.getOutputs(), HomePageModel.getMemoryVariables()));
-                    for (Map.Entry<String, MemoryVariable> variable : HomePageModel.getMemoryVariables().entrySet()) {
-                        if (variable.getKey().charAt(0) == 'T' && variable.getValue().timerType.equals("ON") && variable.getValue().currentValue == true) {
-                            variable.getValue().timer.start();
-                        } else if (variable.getKey().charAt(0) == 'T' && variable.getValue().timerType.equals("ON") && variable.getValue().currentValue == false) {
-                            variable.getValue().timer.stop();
-                            variable.getValue().counter = 0;
-                            variable.getValue().endTimer = false;
-                        }
-                        if (variable.getKey().charAt(0) == 'T' && variable.getValue().timerType.equals("OFF") && variable.getValue().currentValue == true) {
-                            variable.getValue().timer.stop();
-                            variable.getValue().counter = 0;
-                            variable.getValue().endTimer = true;
-                        } else if (variable.getKey().charAt(0) == 'T' && variable.getValue().timerType.equals("OFF") && variable.getValue().currentValue == false) {
-                            variable.getValue().timer.start();
-                        }
-                    }
-                    updateMode();
-                    updateSceneUI();
-                    updateMemoryVariables();
-                } else {
-                    ((Timer) evt1.getSource()).stop();
-                }
-            });
+            System.out.println("Tempo de delay: " + time + "\n");
 
-            timer.setInitialDelay(0); // começa sem atraso
+            Timer timer = new Timer(time, e -> controller.runCycle(e));
+            timer.setInitialDelay(0);
             timer.start();
+
         } else {
             System.out.println("\nBotão stop clicado!");
-            HomePageModel.setMode(2);
-            for (Map.Entry<String, MemoryVariable> variable : HomePageModel.getMemoryVariables().entrySet()) {
-                if (variable.getKey().charAt(0) == 'T') {
-                    variable.getValue().timer.stop();
-                }
-            }
+            controller.stopTimers();
+            HomePageModel.setMode(ExecutionMode.STOPPED);
             updateMemoryVariables();
             updateMode();
         }
     }//GEN-LAST:event_startBtActionPerformed
 
     private void pauseBtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pauseBtActionPerformed
-        HomePageModel.setMode(1);
+        HomePageModel.setMode(ExecutionMode.IDLE);
         for (Map.Entry<String, MemoryVariable> variable : HomePageModel.getMemoryVariables().entrySet()) {
             if (variable.getKey().charAt(0) == 'T') {
                 variable.getValue().counter = 0;
