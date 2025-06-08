@@ -55,11 +55,9 @@
                       <Component id="Arquivar_BT" min="-2" pref="122" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="Editar_BT" min="-2" pref="94" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="Help_BT" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="Sobre_BT" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="658" max="32767" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
                   </Group>
               </Group>
           </Group>
@@ -76,7 +74,6 @@
               <EmptySpace min="-2" pref="16" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="Sobre_BT" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="Help_BT" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="Editar_BT" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="Arquivar_BT" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
@@ -130,11 +127,6 @@
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
       </AuxValues>
-    </Component>
-    <Component class="javax.swing.JButton" name="Help_BT">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Help"/>
-      </Properties>
     </Component>
     <Component class="javax.swing.JButton" name="Sobre_BT">
       <Properties>

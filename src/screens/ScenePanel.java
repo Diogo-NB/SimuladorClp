@@ -70,39 +70,43 @@ public class ScenePanel extends javax.swing.JPanel {
 
         onLedIcon = new ImageIcon(getClass().getResource("/Assets/led_ligado.png"));
         onLedIcon.setImage(onLedIcon.getImage().getScaledInstance(iconWidth, iconHeight, 1));
-            
-        inputButton1.setIcon(getInputIcon(inputsType.get("I1"), inputs.get("I1")));
-        inputButton2.setIcon(getInputIcon(inputsType.get("I2"), inputs.get("I2")));
-        inputButton3.setIcon(getInputIcon(inputsType.get("I3"), inputs.get("I3")));
-        inputButton4.setIcon(getInputIcon(inputsType.get("I4"), inputs.get("I4")));
-        inputButton5.setIcon(getInputIcon(inputsType.get("I5"), inputs.get("I5")));
-        inputButton6.setIcon(getInputIcon(inputsType.get("I6"), inputs.get("I6")));
-        inputButton7.setIcon(getInputIcon(inputsType.get("I7"), inputs.get("I7")));
-        inputButton8.setIcon(getInputIcon(inputsType.get("I8"), inputs.get("I8")));
-       
-        outputLed1.setIcon(getOutputIcon(outputs.get("Q1")));
-        outputLed2.setIcon(getOutputIcon(outputs.get("Q2")));
-        outputLed3.setIcon(getOutputIcon(outputs.get("Q3")));
-        outputLed4.setIcon(getOutputIcon(outputs.get("Q4")));
-        outputLed5.setIcon(getOutputIcon(outputs.get("Q5")));
-        outputLed6.setIcon(getOutputIcon(outputs.get("Q6")));
-        outputLed7.setIcon(getOutputIcon(outputs.get("Q7")));
-        outputLed8.setIcon(getOutputIcon(outputs.get("Q8")));
+
+        inputButton1.setIcon(getInputIcon(inputsType.get("I0.0"), inputs.get("I0.0")));
+        inputButton2.setIcon(getInputIcon(inputsType.get("I0.1"), inputs.get("I0.1")));
+        inputButton3.setIcon(getInputIcon(inputsType.get("I0.2"), inputs.get("I0.2")));
+        inputButton4.setIcon(getInputIcon(inputsType.get("I0.3"), inputs.get("I0.3")));
+        inputButton5.setIcon(getInputIcon(inputsType.get("I0.4"), inputs.get("I0.4")));
+        inputButton6.setIcon(getInputIcon(inputsType.get("I0.5"), inputs.get("I0.5")));
+        inputButton7.setIcon(getInputIcon(inputsType.get("I0.6"), inputs.get("I0.6")));
+        inputButton8.setIcon(getInputIcon(inputsType.get("I0.7"), inputs.get("I0.7")));
+
+        outputLed1.setIcon(getOutputIcon(outputs.get("O0.0")));
+        outputLed2.setIcon(getOutputIcon(outputs.get("O0.1")));
+        outputLed3.setIcon(getOutputIcon(outputs.get("O0.2")));
+        outputLed4.setIcon(getOutputIcon(outputs.get("O0.3")));
+        outputLed5.setIcon(getOutputIcon(outputs.get("O0.4")));
+        outputLed6.setIcon(getOutputIcon(outputs.get("O0.5")));
+        outputLed7.setIcon(getOutputIcon(outputs.get("O0.6")));
+        outputLed8.setIcon(getOutputIcon(outputs.get("O0.7")));
     }
-    
+
     private ImageIcon getInputIcon(int inputType, boolean inputState) {
         return switch (inputType) {
-            case 0 -> inputState ? closedSwitchIcon : openSwitchIcon;
-            case 1 -> inputState ? closedButtonIcon : buttonIcon;
-            case 2 -> inputState ? piButtonIcon : openPiButtonIcon;
-            default -> null;
+            case 0 ->
+                inputState ? closedSwitchIcon : openSwitchIcon;
+            case 1 ->
+                inputState ? closedButtonIcon : buttonIcon;
+            case 2 ->
+                inputState ? piButtonIcon : openPiButtonIcon;
+            default ->
+                null;
         };
     }
 
     private ImageIcon getOutputIcon(boolean outputState) {
         return outputState ? onLedIcon : offLedIcon;
     }
-    
+
     public void setLabels(String inputColumnLabel, String outputColumnLabel) {
         this.inputColumnLabel.setText(inputColumnLabel);
         this.outputColumnLabel.setText(outputColumnLabel);
@@ -352,97 +356,97 @@ public class ScenePanel extends javax.swing.JPanel {
 
     private void inputButton3MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_inputButton3MouseReleased
         if (inputListener != null) {
-            inputListener.onReleased("I3", evt);
+            inputListener.onReleased("I0.2", evt);
         }
     }//GEN-LAST:event_inputButton3MouseReleased
 
     private void inputButton3MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_inputButton3MousePressed
         if (inputListener != null) {
-            inputListener.onPressed("I3", evt);
+            inputListener.onPressed("I0.2", evt);
         }
     }//GEN-LAST:event_inputButton3MousePressed
 
     private void inputButton7MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_inputButton7MouseReleased
         if (inputListener != null) {
-            inputListener.onReleased("I7", evt);
+            inputListener.onReleased("I0.6", evt);
         }
     }//GEN-LAST:event_inputButton7MouseReleased
 
     private void inputButton7MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_inputButton7MousePressed
         if (inputListener != null) {
-            inputListener.onPressed("I7", evt);
+            inputListener.onPressed("I0.6", evt);
         }
     }//GEN-LAST:event_inputButton7MousePressed
 
     private void inputButton4MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_inputButton4MouseReleased
         if (inputListener != null) {
-            inputListener.onReleased("I4", evt);
+            inputListener.onReleased("I0.3", evt);
         }
     }//GEN-LAST:event_inputButton4MouseReleased
 
     private void inputButton4MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_inputButton4MousePressed
         if (inputListener != null) {
-            inputListener.onPressed("I4", evt);
+            inputListener.onPressed("I0.3", evt);
         }
     }//GEN-LAST:event_inputButton4MousePressed
 
     private void inputButton8MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_inputButton8MouseReleased
         if (inputListener != null) {
-            inputListener.onReleased("I8", evt);
+            inputListener.onReleased("I0.7", evt);
         }
     }//GEN-LAST:event_inputButton8MouseReleased
 
     private void inputButton8MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_inputButton8MousePressed
         if (inputListener != null) {
-            inputListener.onPressed("I8", evt);
+            inputListener.onPressed("I0.7", evt);
         }
     }//GEN-LAST:event_inputButton8MousePressed
 
     private void inputButton2MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_inputButton2MouseReleased
         if (inputListener != null) {
-            inputListener.onReleased("I2", evt);
+            inputListener.onReleased("I0.1", evt);
         }
     }//GEN-LAST:event_inputButton2MouseReleased
 
     private void inputButton2MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_inputButton2MousePressed
         if (inputListener != null) {
-            inputListener.onPressed("I2", evt);
+            inputListener.onPressed("I0.1", evt);
         }
     }//GEN-LAST:event_inputButton2MousePressed
 
     private void inputButton6MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_inputButton6MouseReleased
         if (inputListener != null) {
-            inputListener.onReleased("I6", evt);
+            inputListener.onReleased("I0.5", evt);
         }
     }//GEN-LAST:event_inputButton6MouseReleased
 
     private void inputButton6MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_inputButton6MousePressed
         if (inputListener != null) {
-            inputListener.onPressed("I6", evt);
+            inputListener.onPressed("I0.5", evt);
         }
     }//GEN-LAST:event_inputButton6MousePressed
 
     private void inputButton1MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_inputButton1MouseReleased
         if (inputListener != null) {
-            inputListener.onReleased("I1", evt);
+            inputListener.onReleased("I0.0", evt);
         }
     }//GEN-LAST:event_inputButton1MouseReleased
 
     private void inputButton1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_inputButton1MousePressed
         if (inputListener != null) {
-            inputListener.onPressed("I1", evt);
+            inputListener.onPressed("I0.0", evt);
         }
     }//GEN-LAST:event_inputButton1MousePressed
 
     private void inputButton5MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_inputButton5MouseReleased
         if (inputListener != null) {
-            inputListener.onReleased("I5", evt);
+            inputListener.onReleased("I0.4", evt);
         }
     }//GEN-LAST:event_inputButton5MouseReleased
 
     private void inputButton5MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_inputButton5MousePressed
         if (inputListener != null) {
-            inputListener.onPressed("I5", evt);
+            inputListener.onPressed("I0.4", evt);
         }
     }//GEN-LAST:event_inputButton5MousePressed
 
