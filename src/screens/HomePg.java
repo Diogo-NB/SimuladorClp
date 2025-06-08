@@ -1,7 +1,6 @@
 package screens;
 
 import Controllers.HomePageController;
-import Controllers.IOController;
 import Models.ExecutionMode;
 import Models.HomePageModel;
 import ilcompiler.edit.Colors;
@@ -9,7 +8,7 @@ import ilcompiler.edit.Language;
 import ilcompiler.input.InputActions;
 import javax.swing.ImageIcon;
 import ilcompiler.interpreter.Interpreter;
-//import ilcompiler.input.InputActions;
+import ilcompiler.input.InputActions;
 import ilcompiler.memoryvariable.MemoryVariable;
 import ilcompiler.output.OutputActions;
 import ilcompiler.uppercasedocumentfilter.UpperCaseDocumentFilter;
@@ -117,54 +116,23 @@ public final class HomePg extends javax.swing.JFrame {
     }
 
     private void handleInputButtonPressed(String inputKey, java.awt.event.MouseEvent evt) {
-        IOController ioController = InputActions.getIOController();
-
-        var inputsType = HomePageModel.getInputsType();
-        var inputs = HomePageModel.getInputs();
-
         if (evt.getButton() == java.awt.event.MouseEvent.BUTTON1) {
-            int inputNum = Integer.parseInt(inputKey.substring(1)); // extrai o número (1 a 16)
-            int word = (inputNum - 1) / 8 + 1;
-            int bit = (inputNum - 1) % 8;
-
-            int type = inputsType.get(inputKey);
-
-            switch (type) {
-                case 0 -> {
-                    // toggle bit
-                    boolean currentValue = ioController.getInputBit(word, bit);
-                    ioController.setInputBit(word, bit, !currentValue);
-                    inputs.put(inputKey, !currentValue);
-                }
-                case 1 -> {
-                    // set true
-                    ioController.setInputBit(word, bit, true);
-                    inputs.put(inputKey, true);
-                }
-                case 2 -> {
-                    // set false
-                    ioController.setInputBit(word, bit, false);
-                    inputs.put(inputKey, false);
-                }
+            switch (HomePageModel.getInputsType().getOrDefault(inputKey, 0)) {
+                case 0 ->
+                    HomePageModel.getInputs().put(inputKey, !HomePageModel.getInputs().get(inputKey));
+                case 1 ->
+                    HomePageModel.getInputs().put(inputKey, true);
+                case 2 ->
+                    HomePageModel.getInputs().put(inputKey, false);
             }
             updateSceneUI();
-
         } else if (evt.getButton() == java.awt.event.MouseEvent.BUTTON3) {
-            int val = inputsType.get(inputKey) + 1;
+            int val = HomePageModel.getInputsType().get(inputKey) + 1;
             if (val >= 3) {
                 val = 0;
             }
-            inputsType.put(inputKey, val);
-
-            int inputNum = Integer.parseInt(inputKey.substring(1));
-            int word = (inputNum - 1) / 8 + 1;
-            int bit = (inputNum - 1) % 8;
-
-            boolean bitValue = (val == 2);
-
-            ioController.setInputBit(word, bit, bitValue);
-            inputs.put(inputKey, bitValue);
-
+            HomePageModel.getInputsType().put(inputKey, val);
+            HomePageModel.getInputs().put(inputKey, (val == 2));
             updateSceneUI();
         }
     }
@@ -172,18 +140,9 @@ public final class HomePg extends javax.swing.JFrame {
     private void handleInputButtonReleased(String key, java.awt.event.MouseEvent evt) {
         if (evt.getButton() == java.awt.event.MouseEvent.BUTTON1) {
             int type = HomePageModel.getInputsType().get(key);
-
-            int inputNum = Integer.parseInt(key.substring(1));
-            int word = (inputNum - 1) / 8 + 1;
-            int bit = (inputNum - 1) % 8;
-
-            IOController ioController = InputActions.getIOController();
-
             if (type == 1) {
-                ioController.setInputBit(word, bit, false);
                 HomePageModel.getInputs().put(key, false);
             } else if (type == 2) {
-                ioController.setInputBit(word, bit, true);
                 HomePageModel.getInputs().put(key, true);
             }
             updateSceneUI();

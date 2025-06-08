@@ -182,7 +182,7 @@ public class Interpreter {
                     accumulator = inputs.get(variables.get(0));
                 }
 
-                if (variables.get(0).charAt(0) == 'Q') {
+                if (variables.get(0).charAt(0) == 'O') {
                     accumulator = outputs.get(variables.get(0));
                 }
             }
@@ -193,7 +193,7 @@ public class Interpreter {
                     accumulator = !(inputs.get(variables.get(0)));
                 }
 
-                if (variables.get(0).charAt(0) == 'Q') {
+                if (variables.get(0).charAt(0) == 'O') {
                     accumulator = !(outputs.get(variables.get(0)));
                 }
             }
@@ -204,14 +204,14 @@ public class Interpreter {
                     if (outputIsValid(variables, outputs)) {
                         // Carrega o valor do acumulador para a variável (saida)
                         if (operator.equals("ST")) {
-                            if (variables.get(0).charAt(0) == 'Q') {
+                            if (variables.get(0).charAt(0) == 'O') {
                                 outputs.put(variables.get(0), accumulator);
                             }
                         }
 
                         // Carrega o valor do acumulador negado para a variável (saida)
                         if (operator.equals("STN")) {
-                            if (variables.get(0).charAt(0) == 'Q') {
+                            if (variables.get(0).charAt(0) == 'O') {
                                 outputs.put(variables.get(0), !accumulator);
                             }
                         }
@@ -226,7 +226,7 @@ public class Interpreter {
                         accumulator = (accumulator && inputs.get(variables.get(0)));
                     }
 
-                    if (variables.get(0).charAt(0) == 'Q') {
+                    if (variables.get(0).charAt(0) == 'O') {
                         accumulator = (accumulator && outputs.get(variables.get(0)));
                     }
                 }
@@ -237,7 +237,7 @@ public class Interpreter {
                         accumulator = (accumulator && !(inputs.get(variables.get(0))));
                     }
 
-                    if (variables.get(0).charAt(0) == 'Q') {
+                    if (variables.get(0).charAt(0) == 'O') {
                         accumulator = (accumulator && !(outputs.get(variables.get(0))));
                     }
                 }
@@ -248,7 +248,7 @@ public class Interpreter {
                         accumulator = (accumulator || inputs.get(variables.get(0)));
                     }
 
-                    if (variables.get(0).charAt(0) == 'Q') {
+                    if (variables.get(0).charAt(0) == 'O') {
                         accumulator = (accumulator || outputs.get(variables.get(0)));
                     }
                 }
@@ -259,7 +259,7 @@ public class Interpreter {
                         accumulator = (accumulator || !(inputs.get(variables.get(0))));
                     }
 
-                    if (variables.get(0).charAt(0) == 'Q') {
+                    if (variables.get(0).charAt(0) == 'O') {
                         accumulator = (accumulator || !(outputs.get(variables.get(0))));
                     }
                 }

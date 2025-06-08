@@ -1,66 +1,46 @@
 package ilcompiler.output;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
-import java.util.HashMap;
-import Controllers.IOController;
-import ilcompiler.input.InputActions;
 
+// Classe para as ações relacionadas com as saídas
 public class OutputActions {
 
-    private static IOController ioController = InputActions.getIOController(); // Usa a mesma instância do IOController
+    private static final List<String> OUTPUT_IDS = new ArrayList<>();
 
-    // Cria Map<String, Boolean> com as 16 saídas, inicializadas a partir do IOController
+    static {
+        for (int i = 0; i <= 7; i++) {
+            OUTPUT_IDS.add("O1." + i);
+        }
+        for (int i = 0; i <= 7; i++) {
+            OUTPUT_IDS.add("O0." + i);
+        }
+    }
+
     public static Map<String, Boolean> create(Map<String, Boolean> outputs) {
-        for (int i = 1; i <= 16; i++) {
-            int word = (i - 1) / 8 + 1; // word 1 ou 2
-            int bit = (i - 1) % 8;
-            boolean value = ioController.getOutputBit(word, bit);
-            outputs.put("Q" + i, value);
+        for (String id : OUTPUT_IDS) {
+            Output output = new Output(id, false);
+            outputs.put(output.id, output.currentValue);
         }
         return outputs;
     }
 
-    // "Limpa" os valores das saídas no Map e no IOController
+    // "Limpa" values do hash de saída
     public static Map<String, Boolean> resetOutputs(Map<String, Boolean> outputs) {
-        for (int i = 1; i <= 16; i++) {
-            String id = "Q" + i;
+        for (String id : OUTPUT_IDS) {
             outputs.put(id, false);
-            int word = (i - 1) / 8 + 1;
-            int bit = (i - 1) % 8;
-            ioController.setOutputBit(word, bit, false);
         }
         return outputs;
     }
 
-    // Atualiza o Map outputs com o estado atual das palavras do IOController
-    public static Map<String, Boolean> updateOutputsMap(Map<String, Boolean> outputs) {
-        for (int i = 1; i <= 16; i++) {
-            int word = (i - 1) / 8 + 1;
-            int bit = (i - 1) % 8;
-            outputs.put("Q" + i, ioController.getOutputBit(word, bit));
-        }
-        return outputs;
-    }
-
-    // Atualiza o IOController a partir do Map recebido
-    public static void updateWordsFromMap(Map<String, Boolean> outputs) {
-        for (int i = 1; i <= 16; i++) {
-            String key = "Q" + i;
-            Boolean value = outputs.get(key);
-            if (value != null) {
-                int word = (i - 1) / 8 + 1;
-                int bit = (i - 1) % 8;
-                ioController.setOutputBit(word, bit, value);
-            }
-        }
-    }
-
-    // Mantém método de conversão para inteiro, se quiser usar
+    // Converte para inteiro considerando O1.7 ... O1.0 e O0.7 ... O0.0 como bits 15..0
     public static int convertValueWrite(Map<String, Boolean> outputs) {
         StringBuilder binaryString = new StringBuilder();
 
-        for (int i = 16; i >= 1; i--) {
-            binaryString.append(outputs.getOrDefault("Q" + i, false) ? '1' : '0');
+        for (String id : OUTPUT_IDS) {
+            boolean bit = outputs.getOrDefault(id, false);
+            binaryString.append(bit ? '1' : '0');
         }
 
         return Integer.parseInt(binaryString.toString(), 2);
