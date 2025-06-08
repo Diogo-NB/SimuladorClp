@@ -12,7 +12,7 @@ public class DefaultScenePanel extends javax.swing.JPanel implements IScenePanel
         super();
         initComponents();
         inputColumnLabel.setText("Entradas");
-        inputColumnLabel.setText("Saídas");
+        outputColumnLabel.setText("Saídas");
     }
 
     @Override

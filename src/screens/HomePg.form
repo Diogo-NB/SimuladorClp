@@ -1178,7 +1178,7 @@
               <Connection code="0" type="code"/>
             </Property>
             <Property name="selectedItem" type="java.lang.Object" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-              <Connection component="simulationsComboBox" type="bean"/>
+              <Connection code="ScenesEnum.DEFAULT" type="code"/>
             </Property>
             <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
               <Dimension value="[150, 50]"/>
