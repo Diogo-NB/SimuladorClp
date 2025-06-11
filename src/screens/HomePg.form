@@ -55,11 +55,9 @@
                       <Component id="Arquivar_BT" min="-2" pref="122" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="Editar_BT" min="-2" pref="94" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="Help_BT" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="Sobre_BT" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="658" max="32767" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
                   </Group>
               </Group>
           </Group>
@@ -76,7 +74,6 @@
               <EmptySpace min="-2" pref="16" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="Sobre_BT" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="Help_BT" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="Editar_BT" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="Arquivar_BT" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
@@ -130,11 +127,6 @@
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
       </AuxValues>
-    </Component>
-    <Component class="javax.swing.JButton" name="Help_BT">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Help"/>
-      </Properties>
     </Component>
     <Component class="javax.swing.JButton" name="Sobre_BT">
       <Properties>
@@ -1179,11 +1171,14 @@
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="83" green="5e" red="8" type="rgb"/>
             </Property>
-            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-              <StringArray count="2">
-                <StringItem index="0" value="Painel (padr&#xe3;o)"/>
-                <StringItem index="1" value="Simula&#xe7;&#xe3;o Batch"/>
-              </StringArray>
+            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+              <Connection code="new DefaultComboBoxModel&lt;&gt;(ScenesEnum.values())" type="code"/>
+            </Property>
+            <Property name="selectedIndex" type="int" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+              <Connection code="0" type="code"/>
+            </Property>
+            <Property name="selectedItem" type="java.lang.Object" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+              <Connection code="ScenesEnum.DEFAULT" type="code"/>
             </Property>
             <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
               <Dimension value="[150, 50]"/>
@@ -1201,7 +1196,7 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="simulationsComboBoxActionPerformed"/>
           </Events>
           <AuxValues>
-            <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+            <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;ScenesEnum&gt;"/>
           </AuxValues>
         </Component>
         <Component class="javax.swing.JButton" name="startBt">
