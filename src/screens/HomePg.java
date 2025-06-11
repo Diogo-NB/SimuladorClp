@@ -44,7 +44,6 @@ public final class HomePg extends javax.swing.JFrame {
     private final HomePageController controller;
 
     ListaDeVariaveisPg telaDataTable;
-    private JTextArea Lista_de_variaveis = null;
     private boolean updating = false;
 
     private IScenePanel currentScenePanel;
