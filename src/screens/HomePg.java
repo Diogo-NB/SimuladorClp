@@ -28,7 +28,6 @@ import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.JTextArea;
 import javax.swing.SwingConstants;
 import javax.swing.Timer;
 import javax.swing.text.AbstractDocument;
@@ -47,8 +46,8 @@ public final class HomePg extends javax.swing.JFrame {
     static Map<String, MemoryVariable> memoryVariables = new HashMap<>();
     static Integer mode = 1;
     static Integer color = 1;
-    ListaDeVariaveisPg tela2 = new ListaDeVariaveisPg();
-    private JTextArea Lista_de_variaveis = null;
+    ListaDeVariaveisPg telaDataTable;
+    //private JTextArea Lista_de_variaveis = null;
     private boolean updating = false;
     
     private ScenePanel currentScenePanel = new ScenePanel();
@@ -56,7 +55,7 @@ public final class HomePg extends javax.swing.JFrame {
     @SuppressWarnings("unchecked")
     public HomePg() {
         initComponents();
-        Lista_de_variaveis = tela2.getListaDeVariaveis();
+        //Lista_de_variaveis = telaDataTable.getListaDeVariaveis();
 
         ImageIcon iconCampo = new ImageIcon(getClass().getResource("/Assets/bloco_notas.png"));
         iconCampo.setImage(iconCampo.getImage().getScaledInstance(Codigo_Camp.getWidth(), Codigo_Camp.getHeight(), 1));
@@ -64,7 +63,7 @@ public final class HomePg extends javax.swing.JFrame {
 
         Codigo_Camp.setOpaque(false);
 
-        //adicionando icones de contador e timer
+        //adicionando ícones de contador e timer
         ImageIcon icontimer = new ImageIcon(getClass().getResource("/Assets/temporizador.png"));
         icontimer.setImage(icontimer.getImage().getScaledInstance(Timer_1.getWidth(), Timer_1.getHeight(), 1));
         Timer_1.setIcon(icontimer);
@@ -120,6 +119,8 @@ public final class HomePg extends javax.swing.JFrame {
         
         this.setResizable(false);
         
+        telaDataTable = new ListaDeVariaveisPg(inputs, outputs);
+        
         pack();
 
         // Atualiza entradas e saídas na tela
@@ -171,6 +172,7 @@ public final class HomePg extends javax.swing.JFrame {
     // Atualiza entradas e saídas na tela
     public void updateSceneUI() {
         currentScenePanel.updateUIState(inputsType, inputs, outputs);
+        telaDataTable.updateDataTable(inputs, outputs);
     }
 
     // Atualiza o modo atual na tela
@@ -208,7 +210,6 @@ public final class HomePg extends javax.swing.JFrame {
 
     // Atualiza as variáveis de memória na tela
     public void updateMemoryVariables() {
-        Lista_de_variaveis.setText("");
 
         String line = "";
         List<MemoryVariable> tVariables = new ArrayList<>();
@@ -236,8 +237,6 @@ public final class HomePg extends javax.swing.JFrame {
                 default -> {
                 }
             }
-
-            Lista_de_variaveis.setText(Lista_de_variaveis.getText() + line);
         }
 
         // Exemplo de como você pode usar as listas tVariables e cVariables
@@ -367,6 +366,7 @@ public final class HomePg extends javax.swing.JFrame {
             }
             contT++;
         }
+        
         for (MemoryVariable cVariable : cVariables) {
             // System.out.println("ID: " + cVariable.id + ", Counter: " + cVariable.counter + ", MaxTimer: " + cVariable.maxTimer);
             switch (contC) {
@@ -1277,9 +1277,9 @@ public final class HomePg extends javax.swing.JFrame {
     }//GEN-LAST:event_pauseBtActionPerformed
 
     private void dataTableBtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dataTableBtActionPerformed
-        tela2.setVisible(true);
-        tela2.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        tela2.setLocation(1100, 0);
+        telaDataTable.setVisible(true);
+        telaDataTable.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        telaDataTable.setLocation(1100, 0);
     }//GEN-LAST:event_dataTableBtActionPerformed
 
     private void setaCores() {
