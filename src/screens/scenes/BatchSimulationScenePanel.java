@@ -21,10 +21,6 @@ public class BatchSimulationScenePanel extends javax.swing.JPanel implements ISc
     private final BatchSimulatorController.IntWrapper tankFillHeightWrapper = new BatchSimulatorController.IntWrapper(0);
     private final int tankMaxHeight = 220; // ou qualquer valor correspondente
 
-    private int tankFillHeight = 0;
-    private Timer fillTimer;
-    private Timer drainTimer;
-
     public BatchSimulationScenePanel() {
 
         initComponents();
