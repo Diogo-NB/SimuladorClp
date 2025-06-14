@@ -2,89 +2,116 @@ package Controllers;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.EnumMap;
 import java.util.HashMap;
 import java.util.Map;
+import screens.scenes.BatchSimulationScenePanel;
 
 public class BatchSimulatorController {
 
     private Timer fillTimer;
     private Timer drainTimer;
 
-    private final int tankMaxHeight = 220;  // Altura máxima fixa por enquanto
+    private final int tankMaxHeight = 220;
+
+    private static final int CIRCLE_DIAMETER = 16;
+
+    private static final Map<LedType, Point> ledPositions = Map.of(
+            LedType.RUN, new Point(46, 224),
+            LedType.IDLE, new Point(46, 242),
+            LedType.FULL, new Point(46, 261)
+    );
+
+    private final Map<LedType, Boolean> ledVisibility = new EnumMap<>(LedType.class);
+
+    private static final int TANK_X = 201;
+    private static final int TANK_Y_BASE = 328;
+    private static final int TANK_WIDTH = 284;
+    private static final int GAP_X_OFFSET = 109;
+    private static final int GAP_WIDTH = 82;
+    private static final int IGNORE_LIMIT = 23;
 
     private final Map<Integer, Boolean> circleVisibility = new HashMap<>();
 
-    public BatchSimulatorController() {
-        // Inicialmente, todos os círculos estão invisíveis
-        for (int i = 1; i <= 3; i++) {
-            circleVisibility.put(i, false);
+    private final BatchSimulationScenePanel panel;
+
+    public BatchSimulatorController(BatchSimulationScenePanel panel) {
+        this.panel = panel;
+        for (LedType led : LedType.values()) {
+            ledVisibility.put(led, false);
         }
     }
 
     public void drawCircles(Graphics2D g2d) {
         g2d.setColor(Color.RED);
-        int circleDiameter = 16;
 
-        Point[] circlePositions = new Point[]{
-            new Point(46, 224),
-            new Point(46, 242),
-            new Point(46, 261)
-        };
-
-        for (int i = 0; i < circlePositions.length; i++) {
-            if (circleVisibility.getOrDefault(i + 1, false)) {
-                Point p = circlePositions[i];
-                g2d.fillOval(p.x, p.y, circleDiameter, circleDiameter);
+        for (LedType led : LedType.values()) {
+            if (ledVisibility.getOrDefault(led, false)) {
+                Point p = ledPositions.get(led);
+                g2d.fillOval(p.x, p.y, CIRCLE_DIAMETER, CIRCLE_DIAMETER);
             }
         }
     }
 
-    // Métodos públicos para ligar/desligar os círculos
-    public void showCircle(int circleNumber, JPanel panel) {
-        if (circleVisibility.containsKey(circleNumber)) {
-            circleVisibility.put(circleNumber, true);
-            panel.repaint();
-        }
+    // ---- Métodos específicos para cada LED ----
+    public void setRunLedOn() {
+        ledVisibility.put(LedType.RUN, true);
+        panel.repaint();
     }
 
-    public void hideCircle(int circleNumber, JPanel panel) {
-        if (circleVisibility.containsKey(circleNumber)) {
-            circleVisibility.put(circleNumber, false);
-            panel.repaint();
-        }
+    public void setRunLedOff() {
+        ledVisibility.put(LedType.RUN, false);
+        panel.repaint();
+    }
+
+    public void setIdleLedOn() {
+        ledVisibility.put(LedType.IDLE, true);
+        panel.repaint();
+    }
+
+    public void setIdleLedOff() {
+        ledVisibility.put(LedType.IDLE, false);
+        panel.repaint();
+    }
+
+    public void setFullLedOn() {
+        ledVisibility.put(LedType.FULL, true);
+        panel.repaint();
+    }
+
+    public void setFullLedOff() {
+        ledVisibility.put(LedType.FULL, false);
+        panel.repaint();
     }
 
     // Desenhar o nível atual de preenchimento
-    public void drawTankFill(Graphics2D g2d, int tankX, int tankYBase, int tankWidth, int tankFillHeight) {
-        int gapX = tankX + 109;
-        int gapWidth = 82;
-        int fillTop = tankYBase - tankFillHeight;
+    public void drawTankFill(Graphics2D g2d, int tankFillHeight) {
+        int gapX = TANK_X + GAP_X_OFFSET;
+        int fillTop = TANK_Y_BASE - tankFillHeight;
         int fillHeight = tankFillHeight;
-        int ignoreLimit = 23;
 
         g2d.setColor(Color.YELLOW);
 
-        if (tankFillHeight <= ignoreLimit) {
-            g2d.fillRect(tankX, fillTop, gapX - tankX, fillHeight); // esquerda
-            int rightX = gapX + gapWidth;
-            int rightWidth = (tankX + tankWidth) - rightX;
+        if (tankFillHeight <= IGNORE_LIMIT) {
+            g2d.fillRect(TANK_X, fillTop, gapX - TANK_X, fillHeight); // esquerda
+            int rightX = gapX + GAP_WIDTH;
+            int rightWidth = (TANK_X + TANK_WIDTH) - rightX;
             g2d.fillRect(rightX, fillTop, rightWidth, fillHeight); // direita
         } else {
-            int bottomFillHeight = ignoreLimit;
-            int bottomY = tankYBase - bottomFillHeight;
-            g2d.fillRect(tankX, bottomY, gapX - tankX, bottomFillHeight); // esquerda
-            int rightX = gapX + gapWidth;
-            int rightWidth = (tankX + tankWidth) - rightX;
+            int bottomFillHeight = IGNORE_LIMIT;
+            int bottomY = TANK_Y_BASE - bottomFillHeight;
+            g2d.fillRect(TANK_X, bottomY, gapX - TANK_X, bottomFillHeight); // esquerda
+            int rightX = gapX + GAP_WIDTH;
+            int rightWidth = (TANK_X + TANK_WIDTH) - rightX;
             g2d.fillRect(rightX, bottomY, rightWidth, bottomFillHeight); // direita
 
-            int topFillHeight = tankFillHeight - ignoreLimit;
+            int topFillHeight = tankFillHeight - IGNORE_LIMIT;
             int topY = fillTop;
-            g2d.fillRect(tankX, topY, tankWidth, topFillHeight);
+            g2d.fillRect(TANK_X, topY, TANK_WIDTH, topFillHeight);
         }
     }
 
-    // Começa a encher continuamente até o usuário mandar parar ou atingir o limite
-    public void startContinuousFill(JPanel panel, IntWrapper fillHeight) {
+    public void startContinuousFill(IntWrapper fillHeight) {
         fillTimer = new Timer(50, e -> {
             fillHeight.value += 2;
             if (fillHeight.value >= tankMaxHeight) {
@@ -95,7 +122,7 @@ public class BatchSimulatorController {
         fillTimer.start();
     }
 
-    public void startDrain(JPanel panel, IntWrapper fillHeight) {
+    public void startDrain(IntWrapper fillHeight) {
         drainTimer = new Timer(50, e -> {
             fillHeight.value -= 2;
             if (fillHeight.value <= 0) {
@@ -126,7 +153,6 @@ public class BatchSimulatorController {
         stopDraining();
     }
 
-    // Wrapper de inteiro mutável
     public static class IntWrapper {
 
         public int value;
@@ -134,5 +160,11 @@ public class BatchSimulatorController {
         public IntWrapper(int value) {
             this.value = value;
         }
+    }
+
+    public enum LedType {
+        RUN,
+        IDLE,
+        FULL
     }
 }

@@ -1,11 +1,9 @@
 package screens.scenes;
 
 import Controllers.BatchSimulatorController;
-import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
-import java.awt.Point;
 import java.util.Map;
 import javax.swing.ImageIcon;
 
@@ -17,88 +15,91 @@ public class BatchSimulationScenePanel extends javax.swing.JPanel implements ISc
 
     private Image backgroundImage;
 
-    private final BatchSimulatorController controller = new BatchSimulatorController();
+    private final BatchSimulatorController controller;
     private final BatchSimulatorController.IntWrapper tankFillHeightWrapper = new BatchSimulatorController.IntWrapper(0);
 
     public BatchSimulationScenePanel() {
         initComponents();
         backgroundImage = new ImageIcon(getClass().getResource("/Assets/Batch.jpg")).getImage();
+        controller = new BatchSimulatorController(this);
         simulateBatchProcess();
         simulateCirclesSequence();
     }
 
     private void simulateCirclesSequence() {
-        // Ativa o círculo 1 imediatamente
-        controller.showCircle(1, this);
-        System.out.println(">>> Círculo 1 ativado");
+        // Liga o LED Run imediatamente
+        controller.setRunLedOn();
+        System.out.println(">>> LED Run ativado");
 
-        // Timer para ativar círculo 2 após 5 segundos
-        Timer timer2 = new Timer(5000, e2 -> {
-            controller.showCircle(2, this);
-            System.out.println(">>> Círculo 2 ativado");
+        // Após 5 segundos, liga o LED Idle
+        Timer timerIdleOn = new Timer(5000, e -> {
+            controller.setIdleLedOn();
+            System.out.println(">>> LED Idle ativado");
         });
-        timer2.setRepeats(false);
-        timer2.start();
+        timerIdleOn.setRepeats(false);
+        timerIdleOn.start();
 
-        // Timer para ativar círculo 3 após 10 segundos (5s depois do círculo 2)
-        Timer timer3 = new Timer(10000, e3 -> {
-            controller.showCircle(3, this);
-            System.out.println(">>> Círculo 3 ativado");
+        // Após 10 segundos, liga o LED Full
+        Timer timerFullOn = new Timer(10000, e -> {
+            controller.setFullLedOn();
+            System.out.println(">>> LED Full ativado");
         });
-        timer3.setRepeats(false);
-        timer3.start();
+        timerFullOn.setRepeats(false);
+        timerFullOn.start();
 
-        // Timer para apagar círculo 1 após 15 segundos
-        Timer timerHide1 = new Timer(15000, e4 -> {
-            controller.hideCircle(1, this);
-            System.out.println(">>> Círculo 1 apagado");
+        // Após 15 segundos, desliga o LED Run
+        Timer timerRunOff = new Timer(15000, e -> {
+            controller.setRunLedOff();
+            System.out.println(">>> LED Run apagado");
         });
-        timerHide1.setRepeats(false);
-        timerHide1.start();
+        timerRunOff.setRepeats(false);
+        timerRunOff.start();
 
-        // Timer para apagar círculo 3 após 20 segundos
-        Timer timerHide3 = new Timer(20000, e5 -> {
-            controller.hideCircle(3, this);
-            System.out.println(">>> Círculo 3 apagado");
+        // Após 20 segundos, desliga o LED Full
+        Timer timerFullOff = new Timer(20000, e -> {
+            controller.setFullLedOff();
+            System.out.println(">>> LED Full apagado");
         });
-        timerHide3.setRepeats(false);
-        timerHide3.start();
+        timerFullOff.setRepeats(false);
+        timerFullOff.start();
 
-        // Timer para apagar círculo 2 após 25 segundos
-        Timer timerHide2 = new Timer(25000, e6 -> {
-            controller.hideCircle(2, this);
-            System.out.println(">>> Círculo 2 apagado");
+        // Após 25 segundos, desliga o LED Idle
+        Timer timerIdleOff = new Timer(25000, e -> {
+            controller.setIdleLedOff();
+            System.out.println(">>> LED Idle apagado");
         });
-        timerHide2.setRepeats(false);
-        timerHide2.start();
+        timerIdleOff.setRepeats(false);
+        timerIdleOff.start();
 
-        // Timer para ligar o círculo 3 novamente após 30 segundos
-        Timer timerShow3Again = new Timer(30000, e7 -> {
-            controller.showCircle(3, this);
-            System.out.println(">>> Círculo 3 reativado");
+        // Após 30 segundos, liga o LED Full novamente
+        Timer timerFullOnAgain = new Timer(30000, e -> {
+            controller.setFullLedOn();
+            System.out.println(">>> LED Full reativado");
         });
-        timerShow3Again.setRepeats(false);
-        timerShow3Again.start();
+        timerFullOnAgain.setRepeats(false);
+        timerFullOnAgain.start();
     }
 
     private void simulateBatchProcess() {
         // 1 - Começar enchimento
-        controller.startContinuousFill(this, tankFillHeightWrapper);
+        controller.startContinuousFill(tankFillHeightWrapper);
 
-        // 2 - Após 3 segundos, parar o enchimento
-        new Timer(10000, e -> {
+        // 2 - Após 10 segundos, parar o enchimento
+        Timer stopFillTimer = new Timer(10000, e -> {
             controller.stopFilling();
-            System.out.println(">>> Parou o enchimento após 3s");
+            System.out.println(">>> Parou o enchimento após 10s");
 
             // 3 - Após mais 5 segundos, iniciar drenagem
             Timer startDrainTimer = new Timer(5000, evt -> {
-                System.out.println(">>> Iniciou drenagem após 8s totais");
-                controller.startDrain(this, tankFillHeightWrapper);
+                System.out.println(">>> Iniciou drenagem após 15s totais");
+                controller.startDrain(tankFillHeightWrapper);
             });
-            startDrainTimer.setRepeats(false);   // IMPORTANTE: O Timer de 5s deve disparar só uma vez
+            startDrainTimer.setRepeats(false);   // Dispara só uma vez
             startDrainTimer.start();
 
-        }).start();
+        });
+        stopFillTimer.setRepeats(false);   // Dispara só uma vez
+        stopFillTimer.start();
     }
 
     @Override
@@ -113,17 +114,8 @@ public class BatchSimulationScenePanel extends javax.swing.JPanel implements ISc
         Graphics2D g2d = (Graphics2D) g;
         g2d.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), this);
 
-        // Parâmetros do tanque
-        int tankX = 201;
-        int tankYBase = 328;
-        int tankWidth = 284;
-
         // Delega o desenho do enchimento ao controller
-        controller.drawTankFill(g2d, tankX, tankYBase, tankWidth, tankFillHeightWrapper.value);
-
-        g2d.setColor(Color.RED);
-
-        int circleDiameter = 16;  // Tamanho dos círculos
+        controller.drawTankFill(g2d, tankFillHeightWrapper.value);
 
         controller.drawCircles(g2d);
     }
