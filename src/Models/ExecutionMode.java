@@ -21,6 +21,6 @@ public enum ExecutionMode {
                 return mode;
             }
         }
-        return IDLE; // fallback padrão
+        return IDLE;
     }
 }
