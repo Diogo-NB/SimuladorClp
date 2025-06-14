@@ -130,7 +130,8 @@ public class HomePageController {
         List<String> lineList = homePage.saveLines(new ArrayList<>());
 
         HomePageModel.setInputs(InputActions.read(HomePageModel.getInputs()));
-        HomePageModel.setOutputs(OutputActions.resetOutputs(HomePageModel.getOutputs()));
+        /*Provavelmente essa lina estava quebrando o código*/
+//        HomePageModel.setOutputs(OutputActions.resetOutputs(HomePageModel.getOutputs()));
         HomePageModel.setOutputs(
                 Interpreter.receiveLines(lineList, HomePageModel.getInputs(), HomePageModel.getOutputs(), HomePageModel.getMemoryVariables())
         );
