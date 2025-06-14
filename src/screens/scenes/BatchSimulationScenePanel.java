@@ -19,9 +19,11 @@ public class BatchSimulationScenePanel extends javax.swing.JPanel implements ISc
     private final BatchSimulatorController.IntWrapper tankFillHeightWrapper = new BatchSimulatorController.IntWrapper(0);
 
     public BatchSimulationScenePanel() {
-        initComponents();
-        backgroundImage = new ImageIcon(getClass().getResource("/Assets/Batch.jpg")).getImage();
+        backgroundImage = new ImageIcon(getClass().getResource("/Assets/batch_bg.png")).getImage();
         controller = new BatchSimulatorController(this);
+        
+        initComponents();
+        
         simulateBatchProcess();
         simulateCirclesSequence();
     }
@@ -104,7 +106,7 @@ public class BatchSimulationScenePanel extends javax.swing.JPanel implements ISc
 
     @Override
     public void updateUIState(Map<String, Integer> inputsType, Map<String, Boolean> inputs, Map<String, Boolean> outputs) {
-
+        
     }
 
     @Override
