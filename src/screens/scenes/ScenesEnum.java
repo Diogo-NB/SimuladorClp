@@ -10,7 +10,8 @@ public enum ScenesEnum {
         this.label = label;
     }
 
-    public String getLabel() {
+    @Override
+    public String toString() {
         return label;
     }
 }

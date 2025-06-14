@@ -30,7 +30,8 @@ public class Interpreter {
     }
 
     // Recebe linhas vindas da tela e separa operador e variável
-    public static Map receiveLines(List<String> lineList, Map<String, Boolean> inputs, Map<String, Boolean> outputs, Map<String, MemoryVariable> memoryVariables) {
+    public static Map receiveLines(List<String> lineList, Map<String, Boolean> inputs, Map<String, Boolean> outputs,
+            Map<String, MemoryVariable> memoryVariables) {
 
         // Variáveis auxiliares
         char character = '-';
@@ -57,7 +58,8 @@ public class Interpreter {
                 for (int j = 0; j < lineList.get(i).length(); j++) {
                     character = lineList.get(i).charAt(j);
 
-                    if (character != ' ' && character != '\n' && character != '\t' && character != ',' && !spaceDetected) {
+                    if (character != ' ' && character != '\n' && character != '\t' && character != ','
+                            && !spaceDetected) {
                         operator = operator + character;
                     }
 
@@ -70,7 +72,8 @@ public class Interpreter {
                         variable = "";
                     }
 
-                    if (character != ' ' && character != '\n' && character != '\t' && character != ',' && spaceDetected) {
+                    if (character != ' ' && character != '\n' && character != '\t' && character != ','
+                            && spaceDetected) {
                         variable = variable + character;
                     }
                 }
@@ -160,7 +163,8 @@ public class Interpreter {
     }
 
     // Verifica se variável de memória é válida
-    public static boolean memoryVariableIsValid(ArrayList<String> variables, Map<String, MemoryVariable> memoryVariables) {
+    public static boolean memoryVariableIsValid(ArrayList<String> variables,
+            Map<String, MemoryVariable> memoryVariables) {
         Boolean isValid = true;
 
         if (memoryVariables.get(variables.get(0)) == null) {
@@ -171,7 +175,8 @@ public class Interpreter {
     }
 
     // Executa instruções
-    public static Map executeInstruction(String operator, ArrayList<String> variables, Map<String, Boolean> inputs, Map<String, Boolean> outputs, Map<String, MemoryVariable> memoryVariables) {
+    public static Map executeInstruction(String operator, ArrayList<String> variables, Map<String, Boolean> inputs,
+            Map<String, Boolean> outputs, Map<String, MemoryVariable> memoryVariables) {
         System.out.println(variables.get(0));
         // Caso operador seja válido e tenhamos como variável uma entrada ou uma saida
         if (operatorIsValid(operator) && (inputIsValid(variables, inputs) || outputIsValid(variables, outputs))) {
@@ -182,7 +187,7 @@ public class Interpreter {
                     accumulator = inputs.get(variables.get(0));
                 }
 
-                if (variables.get(0).charAt(0) == 'O') {
+                if (variables.get(0).charAt(0) == 'Q') {
                     accumulator = outputs.get(variables.get(0));
                 }
             }
@@ -193,7 +198,7 @@ public class Interpreter {
                     accumulator = !(inputs.get(variables.get(0)));
                 }
 
-                if (variables.get(0).charAt(0) == 'O') {
+                if (variables.get(0).charAt(0) == 'Q') {
                     accumulator = !(outputs.get(variables.get(0)));
                 }
             }
@@ -204,62 +209,67 @@ public class Interpreter {
                     if (outputIsValid(variables, outputs)) {
                         // Carrega o valor do acumulador para a variável (saida)
                         if (operator.equals("ST")) {
-                            if (variables.get(0).charAt(0) == 'O') {
+                            if (variables.get(0).charAt(0) == 'Q') {
                                 outputs.put(variables.get(0), accumulator);
                             }
                         }
 
                         // Carrega o valor do acumulador negado para a variável (saida)
                         if (operator.equals("STN")) {
-                            if (variables.get(0).charAt(0) == 'O') {
+                            if (variables.get(0).charAt(0) == 'Q') {
                                 outputs.put(variables.get(0), !accumulator);
                             }
                         }
                     } else {
-                        HomePg.showErrorMessage("Entradas não podem ser modificadas, portanto, operadores ST e STN não são válidos para entradas!");
+                        HomePg.showErrorMessage(
+                                "Entradas não podem ser modificadas, portanto, operadores ST e STN não são válidos para entradas!");
                     }
                 }
 
-                // Faz operação AND entre o acumulador e a variável (entrada ou saida) e salva no acumulador
+                // Faz operação AND entre o acumulador e a variável (entrada ou saida) e salva
+                // no acumulador
                 if (operator.equals("AND")) {
                     if (variables.get(0).charAt(0) == 'I') {
                         accumulator = (accumulator && inputs.get(variables.get(0)));
                     }
 
-                    if (variables.get(0).charAt(0) == 'O') {
+                    if (variables.get(0).charAt(0) == 'Q') {
                         accumulator = (accumulator && outputs.get(variables.get(0)));
                     }
                 }
 
-                // Faz operação AND entre o acumulador e a variável (entrada ou saida) negada e salva no acumulador
+                // Faz operação AND entre o acumulador e a variável (entrada ou saida) negada e
+                // salva no acumulador
                 if (operator.equals("ANDN")) {
                     if (variables.get(0).charAt(0) == 'I') {
                         accumulator = (accumulator && !(inputs.get(variables.get(0))));
                     }
 
-                    if (variables.get(0).charAt(0) == 'O') {
+                    if (variables.get(0).charAt(0) == 'Q') {
                         accumulator = (accumulator && !(outputs.get(variables.get(0))));
                     }
                 }
 
-                // Faz operação OR entre o acumulador e a variável (entrada ou saida) e salva no acumulador
+                // Faz operação OR entre o acumulador e a variável (entrada ou saida) e salva no
+                // acumulador
                 if (operator.equals("OR")) {
                     if (variables.get(0).charAt(0) == 'I') {
                         accumulator = (accumulator || inputs.get(variables.get(0)));
                     }
 
-                    if (variables.get(0).charAt(0) == 'O') {
+                    if (variables.get(0).charAt(0) == 'Q') {
                         accumulator = (accumulator || outputs.get(variables.get(0)));
                     }
                 }
 
-                // Faz operação OR entre o acumulador e a variável (entrada ou saida) negada e salva no acumulador
+                // Faz operação OR entre o acumulador e a variável (entrada ou saida) negada e
+                // salva no acumulador
                 if (operator.equals("ORN")) {
                     if (variables.get(0).charAt(0) == 'I') {
                         accumulator = (accumulator || !(inputs.get(variables.get(0))));
                     }
 
-                    if (variables.get(0).charAt(0) == 'O') {
+                    if (variables.get(0).charAt(0) == 'Q') {
                         accumulator = (accumulator || !(outputs.get(variables.get(0))));
                     }
                 }
@@ -268,11 +278,13 @@ public class Interpreter {
                 System.out.println("Entradas: " + inputs);
                 System.out.println("Saidas: " + outputs);
             } else {
-                HomePg.showErrorMessage("Acumulador vazio! Carregue inicialmente a variável desejada para o acumulador com as funções LD ou LDN!");
+                HomePg.showErrorMessage(
+                        "Acumulador vazio! Carregue inicialmente a variável desejada para o acumulador com as funções LD ou LDN!");
             }
 
             // Caso operador seja válido e tenhamos como variável uma memória
-        } else if (operatorIsValid(operator) && !inputIsValid(variables, inputs) && !outputIsValid(variables, outputs)) {
+        } else if (operatorIsValid(operator) && !inputIsValid(variables, inputs)
+                && !outputIsValid(variables, outputs)) {
             // Para operações de carregamento (onde variável de memória são criadas)
             if (operator.equals("ST") || operator.equals("STN") || operator.equals("TON") || operator.equals("TOFF")
                     || operator.equals("CTD") || operator.equals("CTU")) {
@@ -286,7 +298,8 @@ public class Interpreter {
                                 if (memoryVariables.get(variables.get(0)).currentValue == false && accumulator) {
                                     memoryVariables.get(variables.get(0)).incrementCounter();
                                 }
-                            } else if (type.equals("C") && memoryVariables.get(variables.get(0)).counterType.equals("DOWN")) {
+                            } else if (type.equals("C")
+                                    && memoryVariables.get(variables.get(0)).counterType.equals("DOWN")) {
                                 memoryVariables.get(variables.get(0)).testEndTimer();
                                 if (memoryVariables.get(variables.get(0)).currentValue == false && accumulator) {
                                     memoryVariables.get(variables.get(0)).decrementCounter();
@@ -301,7 +314,8 @@ public class Interpreter {
                                 if (memoryVariables.get(variables.get(0)).currentValue == true && !accumulator) {
                                     memoryVariables.get(variables.get(0)).incrementCounter();
                                 }
-                            } else if (type.equals("C") && memoryVariables.get(variables.get(0)).counterType.equals("DOWN")) {
+                            } else if (type.equals("C")
+                                    && memoryVariables.get(variables.get(0)).counterType.equals("DOWN")) {
                                 memoryVariables.get(variables.get(0)).testEndTimer();
                                 if (memoryVariables.get(variables.get(0)).currentValue == true && !accumulator) {
                                     memoryVariables.get(variables.get(0)).decrementCounter();
@@ -314,28 +328,32 @@ public class Interpreter {
                             memoryVariables.get(variables.get(0)).maxTimer = Integer.parseInt(variables.get(1));
                             memoryVariables.get(variables.get(0)).timerType = "ON";
                         } else if (operator.equals("TON")) {
-                            HomePg.showErrorMessage("Sintaxe incorreta! Espaço de memória " + variables.get(0) + " invalido!");
+                            HomePg.showErrorMessage(
+                                    "Sintaxe incorreta! Espaço de memória " + variables.get(0) + " invalido!");
                         }
 
                         if (operator.equals("TOFF") && type.equals("T")) {
                             memoryVariables.get(variables.get(0)).maxTimer = Integer.parseInt(variables.get(1));
                             memoryVariables.get(variables.get(0)).timerType = "OFF";
                         } else if (operator.equals("TOFF")) {
-                            HomePg.showErrorMessage("Sintaxe incorreta! Espaço de memória " + variables.get(0) + " invalido!");
+                            HomePg.showErrorMessage(
+                                    "Sintaxe incorreta! Espaço de memória " + variables.get(0) + " invalido!");
                         }
 
                         if (operator.equals("CTD") && type.equals("C")) {
                             memoryVariables.get(variables.get(0)).maxTimer = Integer.parseInt(variables.get(1));
                             memoryVariables.get(variables.get(0)).counterType = "DOWN";
                         } else if (operator.equals("CTD")) {
-                            HomePg.showErrorMessage("Sintaxe incorreta! Espaço de memória " + variables.get(0) + " invalido!");
+                            HomePg.showErrorMessage(
+                                    "Sintaxe incorreta! Espaço de memória " + variables.get(0) + " invalido!");
                         }
 
                         if (operator.equals("CTU") && type.equals("C")) {
                             memoryVariables.get(variables.get(0)).maxTimer = Integer.parseInt(variables.get(1));
                             memoryVariables.get(variables.get(0)).counterType = "UP";
                         } else if (operator.equals("CTU")) {
-                            HomePg.showErrorMessage("Sintaxe incorreta! Espaço de memória " + variables.get(0) + " invalido!");
+                            HomePg.showErrorMessage(
+                                    "Sintaxe incorreta! Espaço de memória " + variables.get(0) + " invalido!");
                         }
                         // Se memória não existe, ela é criada e e guardada no hash
                     } else {
@@ -354,7 +372,8 @@ public class Interpreter {
                             memoryVariables.get(variables.get(0)).maxTimer = Integer.parseInt(variables.get(1));
                             memoryVariables.get(variables.get(0)).timerType = "ON";
                         } else if (operator.equals("TON")) {
-                            HomePg.showErrorMessage("Sintaxe incorreta! Espaço de memória " + variables.get(0) + " invalido!");
+                            HomePg.showErrorMessage(
+                                    "Sintaxe incorreta! Espaço de memória " + variables.get(0) + " invalido!");
                         }
 
                         if (operator.equals("TOFF") && type.equals("T")) {
@@ -362,7 +381,8 @@ public class Interpreter {
                             memoryVariables.get(variables.get(0)).maxTimer = Integer.parseInt(variables.get(1));
                             memoryVariables.get(variables.get(0)).timerType = "OFF";
                         } else if (operator.equals("TOFF")) {
-                            HomePg.showErrorMessage("Sintaxe incorreta! Espaço de memória " + variables.get(0) + " invalido!");
+                            HomePg.showErrorMessage(
+                                    "Sintaxe incorreta! Espaço de memória " + variables.get(0) + " invalido!");
                         }
 
                         if (operator.equals("CTD") && type.equals("C")) {
@@ -370,7 +390,8 @@ public class Interpreter {
                             memoryVariables.get(variables.get(0)).maxTimer = Integer.parseInt(variables.get(1));
                             memoryVariables.get(variables.get(0)).counterType = "DOWN";
                         } else if (operator.equals("CTD")) {
-                            HomePg.showErrorMessage("Sintaxe incorreta! Espaço de memória " + variables.get(0) + " invalido!");
+                            HomePg.showErrorMessage(
+                                    "Sintaxe incorreta! Espaço de memória " + variables.get(0) + " invalido!");
                         }
 
                         if (operator.equals("CTU") && type.equals("C")) {
@@ -378,7 +399,8 @@ public class Interpreter {
                             memoryVariables.get(variables.get(0)).maxTimer = Integer.parseInt(variables.get(1));
                             memoryVariables.get(variables.get(0)).counterType = "UP";
                         } else if (operator.equals("CTU")) {
-                            HomePg.showErrorMessage("Sintaxe incorreta! Espaço de memória " + variables.get(0) + " invalido!");
+                            HomePg.showErrorMessage(
+                                    "Sintaxe incorreta! Espaço de memória " + variables.get(0) + " invalido!");
                         }
                     }
                 }
@@ -391,27 +413,39 @@ public class Interpreter {
                 // Memória precisa existir
                 if (memoryVariableIsValid(variables, memoryVariables)) {
                     if (operator.equals("LD")) {
-                        accumulator = (variables.get(0).charAt(0) == 'T') || (variables.get(0).charAt(0) == 'C') ? memoryVariables.get(variables.get(0)).endTimer : memoryVariables.get(variables.get(0)).currentValue;
+                        accumulator = (variables.get(0).charAt(0) == 'T') || (variables.get(0).charAt(0) == 'C')
+                                ? memoryVariables.get(variables.get(0)).endTimer
+                                : memoryVariables.get(variables.get(0)).currentValue;
                     }
 
                     if (operator.equals("LDN")) {
-                        accumulator = (variables.get(0).charAt(0) == 'T') || (variables.get(0).charAt(0) == 'C') ? !memoryVariables.get(variables.get(0)).endTimer : !memoryVariables.get(variables.get(0)).currentValue;
+                        accumulator = (variables.get(0).charAt(0) == 'T') || (variables.get(0).charAt(0) == 'C')
+                                ? !memoryVariables.get(variables.get(0)).endTimer
+                                : !memoryVariables.get(variables.get(0)).currentValue;
                     }
 
                     if (operator.equals("AND")) {
-                        accumulator = (variables.get(0).charAt(0) == 'T') || (variables.get(0).charAt(0) == 'C') ? (accumulator && memoryVariables.get(variables.get(0)).endTimer) : (accumulator && memoryVariables.get(variables.get(0)).currentValue);
+                        accumulator = (variables.get(0).charAt(0) == 'T') || (variables.get(0).charAt(0) == 'C')
+                                ? (accumulator && memoryVariables.get(variables.get(0)).endTimer)
+                                : (accumulator && memoryVariables.get(variables.get(0)).currentValue);
                     }
 
                     if (operator.equals("ANDN")) {
-                        accumulator = (variables.get(0).charAt(0) == 'T') || (variables.get(0).charAt(0) == 'C') ? (accumulator && !memoryVariables.get(variables.get(0)).endTimer) : (accumulator && !memoryVariables.get(variables.get(0)).currentValue);
+                        accumulator = (variables.get(0).charAt(0) == 'T') || (variables.get(0).charAt(0) == 'C')
+                                ? (accumulator && !memoryVariables.get(variables.get(0)).endTimer)
+                                : (accumulator && !memoryVariables.get(variables.get(0)).currentValue);
                     }
 
                     if (operator.equals("OR")) {
-                        accumulator = (variables.get(0).charAt(0) == 'T') || (variables.get(0).charAt(0) == 'C') ? (accumulator || memoryVariables.get(variables.get(0)).endTimer) : (accumulator || memoryVariables.get(variables.get(0)).currentValue);
+                        accumulator = (variables.get(0).charAt(0) == 'T') || (variables.get(0).charAt(0) == 'C')
+                                ? (accumulator || memoryVariables.get(variables.get(0)).endTimer)
+                                : (accumulator || memoryVariables.get(variables.get(0)).currentValue);
                     }
 
                     if (operator.equals("ORN")) {
-                        accumulator = (variables.get(0).charAt(0) == 'T') || (variables.get(0).charAt(0) == 'C') ? (accumulator || !memoryVariables.get(variables.get(0)).endTimer) : (accumulator || !memoryVariables.get(variables.get(0)).currentValue);
+                        accumulator = (variables.get(0).charAt(0) == 'T') || (variables.get(0).charAt(0) == 'C')
+                                ? (accumulator || !memoryVariables.get(variables.get(0)).endTimer)
+                                : (accumulator || !memoryVariables.get(variables.get(0)).currentValue);
                     }
 
                     System.out.println(accumulator);
