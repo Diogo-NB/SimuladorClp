@@ -175,8 +175,15 @@ public class HomePageController {
     public void stopTimers() {
         for (Map.Entry<String, MemoryVariable> variable : HomePageModel.getMemoryVariables().entrySet()) {
             if (variable.getKey().charAt(0) == 'T') {
-                variable.getValue().counter = 0;
                 variable.getValue().timer.stop();
+            }
+        }
+    }
+
+    public void resetTimers() {
+        for (Map.Entry<String, MemoryVariable> variable : HomePageModel.getMemoryVariables().entrySet()) {
+            if (variable.getKey().charAt(0) == 'T') {
+                variable.getValue().counter = 0;
             }
         }
     }

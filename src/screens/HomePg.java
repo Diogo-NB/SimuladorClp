@@ -945,6 +945,7 @@ public final class HomePg extends javax.swing.JFrame {
     private void pauseBtActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_pauseBtActionPerformed
         HomePageModel.setMode(ExecutionMode.IDLE);
         controller.stopTimers();
+        controller.resetTimers();
         updateMemoryVariables();
         updateMode();
     }// GEN-LAST:event_pauseBtActionPerformed
