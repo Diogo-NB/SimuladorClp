@@ -1,9 +1,9 @@
 # Simulador de CLP com Interface Interativa
 
 O projeto desenvolvido consiste na criação de um ambiente de simulação para um Controlador Lógico Programável (CLP), possibilitando a operação de entradas e saídas de forma interativa.
-Inspirado no funcionamento de CLPs convencionais, o simulador apresenta funcionalidades complexas.
+Inspirado no funcionamento de CLPs convencionais, o simulador apresenta as funcionalidades básicas.
 
-/*![image](https://github.com/user-attachments/assets/e3b4bd74-e9bc-44b2-a732-981592ebdbd2)*/
+![Interface do programa com simulação](/docs/simulation_interface.png)
 
 # **Operações disponíveis da lista de instruções**
 
@@ -18,15 +18,9 @@ Inspirado no funcionamento de CLPs convencionais, o simulador apresenta funciona
 - **TON:** Temporizador ON Delay (ativa após um intervalo de tempo definido).
 - **TOF:** Temporizador OFF Delay (desativa após um intervalo de tempo definido).
 - **T1, T2, T3...:** Referências aos temporizadores específicos.
-- **Q1, Q2, Q3...:** Referências a saídas do sistema.
+- **Q0.1, Q1.7, Q1.0 ...:** Referências a saídas do sistema.
 - **CTU:** Contador crescente.
 - **CTD:** Contador decrescente.
-
-# **Funcionalidades do Simulador**
-
-- NÃO (NOT)
-- OU (OR)
-- E (AND)
 
 # **Memórias Booleanas Locais**
 
@@ -34,14 +28,13 @@ Disponíveis no mínimo 32 memórias booleanas.
 
 # **Temporizadores**
 
-- Temporizadores com base de tempo em 0,1s, no mínimo 32.
+- 32 Temporizadores com base de tempo em 0.1s.
 - ON DELAY: Retardo na ativação.
 - OFF DELAY: Retardo na desativação.
 
 # **Contadores**
 
-- No mínimo 32 contadores.
-- Progressivo (UP) e Regressivo (DOWN).
+- 32 contadores Progressivos (UP) ou Regressivos (DOWN).
 
 # **Ciclo de Varredura**
 
@@ -76,7 +69,8 @@ O projeto foi implementado em Java, utilizando o NetBeans como ambiente de desen
 
 # **Interface e Referências**
 
-A interface interativa permite a manipulação simples de entradas e saídas. O projeto teve como referência o LogixPro, adaptando sua lógica ao formato de Lista de Instrução. Podendo mudar as cores do visual e o idioma.
+A interface interativa permite a manipulação simples de entradas e saídas.
+O projeto tem como referência o LogixPro, adaptado para o formato de Lista de Instrução.
 
 # **Youtube**
 

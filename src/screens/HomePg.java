@@ -72,7 +72,7 @@ public final class HomePg extends javax.swing.JFrame {
         iconTimer.setImage(imgTimer);
 
         // Aplica o ícone a todos os temporizadores
-        JLabel[] timers = {Timer_1, Timer_2, Timer_3, Timer_4, Timer_5, Timer_6, Timer_7, Timer_8, Timer_9, Timer_10};
+        JLabel[] timers = { Timer_1, Timer_2, Timer_3, Timer_4, Timer_5, Timer_6, Timer_7, Timer_8, Timer_9, Timer_10 };
         for (JLabel timer : timers) {
             timer.setIcon(iconTimer);
         }
@@ -84,8 +84,8 @@ public final class HomePg extends javax.swing.JFrame {
         iconCont.setImage(imgCont);
 
         // Aplica o ícone a todos os contadores
-        JLabel[] contadores = {Contador_1, Contador_2, Contador_3, Contador_4, Contador_5, Contador_6, Contador_7,
-            Contador_8, Contador_9, Contador_10};
+        JLabel[] contadores = { Contador_1, Contador_2, Contador_3, Contador_4, Contador_5, Contador_6, Contador_7,
+                Contador_8, Contador_9, Contador_10 };
         for (JLabel contador : contadores) {
             contador.setIcon(iconCont);
         }
@@ -214,35 +214,20 @@ public final class HomePg extends javax.swing.JFrame {
     }
 
     public void updateMode() {
-        System.out.println("Modo atual: " + HomePageModel.getMode());
+        ExecutionMode mode = HomePageModel.getMode();
+
+        System.out.println("Modo atual: " + mode);
 
         boolean isRunningMode = HomePageModel.getMode() == ExecutionMode.RUNNING;
+
         refreshBt.setEnabled(!isRunningMode);
         simulationsComboBox.setEnabled(!isRunningMode);
+        Codigo_Camp.setEditable(!isRunningMode);
 
-        if (HomePageModel.getMode() == null) {
-            Codigo_Camp.setEditable(false);
-            ImageIcon icon1 = new ImageIcon(getClass().getResource("/Assets/start_green.png"));
-            startBt.setIcon(icon1);
-        } else {
-            switch (HomePageModel.getMode()) {
-                case IDLE -> {
-                    Codigo_Camp.setEditable(true);
-                    ImageIcon icon = new ImageIcon(getClass().getResource("/Assets/start.png"));
-                    startBt.setIcon(icon);
-                }
-                case STOPPED -> {
-                    Codigo_Camp.setEditable(false);
-                    ImageIcon icon = new ImageIcon(getClass().getResource("/Assets/start.png"));
-                    startBt.setIcon(icon);
-                }
-                case RUNNING -> {
-                    Codigo_Camp.setEditable(false);
-                    ImageIcon icon = new ImageIcon(getClass().getResource("/Assets/start_green.png"));
-                    startBt.setIcon(icon);
-                }
-            }
-        }
+        String iconPath = isRunningMode ? "/Assets/start_green.png" : "/Assets/start.png";
+        ImageIcon startBtIcon = new ImageIcon(getClass().getResource(iconPath));
+
+        startBt.setIcon(startBtIcon);
     }
 
     public void updateMemoryVariables() {
@@ -950,8 +935,8 @@ public final class HomePg extends javax.swing.JFrame {
 
         } else {
             System.out.println("\nBotão stop clicado!");
-            controller.stopTimers();
             HomePageModel.setMode(ExecutionMode.STOPPED);
+            controller.stopTimers();
             updateMemoryVariables();
             updateMode();
         }
@@ -959,12 +944,8 @@ public final class HomePg extends javax.swing.JFrame {
 
     private void pauseBtActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_pauseBtActionPerformed
         HomePageModel.setMode(ExecutionMode.IDLE);
-        for (Map.Entry<String, MemoryVariable> variable : HomePageModel.getMemoryVariables().entrySet()) {
-            if (variable.getKey().charAt(0) == 'T') {
-                variable.getValue().counter = 0;
-                variable.getValue().timer.stop();
-            }
-        }
+        controller.stopTimers();
+        controller.resetTimers();
         updateMemoryVariables();
         updateMode();
     }// GEN-LAST:event_pauseBtActionPerformed
