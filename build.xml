@@ -10,6 +10,17 @@
 <project name="SimuladorClp" default="default" basedir=".">
     <description>Builds, tests, and runs the project SimuladorClp.</description>
     <import file="nbproject/build-impl.xml"/>
+
+    <target name="-post-jar">
+        <jar destfile="${dist.dir}" update="true">
+            <manifest>
+                <attribute name="Implementation-Version" value="${project.version}"/>
+                <attribute name="Implementation-Title" value="SimuladorClp"/>
+            </manifest>
+        </jar>
+    </target>
+
+
     <!--
 
     There exist several targets which are by default empty and which can be 
