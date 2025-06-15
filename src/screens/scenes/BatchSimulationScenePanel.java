@@ -12,7 +12,6 @@ import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
-import javax.swing.Timer;
 
 public class BatchSimulationScenePanel extends javax.swing.JPanel implements IScenePanel {
 
@@ -21,7 +20,7 @@ public class BatchSimulationScenePanel extends javax.swing.JPanel implements ISc
     private final Image backgroundImage;
 
     private final BatchSimulatorController controller;
-    private final BatchSimulatorController.IntWrapper tankFillHeightWrapper;
+    private final BatchSimulatorController.FillHeigth tankFillHeightWrapper;
 
     private final PushButton startBt, stopBt;
     private final PushButton[] buttons;
@@ -35,7 +34,7 @@ public class BatchSimulationScenePanel extends javax.swing.JPanel implements ISc
         backgroundImage = new ImageIcon(getClass().getResource("/Assets/batch_bg.png")).getImage();
 
         controller = new BatchSimulatorController(this);
-        tankFillHeightWrapper = new BatchSimulatorController.IntWrapper(0);
+        tankFillHeightWrapper = new BatchSimulatorController.FillHeigth(0);
 
         startBt = new PushButton("I0.0", InputType.NO);
         stopBt = new PushButton("I0.1", InputType.NC, PushButton.ButtonPalette.RED);
@@ -57,85 +56,6 @@ public class BatchSimulationScenePanel extends javax.swing.JPanel implements ISc
                 hiLevelIndicator, loLevelIndicator };
 
         initComponents();
-
-        // simulateBatchProcess();
-        // simulateCirclesSequence();
-    }
-
-    private void simulateCirclesSequence() {
-        // Liga o LED Run imediatamente
-        controller.setRunLedOn();
-        // System.out.println(">>> LED Run ativado");
-
-        // Após 5 segundos, liga o LED Idle
-        Timer timerIdleOn = new Timer(5000, e -> {
-            controller.setIdleLedOn();
-            // System.out.println(">>> LED Idle ativado");
-        });
-        timerIdleOn.setRepeats(false);
-        timerIdleOn.start();
-
-        // Após 10 segundos, liga o LED Full
-        Timer timerFullOn = new Timer(10000, e -> {
-            controller.setFullLedOn();
-            // System.out.println(">>> LED Full ativado");
-        });
-        timerFullOn.setRepeats(false);
-        timerFullOn.start();
-
-        // Após 15 segundos, desliga o LED Run
-        Timer timerRunOff = new Timer(15000, e -> {
-            controller.setRunLedOff();
-            // System.out.println(">>> LED Run apagado");
-        });
-        timerRunOff.setRepeats(false);
-        timerRunOff.start();
-
-        // Após 20 segundos, desliga o LED Full
-        Timer timerFullOff = new Timer(20000, e -> {
-            controller.setFullLedOff();
-            // System.out.println(">>> LED Full apagado");
-        });
-        timerFullOff.setRepeats(false);
-        timerFullOff.start();
-
-        // Após 25 segundos, desliga o LED Idle
-        Timer timerIdleOff = new Timer(25000, e -> {
-            controller.setIdleLedOff();
-            // System.out.println(">>> LED Idle apagado");
-        });
-        timerIdleOff.setRepeats(false);
-        timerIdleOff.start();
-
-        // Após 30 segundos, liga o LED Full novamente
-        Timer timerFullOnAgain = new Timer(30000, e -> {
-            controller.setFullLedOn();
-            // System.out.println(">>> LED Full reativado");
-        });
-        timerFullOnAgain.setRepeats(false);
-        timerFullOnAgain.start();
-    }
-
-    private void simulateBatchProcess() {
-        // 1 - Começar enchimento
-        controller.startContinuousFill(tankFillHeightWrapper);
-
-        // 2 - Após 10 segundos, parar o enchimento
-        Timer stopFillTimer = new Timer(10000, e -> {
-            controller.stopFilling();
-            // System.out.println(">>> Parou o enchimento após 10s");
-
-            // 3 - Após mais 5 segundos, iniciar drenagem
-            Timer startDrainTimer = new Timer(5000, evt -> {
-                // System.out.println(">>> Iniciou drenagem após 15s totais");
-                controller.startDrain(tankFillHeightWrapper);
-            });
-            startDrainTimer.setRepeats(false); // Dispara só uma vez
-            startDrainTimer.start();
-
-        });
-        stopFillTimer.setRepeats(false); // Dispara só uma vez
-        stopFillTimer.start();
     }
 
     @Override
@@ -157,6 +77,24 @@ public class BatchSimulationScenePanel extends javax.swing.JPanel implements ISc
 
             indicator.setActive(updatedValue);
         }
+
+        if (outputs.getOrDefault(pump1Indicator.getKey(), false)) {
+            controller.startFilling(tankFillHeightWrapper);
+        } else {
+            controller.stopFilling();
+        }
+
+        if (outputs.getOrDefault(pump3Indicator.getKey(), false)) {
+            controller.startDraining(tankFillHeightWrapper);
+        } else {
+            controller.stopDraining();
+        }
+
+        hiLevelIndicator.setActive(tankFillHeightWrapper.isAtHighLevel());
+        loLevelIndicator.setActive(tankFillHeightWrapper.isAtLowLevel());
+
+        inputs.put(hiLevelIndicator.getKey(), hiLevelIndicator.isActive());
+        inputs.put(loLevelIndicator.getKey(), loLevelIndicator.isActive());
     }
 
     @Override
@@ -167,8 +105,6 @@ public class BatchSimulationScenePanel extends javax.swing.JPanel implements ISc
         g2d.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), this);
 
         controller.drawTankFill(g2d, tankFillHeightWrapper.value);
-
-        controller.drawCircles(g2d);
     }
 
     @Override

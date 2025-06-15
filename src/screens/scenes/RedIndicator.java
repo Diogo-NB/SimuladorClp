@@ -37,6 +37,10 @@ public class RedIndicator extends JComponent {
         return key;
     }
 
+    public boolean isActive() {
+        return active;
+    }
+
     public void setActive(boolean active) {
         this.active = active;
         repaint();

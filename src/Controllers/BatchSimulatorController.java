@@ -2,26 +2,13 @@ package Controllers;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.EnumMap;
-import java.util.HashMap;
-import java.util.Map;
 import screens.scenes.BatchSimulationScenePanel;
 
 public class BatchSimulatorController {
-
     private Timer fillTimer;
     private Timer drainTimer;
 
     private final int tankMaxHeight = 220;
-
-    private static final int CIRCLE_DIAMETER = 16;
-
-    private static final Map<LedType, Point> ledPositions = Map.of(
-            LedType.RUN, new Point(46, 224),
-            LedType.IDLE, new Point(46, 242),
-            LedType.FULL, new Point(46, 261));
-
-    private final Map<LedType, Boolean> ledVisibility = new EnumMap<>(LedType.class);
 
     private static final int TANK_X = 201;
     private static final int TANK_Y_BASE = 328;
@@ -30,57 +17,10 @@ public class BatchSimulatorController {
     private static final int GAP_WIDTH = 82;
     private static final int IGNORE_LIMIT = 23;
 
-    private final Map<Integer, Boolean> circleVisibility = new HashMap<>();
-
     private final BatchSimulationScenePanel panel;
 
     public BatchSimulatorController(BatchSimulationScenePanel panel) {
         this.panel = panel;
-        for (LedType led : LedType.values()) {
-            ledVisibility.put(led, false);
-        }
-    }
-
-    public void drawCircles(Graphics2D g2d) {
-        g2d.setColor(Color.RED);
-
-        for (LedType led : LedType.values()) {
-            if (ledVisibility.getOrDefault(led, false)) {
-                Point p = ledPositions.get(led);
-                g2d.fillOval(p.x, p.y, CIRCLE_DIAMETER, CIRCLE_DIAMETER);
-            }
-        }
-    }
-
-    // ---- Métodos específicos para cada LED ----
-    public void setRunLedOn() {
-        ledVisibility.put(LedType.RUN, true);
-        panel.repaint();
-    }
-
-    public void setRunLedOff() {
-        ledVisibility.put(LedType.RUN, false);
-        panel.repaint();
-    }
-
-    public void setIdleLedOn() {
-        ledVisibility.put(LedType.IDLE, true);
-        panel.repaint();
-    }
-
-    public void setIdleLedOff() {
-        ledVisibility.put(LedType.IDLE, false);
-        panel.repaint();
-    }
-
-    public void setFullLedOn() {
-        ledVisibility.put(LedType.FULL, true);
-        panel.repaint();
-    }
-
-    public void setFullLedOff() {
-        ledVisibility.put(LedType.FULL, false);
-        panel.repaint();
     }
 
     // Desenhar o nível atual de preenchimento
@@ -110,7 +50,7 @@ public class BatchSimulatorController {
         }
     }
 
-    public void startContinuousFill(IntWrapper fillHeight) {
+    public void startFilling(FillHeigth fillHeight) {
         fillTimer = new Timer(50, e -> {
             fillHeight.value += 2;
             if (fillHeight.value >= tankMaxHeight) {
@@ -121,7 +61,7 @@ public class BatchSimulatorController {
         fillTimer.start();
     }
 
-    public void startDrain(IntWrapper fillHeight) {
+    public void startDraining(FillHeigth fillHeight) {
         drainTimer = new Timer(50, e -> {
             fillHeight.value -= 2;
             if (fillHeight.value <= 0) {
@@ -152,12 +92,20 @@ public class BatchSimulatorController {
         stopDraining();
     }
 
-    public static class IntWrapper {
-
+    public static class FillHeigth {
+        public static final int MAX_VALUE = 220;
         public int value;
 
-        public IntWrapper(int value) {
+        public FillHeigth(int value) {
             this.value = value;
+        }
+
+        public boolean isAtHighLevel() {
+            return value >= MAX_VALUE;
+        }
+
+        public boolean isAtLowLevel() {
+            return value >= 180;
         }
     }
 
