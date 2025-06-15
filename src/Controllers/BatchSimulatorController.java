@@ -29,18 +29,18 @@ public class BatchSimulatorController {
         g2d.fillRect(TANK_X, fillTop, TANK_WIDTH, fillHeight);
     }
 
-    public void startFilling(FillHeigth fillHeight) {
+    public void startFilling(FillHeight fillHeight) {
         fillTimer = new Timer(50, e -> {
             fillHeight.value += 2;
-            if (fillHeight.value >= FillHeigth.MAX_VALUE) {
-                fillHeight.value = FillHeigth.MAX_VALUE;
+            if (fillHeight.value >= FillHeight.MAX_VALUE) {
+                fillHeight.value = FillHeight.MAX_VALUE;
             }
             panel.repaint();
         });
         fillTimer.start();
     }
 
-    public void startDraining(FillHeigth fillHeight) {
+    public void startDraining(FillHeight fillHeight) {
         drainTimer = new Timer(50, e -> {
             fillHeight.value -= 2;
             if (fillHeight.value <= 0) {
@@ -71,12 +71,12 @@ public class BatchSimulatorController {
         stopDraining();
     }
 
-    public static class FillHeigth {
+    public static class FillHeight {
 
         public static final int MAX_VALUE = 220;
         public int value;
 
-        public FillHeigth(int value) {
+        public FillHeight(int value) {
             this.value = value;
         }
 

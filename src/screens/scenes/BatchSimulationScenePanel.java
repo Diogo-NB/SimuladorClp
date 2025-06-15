@@ -20,7 +20,7 @@ public class BatchSimulationScenePanel extends javax.swing.JPanel implements ISc
     private final Image backgroundImage;
 
     private final BatchSimulatorController controller;
-    private final BatchSimulatorController.FillHeigth tankFillHeightWrapper;
+    private final BatchSimulatorController.FillHeight tankFillHeightWrapper;
 
     private final PushButton startBt, stopBt;
     private final PushButton[] buttons;
@@ -34,12 +34,12 @@ public class BatchSimulationScenePanel extends javax.swing.JPanel implements ISc
         backgroundImage = new ImageIcon(getClass().getResource("/Assets/batch_bg.png")).getImage();
 
         controller = new BatchSimulatorController(this);
-        tankFillHeightWrapper = new BatchSimulatorController.FillHeigth(0);
+        tankFillHeightWrapper = new BatchSimulatorController.FillHeight(0);
 
         startBt = new PushButton("I0.0", InputType.NO);
         stopBt = new PushButton("I0.1", InputType.NC, PushButton.ButtonPalette.RED);
 
-        buttons = new PushButton[]{startBt, stopBt};
+        buttons = new PushButton[] { startBt, stopBt };
 
         runLed = new RedIndicator("Q1.0", RedIndicator.IndicatorType.LED);
         idleLed = new RedIndicator("Q1.1", RedIndicator.IndicatorType.LED);
@@ -52,8 +52,8 @@ public class BatchSimulationScenePanel extends javax.swing.JPanel implements ISc
         hiLevelIndicator = new RedIndicator("I1.0");
         loLevelIndicator = new RedIndicator("I1.1");
 
-        indicators = new RedIndicator[]{runLed, idleLed, fullLed, pump1Indicator, pump3Indicator, mixerIndicator,
-            hiLevelIndicator, loLevelIndicator};
+        indicators = new RedIndicator[] { runLed, idleLed, fullLed, pump1Indicator, pump3Indicator, mixerIndicator,
+                hiLevelIndicator, loLevelIndicator };
 
         initComponents();
     }
