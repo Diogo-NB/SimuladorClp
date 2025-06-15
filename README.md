@@ -17,8 +17,9 @@ Inspirado no funcionamento de CLPs convencionais, o simulador apresenta as funci
 - **ORN:** Função booleana OR entre o operando indicado negado e o valor do acumulador.
 - **TON:** Temporizador ON Delay (ativa após um intervalo de tempo definido).
 - **TOF:** Temporizador OFF Delay (desativa após um intervalo de tempo definido).
-- **T1, T2, T3...:** Referências aos temporizadores específicos.
-- **Q0.1, Q1.7, Q1.0 ...:** Referências a saídas do sistema.
+- **T1, T2, T3...:** Endereços dos temporizadores específicos.
+- **I0.0, I1.7, I1.0 ...:** Endereços das entradas do sistema.
+- **Q0.1, Q1.7, Q1.0 ...:** Endereços das saídas do sistema.
 - **CTU:** Contador crescente.
 - **CTD:** Contador decrescente.
 
@@ -67,7 +68,7 @@ Foram desenvolvidos três programas exemplos para demonstrar o uso do simulador,
 
 O projeto foi implementado em Java, utilizando o NetBeans como ambiente de desenvolvimento.
 
-# **Interface e Referências**
+# **Interface e Endereços**
 
 A interface interativa permite a manipulação simples de entradas e saídas.
 O projeto tem como referência o LogixPro, adaptado para o formato de Lista de Instrução.
