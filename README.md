@@ -17,7 +17,7 @@ Inspirado no funcionamento de CLPs convencionais, o simulador apresenta as funci
 - **ORN:** Função booleana OR entre o operando indicado negado e o valor do acumulador.
 - **TON:** Temporizador ON Delay (ativa após um intervalo de tempo definido).
 - **TOF:** Temporizador OFF Delay (desativa após um intervalo de tempo definido).
-- **T1, T2, T3...:** Endereços das temporizadores específicos.
+- **T1, T2, T3...:** Endereços dos temporizadores específicos.
 - **I0.0, I1.7, I1.0 ...:** Endereços das entradas do sistema.
 - **Q0.1, Q1.7, Q1.0 ...:** Endereços das saídas do sistema.
 - **CTU:** Contador crescente.
