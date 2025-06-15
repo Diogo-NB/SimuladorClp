@@ -12,9 +12,9 @@
     <import file="nbproject/build-impl.xml"/>
 
     <target name="-post-jar">
-        <jar destfile="${dist.dir}" update="true">
+        <jar destfile="${dist.dir}/${project.name}.jar" update="true">
             <manifest>
-                <attribute name="Implementation-Version" value="${project.version}"/>
+                <attribute name="Implementation-Version" value="${project.name}"/>
                 <attribute name="Implementation-Title" value="SimuladorClp"/>
             </manifest>
         </jar>
