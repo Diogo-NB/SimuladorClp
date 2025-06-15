@@ -134,8 +134,8 @@ public class HomePageController {
         List<String> lineList = homePage.saveLines(new ArrayList<>());
 
         HomePageModel.setInputs(InputActions.read(HomePageModel.getInputs()));
-        /* TODO - Investigar e consertar o bug de reset do output */
-        HomePageModel.setOutputs(OutputActions.resetOutputs(HomePageModel.getOutputs()));
+        /* TODO - Investigar se podemos realmente deixar isso aqui comentado */
+        // HomePageModel.setOutputs(OutputActions.resetOutputs(HomePageModel.getOutputs()));
         HomePageModel.setOutputs(
                 Interpreter.receiveLines(lineList, HomePageModel.getInputs(), HomePageModel.getOutputs(),
                         HomePageModel.getMemoryVariables()));
