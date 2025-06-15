@@ -19,8 +19,7 @@ public class BatchSimulatorController {
     private static final Map<LedType, Point> ledPositions = Map.of(
             LedType.RUN, new Point(46, 224),
             LedType.IDLE, new Point(46, 242),
-            LedType.FULL, new Point(46, 261)
-    );
+            LedType.FULL, new Point(46, 261));
 
     private final Map<LedType, Boolean> ledVisibility = new EnumMap<>(LedType.class);
 
@@ -137,14 +136,14 @@ public class BatchSimulatorController {
     public void stopFilling() {
         if (fillTimer != null && fillTimer.isRunning()) {
             fillTimer.stop();
-            System.out.println(">>> Parou apenas o enchimento");
+            // System.out.println(">>> Parou apenas o enchimento");
         }
     }
 
     public void stopDraining() {
         if (drainTimer != null && drainTimer.isRunning()) {
             drainTimer.stop();
-            System.out.println(">>> Parou apenas a drenagem");
+            // System.out.println(">>> Parou apenas a drenagem");
         }
     }
 

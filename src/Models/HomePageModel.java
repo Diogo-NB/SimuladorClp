@@ -1,23 +1,24 @@
 package Models;
 
+import ilcompiler.input.Input.InputType;
 import ilcompiler.memoryvariable.MemoryVariable;
 import java.util.HashMap;
 import java.util.Map;
 
 public class HomePageModel {
 
-    private static Map<String, Integer> inputsType = new HashMap<>();
+    private static Map<String, InputType> inputsType = new HashMap<>();
     private static Map<String, Boolean> inputs = new HashMap<>();
     private static Map<String, Boolean> outputs = new HashMap<>();
     private static Map<String, MemoryVariable> memoryVariables = new HashMap<>();
     private static ExecutionMode mode = ExecutionMode.IDLE;
     private static Integer color = 1;
 
-    public static Map<String, Integer> getInputsType() {
+    public static Map<String, InputType> getInputsType() {
         return inputsType;
     }
 
-    public static void setInputsType(Map<String, Integer> map) {
+    public static void setInputsType(Map<String, InputType> map) {
         inputsType = map;
     }
 
@@ -44,7 +45,6 @@ public class HomePageModel {
     public static void setMemoryVariables(Map<String, MemoryVariable> map) {
         memoryVariables = map;
     }
-
 
     public static Integer getColor() {
         return color;

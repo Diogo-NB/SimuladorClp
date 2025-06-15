@@ -31,4 +31,29 @@ public class Input {
     public String toString() {
         return "Input{" + "id=" + id + ", currentValue=" + currentValue + '}';
     }
+
+    public enum InputType {
+        SWITCH(0),
+        NO(1),
+        NC(2);
+
+        private final int value;
+
+        public int getValue() {
+            return value;
+        }
+
+        InputType(int value) {
+            this.value = value;
+        }
+
+        public static InputType fromValue(int value) {
+            for (InputType type : InputType.values()) {
+                if (type.value == value) {
+                    return type;
+                }
+            }
+            throw new IllegalArgumentException("Invalid InputType value: " + value);
+        }
+    }
 }

@@ -3,9 +3,11 @@ package screens.scenes;
 import java.util.Map;
 import javax.swing.ImageIcon;
 
+import ilcompiler.input.Input.InputType;
+
 public class DefaultScenePanel extends javax.swing.JPanel implements IScenePanel {
 
-    private ScenePanelInputEventListener inputListener;
+    private InputEventListener inputListener;
     private ImageIcon openSwitchIcon, closedSwitchIcon, buttonIcon, closedButtonIcon, openPiButtonIcon, piButtonIcon,
             offLedIcon, onLedIcon;
 
@@ -17,7 +19,7 @@ public class DefaultScenePanel extends javax.swing.JPanel implements IScenePanel
     }
 
     @Override
-    public void updateUIState(Map<String, Integer> inputsType, Map<String, Boolean> inputs,
+    public void updateUIState(Map<String, InputType> inputsType, Map<String, Boolean> inputs,
             Map<String, Boolean> outputs) {
         int iconWidth = outputLed1.getWidth();
         int iconHeight = outputLed1.getHeight();
@@ -65,16 +67,14 @@ public class DefaultScenePanel extends javax.swing.JPanel implements IScenePanel
         outputLed8.setIcon(getOutputIcon(outputs.get("Q0.7")));
     }
 
-    private ImageIcon getInputIcon(int inputType, boolean inputState) {
+    private ImageIcon getInputIcon(InputType inputType, boolean inputState) {
         return switch (inputType) {
-            case 0 ->
+            case SWITCH ->
                 inputState ? closedSwitchIcon : openSwitchIcon;
-            case 1 ->
+            case NO ->
                 inputState ? closedButtonIcon : buttonIcon;
-            case 2 ->
+            case NC ->
                 inputState ? piButtonIcon : openPiButtonIcon;
-            default ->
-                null;
         };
     }
 
@@ -83,7 +83,7 @@ public class DefaultScenePanel extends javax.swing.JPanel implements IScenePanel
     }
 
     @Override
-    public void setInputListener(ScenePanelInputEventListener listener) {
+    public void setInputListener(InputEventListener listener) {
         this.inputListener = listener;
     }
 
