@@ -19,7 +19,6 @@ public class BatchSimulatorController {
         this.panel = panel;
     }
 
-    // Desenhar o nível atual de preenchimento sem gap
     public void drawTankFill(Graphics2D g2d, int tankFillHeight) {
         int fillTop = TANK_Y_BASE - tankFillHeight;
         int fillHeight = tankFillHeight;
