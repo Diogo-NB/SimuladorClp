@@ -14,6 +14,7 @@
     <target name="-post-jar">
         <jar destfile="${dist.dir}/${project.name}.jar" update="true">
             <manifest>
+                <attribute name="Main-Class" value="SimuladorClp"/>
                 <attribute name="Implementation-Version" value="${project.name}"/>
                 <attribute name="Implementation-Title" value="SimuladorClp"/>
             </manifest>
