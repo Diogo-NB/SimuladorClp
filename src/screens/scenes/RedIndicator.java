@@ -13,7 +13,7 @@ public class RedIndicator extends JComponent {
     private final int size;
     private boolean active = false;
 
-    private final String outputKey;
+    private final String key;
 
     public enum IndicatorType {
         SENSOR,
@@ -24,8 +24,8 @@ public class RedIndicator extends JComponent {
         this(key, IndicatorType.SENSOR);
     }
 
-    public RedIndicator(String outputKey, IndicatorType type) {
-        this.outputKey = outputKey;
+    public RedIndicator(String key, IndicatorType type) {
+        this.key = key;
         this.type = type;
         this.size = type == IndicatorType.LED ? 20 : 10;
 
@@ -34,7 +34,7 @@ public class RedIndicator extends JComponent {
     }
 
     public String getKey() {
-        return outputKey;
+        return key;
     }
 
     public void setActive(boolean active) {
