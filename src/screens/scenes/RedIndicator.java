@@ -5,6 +5,7 @@ import java.awt.*;
 import java.awt.geom.RoundRectangle2D;
 
 public class RedIndicator extends JComponent {
+
     private final Color activeFill = new Color(200, 0, 0);
     private final Color inactiveFill = Color.BLACK;
     private final Color borderColor = new Color(150, 150, 150);

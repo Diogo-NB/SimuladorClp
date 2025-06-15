@@ -5,6 +5,7 @@ import java.awt.*;
 import screens.scenes.BatchSimulationScenePanel;
 
 public class BatchSimulatorController {
+
     private Timer fillTimer;
     private Timer drainTimer;
 
@@ -71,6 +72,7 @@ public class BatchSimulatorController {
     }
 
     public static class FillHeigth {
+
         public static final int MAX_VALUE = 220;
         public int value;
 
