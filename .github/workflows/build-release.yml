@@ -23,6 +23,6 @@ jobs:
       - name: Upload JAR to release
         uses: softprops/action-gh-release@v2
         with:
-          files: dist\SimuladorClp.jar
+          files: dist/SimuladorClp.jar
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
