@@ -30,6 +30,9 @@ public class BatchSimulatorController {
     }
 
     public void startFilling(FillHeigth fillHeight) {
+        
+        if (fillTimer != null && fillTimer.isRunning()) return;
+        
         fillTimer = new Timer(50, e -> {
             fillHeight.value += 2;
             if (fillHeight.value >= FillHeigth.MAX_VALUE) {
@@ -41,6 +44,8 @@ public class BatchSimulatorController {
     }
 
     public void startDraining(FillHeigth fillHeight) {
+        if (drainTimer != null && drainTimer.isRunning()) return;
+        
         drainTimer = new Timer(50, e -> {
             fillHeight.value -= 2;
             if (fillHeight.value <= 0) {
