@@ -1,7 +1,6 @@
 package screens;
 
 import screens.scenes.IScenePanel;
-import screens.scenes.ScenePanelInputEventListener;
 import screens.scenes.BatchSimulationScenePanel;
 import screens.scenes.DefaultScenePanel;
 import Controllers.HomePageController;
@@ -11,6 +10,7 @@ import ilcompiler.edit.Colors;
 import ilcompiler.edit.Language;
 import javax.swing.ImageIcon;
 import ilcompiler.input.InputActions;
+import ilcompiler.input.Input.InputType;
 import ilcompiler.memoryvariable.MemoryVariable;
 import ilcompiler.output.OutputActions;
 import ilcompiler.uppercasedocumentfilter.UpperCaseDocumentFilter;
@@ -37,8 +37,7 @@ import javax.swing.Timer;
 import javax.swing.text.AbstractDocument;
 import javax.swing.text.BadLocationException;
 import screens.scenes.ScenesEnum;
-import static screens.scenes.ScenesEnum.BATCH_SIMULATION;
-import static screens.scenes.ScenesEnum.DEFAULT;
+import screens.scenes.InputEventListener;
 
 public final class HomePg extends javax.swing.JFrame {
 
@@ -50,7 +49,7 @@ public final class HomePg extends javax.swing.JFrame {
 
     private IScenePanel currentScenePanel;
     private ScenesEnum currentScene = ScenesEnum.DEFAULT;
-    private ScenePanelInputEventListener sceneInputEventListener;
+    private InputEventListener sceneInputEventListener;
 
     @SuppressWarnings("unchecked")
     public HomePg() {
@@ -95,11 +94,9 @@ public final class HomePg extends javax.swing.JFrame {
 
         HomePageModel.setInputsType(InputActions.createType(new HashMap<>()));
         HomePageModel.setInputs(InputActions.create(new HashMap<>()));
-        System.out.println("HashMap de entradas criado:" + HomePageModel.getInputs());
         HomePageModel.setOutputs(OutputActions.create(HomePageModel.getOutputs()));
-        System.out.println("HashMap de saídas criado:" + HomePageModel.getOutputs());
 
-        sceneInputEventListener = new ScenePanelInputEventListener() {
+        sceneInputEventListener = new InputEventListener() {
             @Override
             public void onPressed(String inputKey, MouseEvent evt) {
                 handleInputButtonPressed(inputKey, evt);
@@ -127,37 +124,48 @@ public final class HomePg extends javax.swing.JFrame {
     }
 
     private void handleInputButtonPressed(String inputKey, java.awt.event.MouseEvent evt) {
+        var inputs = HomePageModel.getInputs();
+        var types = HomePageModel.getInputsType();
+        InputType inputType = types.get(inputKey);
+
         if (evt.getButton() == java.awt.event.MouseEvent.BUTTON1) {
-            switch (HomePageModel.getInputsType().getOrDefault(inputKey, 0)) {
-                case 0 ->
-                    HomePageModel.getInputs().put(inputKey, !HomePageModel.getInputs().get(inputKey));
-                case 1 ->
-                    HomePageModel.getInputs().put(inputKey, true);
-                case 2 ->
-                    HomePageModel.getInputs().put(inputKey, false);
+            switch (inputType) {
+                case SWITCH ->
+                    inputs.put(inputKey, !inputs.get(inputKey));
+                case NO ->
+                    inputs.put(inputKey, true);
+                case NC ->
+                    inputs.put(inputKey, false);
             }
             updateSceneUI();
         } else if (evt.getButton() == java.awt.event.MouseEvent.BUTTON3) {
-            int val = HomePageModel.getInputsType().get(inputKey) + 1;
-            if (val >= 3) {
+            int val = inputType.getValue() + 1;
+            if (val >= InputType.values().length) {
                 val = 0;
             }
-            HomePageModel.getInputsType().put(inputKey, val);
-            HomePageModel.getInputs().put(inputKey, (val == 2));
+            InputType newInputType = InputType.fromValue(val);
+            types.put(inputKey, newInputType);
+            inputs.put(inputKey, newInputType == InputType.NC);
             updateSceneUI();
         }
     }
 
-    private void handleInputButtonReleased(String key, java.awt.event.MouseEvent evt) {
-        if (evt.getButton() == java.awt.event.MouseEvent.BUTTON1) {
-            int type = HomePageModel.getInputsType().get(key);
-            if (type == 1) {
-                HomePageModel.getInputs().put(key, false);
-            } else if (type == 2) {
-                HomePageModel.getInputs().put(key, true);
-            }
-            updateSceneUI();
+    private void handleInputButtonReleased(String inputKey, java.awt.event.MouseEvent evt) {
+
+        if (evt.getButton() != java.awt.event.MouseEvent.BUTTON1) {
+            return;
         }
+
+        var inputs = HomePageModel.getInputs();
+        InputType inputType = HomePageModel.getInputsType().get(inputKey);
+
+        if (inputType == InputType.NO) {
+            inputs.put(inputKey, false);
+        } else if (inputType == InputType.NC) {
+            inputs.put(inputKey, true);
+        }
+
+        updateSceneUI();
     }
 
     public void setColor(Boolean value, JLabel label) {
@@ -216,9 +224,9 @@ public final class HomePg extends javax.swing.JFrame {
     public void updateMode() {
         ExecutionMode mode = HomePageModel.getMode();
 
-        System.out.println("Modo atual: " + mode);
+        // System.out.println("Modo atual: " + mode);
 
-        boolean isRunningMode = HomePageModel.getMode() == ExecutionMode.RUNNING;
+        boolean isRunningMode = mode == ExecutionMode.RUNNING;
 
         refreshBt.setEnabled(!isRunningMode);
         simulationsComboBox.setEnabled(!isRunningMode);
@@ -299,7 +307,7 @@ public final class HomePg extends javax.swing.JFrame {
             }
         }
 
-        System.out.println("Lista de linhas: " + lineList);
+        // System.out.println("Lista de linhas: " + lineList);
         return lineList;
     }
 
@@ -916,7 +924,7 @@ public final class HomePg extends javax.swing.JFrame {
 
     private void startBtActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_startBtActionPerformed
         if (!HomePageModel.isRunning()) {
-            System.out.println("\nBotão run clicado!");
+            // System.out.println("\nBotão run clicado!");
             HomePageModel.setMode(ExecutionMode.RUNNING);
 
             Integer time = controller.parseDelay(delaySpinner.getValue().toString());
@@ -927,14 +935,14 @@ public final class HomePg extends javax.swing.JFrame {
                 return;
             }
 
-            System.out.println("Tempo de delay: " + time + "\n");
+            // System.out.println("Tempo de delay: " + time + "\n");
 
             Timer timer = new Timer(time, e -> controller.runCycle(e));
             timer.setInitialDelay(0);
             timer.start();
 
         } else {
-            System.out.println("\nBotão stop clicado!");
+            // System.out.println("\nBotão stop clicado!");
             HomePageModel.setMode(ExecutionMode.STOPPED);
             controller.stopTimers();
             updateMemoryVariables();

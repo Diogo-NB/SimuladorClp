@@ -49,7 +49,7 @@ public class Interpreter {
         // Itera lista de linhas
         for (int i = 0; i < lineList.size(); i++) {
             Integer currentLine = i + 1;
-            System.out.println("\n-> Linha: " + currentLine.toString());
+            // System.out.println("\n-> Linha: " + currentLine.toString());
 
             // Ignora linhas vazias
             if (!lineList.get(i).isBlank()) {
@@ -80,8 +80,8 @@ public class Interpreter {
 
                 variables.add(variable);
 
-                System.out.println("Operador: " + operator);
-                System.out.println("Variável: " + variables);
+                // System.out.println("Operador: " + operator);
+                // System.out.println("Variável: " + variables);
 
                 outputs = executeInstruction(operator, variables, inputs, outputs, memoryVariables);
             }
@@ -105,7 +105,7 @@ public class Interpreter {
         for (int i = 0; i < validOperators.size(); i++) {
             if (!isValid && validOperators.get(i).equals(operator)) {
                 isValid = true;
-                System.out.println("Operador válido!");
+                // System.out.println("Operador válido!");
             }
         }
         return isValid;
@@ -146,7 +146,7 @@ public class Interpreter {
 
         if (inputs.get(variables.get(0)) == null) {
             isValid = false;
-            System.out.println("Não é uma entrada válida!");
+            // System.out.println("Não é uma entrada válida!");
         }
         return isValid;
     }
@@ -157,7 +157,7 @@ public class Interpreter {
 
         if (outputs.get(variables.get(0)) == null) {
             isValid = false;
-            System.out.println("Saida invalida!");
+            // System.out.println("Saida invalida!");
         }
         return isValid;
     }
@@ -169,7 +169,7 @@ public class Interpreter {
 
         if (memoryVariables.get(variables.get(0)) == null) {
             isValid = false;
-            System.out.println("Não é uma memória válida!");
+            // System.out.println("Não é uma memória válida!");
         }
         return isValid;
     }
@@ -177,7 +177,7 @@ public class Interpreter {
     // Executa instruções
     public static Map executeInstruction(String operator, ArrayList<String> variables, Map<String, Boolean> inputs,
             Map<String, Boolean> outputs, Map<String, MemoryVariable> memoryVariables) {
-        System.out.println(variables.get(0));
+        // System.out.println(variables.get(0));
         // Caso operador seja válido e tenhamos como variável uma entrada ou uma saida
         if (operatorIsValid(operator) && (inputIsValid(variables, inputs) || outputIsValid(variables, outputs))) {
 
@@ -274,9 +274,9 @@ public class Interpreter {
                     }
                 }
 
-                System.out.println("Acumulador: " + accumulator);
-                System.out.println("Entradas: " + inputs);
-                System.out.println("Saidas: " + outputs);
+                // System.out.println("Acumulador: " + accumulator);
+                // System.out.println("Entradas: " + inputs);
+                // System.out.println("Saidas: " + outputs);
             } else {
                 HomePg.showErrorMessage(
                         "Acumulador vazio! Carregue inicialmente a variável desejada para o acumulador com as funções LD ou LDN!");
@@ -404,10 +404,10 @@ public class Interpreter {
                         }
                     }
                 }
-                System.out.println("Acumulador: " + accumulator);
-                System.out.println("Entradas: " + inputs);
-                System.out.println("Saidas: " + outputs);
-                System.out.println("Variáveis de memória: " + memoryVariables);
+                // System.out.println("Acumulador: " + accumulator);
+                // System.out.println("Entradas: " + inputs);
+                // System.out.println("Saidas: " + outputs);
+                // System.out.println("Variáveis de memória: " + memoryVariables);
                 // Outras operações
             } else {
                 // Memória precisa existir
@@ -448,10 +448,10 @@ public class Interpreter {
                                 : (accumulator || !memoryVariables.get(variables.get(0)).currentValue);
                     }
 
-                    System.out.println(accumulator);
-                    System.out.println(inputs);
-                    System.out.println(outputs);
-                    System.out.println(memoryVariables);
+                    // System.out.println(accumulator);
+                    // System.out.println(inputs);
+                    // System.out.println(outputs);
+                    // System.out.println(memoryVariables);
                 } else {
                     HomePg.showErrorMessage("Sintaxe incorreta! Variável " + variables.get(0) + " não existe!");
                 }
@@ -460,7 +460,7 @@ public class Interpreter {
             HomePg.showErrorMessage("Sintaxe incorreta! Operador " + operator + " não existe!");
         }
 
-        System.out.println(accumulator);
+        // System.out.println(accumulator);
         return outputs;
     }
 }
