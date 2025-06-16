@@ -1,7 +1,11 @@
 package screens;
 
+import Models.HomePageModel;
+import ilcompiler.memoryvariable.MemoryVariable;
 import java.awt.Color;
 import java.awt.Component;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -25,7 +29,7 @@ public class ListaDeVariaveisPg extends javax.swing.JFrame {
     }
 
     private void setupVariablesTable() {
-        String[] columns = {"ID", "Estado"}; // Colunas da tabela
+        String[] columns = {"ID", "CurrentValue", "Counter", "MaxTimer", "EndTimer"}; // Colunas da tabela
 
         tableModel = new DefaultTableModel(columns, 0) {
             @Override
@@ -66,6 +70,29 @@ public class ListaDeVariaveisPg extends javax.swing.JFrame {
         }
         for(Map.Entry<String, Boolean> entry : outputs.entrySet()){
             tableModel.addRow(new Object[]{entry.getKey(), entry.getValue()}); // Adiciona ID e Estado dos Outputs
+        }
+        
+        for (Map.Entry<String, MemoryVariable> entry : HomePageModel.getMemoryVariables().entrySet()) {
+            switch (entry.getKey().charAt(0)) {
+                case 'M' -> {
+                    // do nothing
+                }
+                case 'T' -> {
+                    tableModel.addRow(new Object[]{entry.getKey(), entry.getValue().currentValue, entry.getValue().counter, entry.getValue().maxTimer, entry.getValue().endTimer});
+                    
+                    /*line = entry.getKey() + " = " + entry.getValue().currentValue + ", "
+                            + entry.getValue().counter + ", " + entry.getValue().maxTimer + ", "
+                            + entry.getValue().endTimer + "\n";*/
+                }
+                case 'C' -> {
+                    tableModel.addRow(new Object[]{entry.getKey(), "", entry.getValue().counter, entry.getValue().maxTimer, entry.getValue().endTimer});
+
+                    /*line = entry.getKey() + " = " + entry.getValue().counter + ", " + entry.getValue().maxTimer
+                            + ", " + entry.getValue().endTimer + "\n";*/
+                }
+            }
+            
+            
         }
     }
 
