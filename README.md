@@ -1,78 +1,117 @@
-# Simulador de CLP com Interface Interativa
+# 🤖 Simulador de CLP com Interface Interativa (Instruction List - IL)
 
-O projeto desenvolvido consiste na criação de um ambiente de simulação para um Controlador Lógico Programável (CLP), possibilitando a operação de entradas e saídas de forma interativa.
-Inspirado no funcionamento de CLPs convencionais, o simulador apresenta as funcionalidades básicas.
+📚 **Disciplina:** Controladores Lógicos Programáveis (CLP)
 
-![Interface do programa com simulação](/docs/simulation_interface.png)
+🎓 **Curso:** Engenharia de Computação
 
-# **Operações disponíveis da lista de instruções**
+🏫 **Instituição:** IFTM - Instituto Federal do Triângulo Mineiro
 
-- **LD:** Carrega um valor para o acumulador.
-- **LDN:** Carrega um valor negado para o acumulador.
-- **ST:** Armazena o conteúdo do acumulador no local especificado.
-- **STN:** Armazena o conteúdo do acumulador negado no local especificado.
-- **AND:** Função booleana AND entre o operando indicado e o valor do acumulador.
-- **ANDN:** Função booleana AND entre o operando indicado negado e o valor do acumulador.
-- **OR:** Função booleana OR entre o operando indicado e o valor do acumulador.
-- **ORN:** Função booleana OR entre o operando indicado negado e o valor do acumulador.
-- **TON:** Temporizador ON Delay (ativa após um intervalo de tempo definido).
-- **TOF:** Temporizador OFF Delay (desativa após um intervalo de tempo definido).
-- **T1, T2, T3...:** Endereços dos temporizadores específicos.
-- **I0.0, I1.7, I1.0 ...:** Endereços das entradas do sistema.
-- **Q0.1, Q1.7, Q1.0 ...:** Endereços das saídas do sistema.
-- **CTU:** Contador crescente.
-- **CTD:** Contador decrescente.
+📍 **Campus:** Uberaba - Parque Tecnológico
 
-# **Memórias Booleanas Locais**
+👨‍🏫 **Professor:** Robson Rodrigues
 
-Disponíveis no mínimo 32 memórias booleanas.
+---
 
-# **Temporizadores**
+## 👥 Alunos
 
-- 32 Temporizadores com base de tempo em 0.1s.
-- ON DELAY: Retardo na ativação.
-- OFF DELAY: Retardo na desativação.
+* [Yuri David Silva Duarte](https://github.com/Boyuridod)
+* [Diogo Nunes Batista](https://github.com/Diogo-NB)
+* [José Ferreira Arantes Lopes](https://github.com/JoseArantes83)
+* [Vinícius Gabriel Ribeiro Barbosa](https://github.com/ViniciusGRBarbosa)
 
-# **Contadores**
+---
 
-- 32 contadores Progressivos (UP) ou Regressivos (DOWN).
+## 📌 Descrição Geral do Projeto
 
-# **Ciclo de Varredura**
+O projeto consiste na criação de um **ambiente de simulação de um CLP (Controlador Lógico Programável)** no computador, com **interface interativa** para operar as entradas e saídas disponíveis no simulador de processo industrial.
 
-- Simula o ciclo padrão de operação de um CLP, com as seguintes etapas:
-- Inicialização do sistema.
-- Leitura de entradas e armazenamento na memória imagem.
-- Processamento do programa do usuário e atualização da memória imagem de saída.
-- Atualização das saídas físicas.
-- Repetição do ciclo.
+O ambiente deve seguir o ciclo de funcionamento de um CLP real e **pode se inspirar em simuladores existentes, como o LogixPro**.
 
-# **Modos de Operação**
+O projeto **parte da base desenvolvida pelos alunos do semestre 2024/02**, disponível neste repositório:
+🔗 [Repositório base no GitHub](https://github.com/IasminPieraco/Trabalho-Final-CLP)
 
-- **PROGRAM:** Permite a edição do programa lógico, sem leitura/escrita nas saídas físicas.
-- **STOP:** Interrompe o programa lógico.
-- **RUN:** Executa o programa lógico criado pelo usuário.
+---
 
-# **Armazenamento e Carregamento de Programas**
+## 🛠️ Funcionalidades Obrigatórias
 
-Possibilidade de salvar e carregar programas escritos previamente.
+## 📝 Lista de Instruções Suportadas (Instruction List - IL)
 
-# **Linguagem de Programação**
+* **LD:** Load – Carrega um valor para o acumulador.
+* **LDN:** Load Negado – Carrega um valor negado para o acumulador.
+* **ST:** Store – Armazena o conteúdo do acumulador no local especificado.
+* **STN:** Store Negado – Armazena o conteúdo negado do acumulador no local especificado.
+* **AND:** AND – Função booleana AND entre o operando indicado e o valor do acumulador.
+* **ANDN:** AND Negado – Função booleana AND entre o operando indicado negado e o valor do acumulador.
+* **OR:** OR – Função booleana OR entre o operando indicado e o valor do acumulador.
+* **ORN:** OR Negado – Função booleana OR entre o operando indicado negado e o valor do acumulador.
+* **TON:** Temporizador ON Delay – Ativa após um intervalo de tempo definido.
+* **TOF:** Temporizador OFF Delay – Desativa após um intervalo de tempo definido.
+* **CTU:** Count Up – Contador crescente.
+* **CTD:** Count Down – Contador decrescente.
+* **T1, T2, T3...:** Temporizadores – Referências aos temporizadores específicos.
+* **I0.0, I1.7, I1.0...:** Entradas – Endereços das entradas do sistema.
+* **Q0.1, Q1.7, Q1.0...:** Saídas – Endereços das saídas do sistema.
+* **M1, M2, M3...:** Memórias – Memórias booleanas locais disponíveis.
 
-O simulador utiliza a Lista de Instrução (IL) para a lógica do CLP.
+---
 
-# **Exemplos de Uso**
+### ✅ Data Table (Tabela de Variáveis)
 
-Foram desenvolvidos três programas exemplos para demonstrar o uso do simulador, cobrindo todas as funcionalidades, como operações lógicas, temporizadores e contadores.
+* Uma ferramenta para visualizar todas as variáveis do sistema
+  *(Inspirado na Data Table do LogixPro)*
 
-# **Tecnologia Utilizada**
+### ✅ Modos de Operação
 
-O projeto foi implementado em Java, utilizando o NetBeans como ambiente de desenvolvimento.
+* 🛠️ **PROGRAM:** Permite edição do programa lógico, sem alterar saídas físicas.
+* ⏸️ **STOP:** Programa do usuário parado.
+* ▶️ **RUN:** Executa o programa lógico criado.
 
-# **Interface e Endereços**
+### ✅ Ciclo de Varredura do CLP Simulado
 
-A interface interativa permite a manipulação simples de entradas e saídas.
-O projeto tem como referência o LogixPro, adaptado para o formato de Lista de Instrução.
+1. Inicializar o sistema
+2. Ler entradas e armazenar na memória imagem
+3. Processar o programa do usuário
+4. Atualizar as saídas com base na memória imagem de saída
+5. Retornar ao passo 2
 
-# **Youtube**
+### ✅ Salvamento e Carregamento de Programas
 
-Uma breve explicação do funcionamento do aplicativo: <https://www.youtube.com/watch?v=Qdy83gkzqz0>
+* Possibilidade de **salvar e carregar programas anteriores**
+
+### ✅ Linguagem de Programação da Lógica do CLP
+
+* **Instruction List (IL)**
+
+### ✅ Exemplos de Programas
+
+* Pelo menos **3 exemplos diferentes**, mostrando uso de:
+
+  * Operações lógicas
+  * Temporizadores
+  * Contadores
+    *(Não é necessário ter todas as funções no mesmo exemplo)*
+
+### ✅ Instalador para Windows
+
+* O simulador deve dispor de um **instalador executável (.exe) para ambiente Windows**
+
+---
+
+## 🎨 Interface Interativa - Preview
+
+![Interface do Simulador](./docs/simulation_interface.png)
+
+---
+
+## ▶️ Vídeo de Demonstração
+
+📺 Veja o simulador funcionando:
+👉 [Assista no YouTube](link aqui)
+
+---
+
+## 📚 Referências
+
+* Projeto base: [https://github.com/IasminPieraco/Trabalho-Final-CLP](https://github.com/IasminPieraco/Trabalho-Final-CLP)
+* LogixPro Simulator: Referência visual e de comportamento de CLPs
+* Documentação Java (Swing, IO, Threads)
