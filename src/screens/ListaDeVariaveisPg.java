@@ -4,13 +4,17 @@ import Models.HomePageModel;
 import ilcompiler.memoryvariable.MemoryVariable;
 import java.awt.Color;
 import java.awt.Component;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
-import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
+import java.util.List;
+import java.util.ArrayList;
+import javax.swing.RowSorter;
+import javax.swing.SortOrder;
+import java.util.Map; // Para Map em updateDataTable
 
 public class ListaDeVariaveisPg extends javax.swing.JFrame {
 
@@ -39,7 +43,16 @@ public class ListaDeVariaveisPg extends javax.swing.JFrame {
         };
 
         variablesTable = new JTable(tableModel);
+        
+        TableRowSorter<TableModel> sorter = new TableRowSorter<>(tableModel);
+        variablesTable.setRowSorter(sorter);
 
+        List<RowSorter.SortKey> sortKeys = new ArrayList<>();
+        // A coluna 0 é o "ID"
+        sortKeys.add(new RowSorter.SortKey(0, SortOrder.ASCENDING));
+        sorter.setSortKeys(sortKeys);
+        sorter.sort();
+        
         // Renderizador para colorir o estado (verde para TRUE, vermelho para FALSE)
         variablesTable.setDefaultRenderer(Object.class, new TableCellRenderer() {
             private final DefaultTableCellRenderer DEFAULT_RENDERER = new DefaultTableCellRenderer();
@@ -74,25 +87,15 @@ public class ListaDeVariaveisPg extends javax.swing.JFrame {
         
         for (Map.Entry<String, MemoryVariable> entry : HomePageModel.getMemoryVariables().entrySet()) {
             switch (entry.getKey().charAt(0)) {
-                case 'M' -> {
-                    // do nothing
-                }
                 case 'T' -> {
-                    tableModel.addRow(new Object[]{entry.getKey(), entry.getValue().currentValue, entry.getValue().counter, entry.getValue().maxTimer, entry.getValue().endTimer});
-                    
-                    /*line = entry.getKey() + " = " + entry.getValue().currentValue + ", "
-                            + entry.getValue().counter + ", " + entry.getValue().maxTimer + ", "
-                            + entry.getValue().endTimer + "\n";*/
+                    tableModel.addRow(new Object[]{entry.getKey(), entry.getValue().currentValue, 
+                        entry.getValue().counter, entry.getValue().maxTimer, entry.getValue().endTimer});
                 }
                 case 'C' -> {
-                    tableModel.addRow(new Object[]{entry.getKey(), "", entry.getValue().counter, entry.getValue().maxTimer, entry.getValue().endTimer});
-
-                    /*line = entry.getKey() + " = " + entry.getValue().counter + ", " + entry.getValue().maxTimer
-                            + ", " + entry.getValue().endTimer + "\n";*/
+                    tableModel.addRow(new Object[]{entry.getKey(), "", entry.getValue().counter, 
+                        entry.getValue().maxTimer, entry.getValue().endTimer});
                 }
             }
-            
-            
         }
     }
 
