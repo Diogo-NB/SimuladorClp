@@ -37,20 +37,23 @@ public class HomePageController {
         stopLabel.setHorizontalAlignment(SwingConstants.CENTER);
     }
 
-    public static void updateTimerLabels(List<MemoryVariable> tVariables, List<JLabel> timerLabels, List<JLabel> currentLabels, List<JLabel> stopLabels) {
+    public static void updateTimerLabels(List<MemoryVariable> tVariables, List<JLabel> timerLabels,
+            List<JLabel> currentLabels, List<JLabel> stopLabels) {
         for (int i = 0; i < tVariables.size(); i++) {
             updateLabels(tVariables.get(i), timerLabels.get(i), currentLabels.get(i), stopLabels.get(i));
         }
     }
 
-    public static void updateCounterLabels(List<MemoryVariable> cVariables, List<JLabel> counterLabels, List<JLabel> currentLabels, List<JLabel> stopLabels) {
+    public static void updateCounterLabels(List<MemoryVariable> cVariables, List<JLabel> counterLabels,
+            List<JLabel> currentLabels, List<JLabel> stopLabels) {
         for (int i = 0; i < cVariables.size(); i++) {
             updateLabels(cVariables.get(i), counterLabels.get(i), currentLabels.get(i), stopLabels.get(i));
 
         }
     }
 
-    // -------------------- Função para Ações de Arquivar Arquivo --------------------
+    // -------------------- Função para Ações de Arquivar Arquivo
+    // --------------------
     public static void handleFileArchiveAction(
             JComboBox<String> arquivarComboBox,
             JTextArea codigoCampTextArea,
@@ -79,7 +82,7 @@ public class HomePageController {
                     codigoCampTextArea.append("\n");
                 }
             } catch (IOException ex) {
-                System.out.println("Erro ao carregar/salvar arquivo: " + ex.getMessage());
+                // System.out.println("Erro ao carregar/salvar arquivo: " + ex.getMessage());
                 ex.printStackTrace();
             }
             arquivarComboBox.setSelectedIndex(0);
@@ -103,13 +106,14 @@ public class HomePageController {
             try {
                 Save.save(dir + "\\" + filename, memory);
             } catch (IOException ex) {
-                System.out.println("Erro: " + ex.getMessage());
+                // System.out.println("Erro: " + ex.getMessage());
                 ex.printStackTrace();
             }
         }
     }
 
-    // -------------------- Funções para Controle do Ciclo e Timers --------------------
+    // -------------------- Funções para Controle do Ciclo e Timers
+    // --------------------
     public Integer parseDelay(String delayStr) {
         if (delayStr == null || delayStr.isBlank()) {
             return 0;
@@ -130,10 +134,11 @@ public class HomePageController {
         List<String> lineList = homePage.saveLines(new ArrayList<>());
 
         HomePageModel.setInputs(InputActions.read(HomePageModel.getInputs()));
-        HomePageModel.setOutputs(OutputActions.resetOutputs(HomePageModel.getOutputs()));
+        /* TODO - Investigar se podemos realmente deixar isso aqui comentado */
+        // HomePageModel.setOutputs(OutputActions.resetOutputs(HomePageModel.getOutputs()));
         HomePageModel.setOutputs(
-                Interpreter.receiveLines(lineList, HomePageModel.getInputs(), HomePageModel.getOutputs(), HomePageModel.getMemoryVariables())
-        );
+                Interpreter.receiveLines(lineList, HomePageModel.getInputs(), HomePageModel.getOutputs(),
+                        HomePageModel.getMemoryVariables()));
 
         updateTimersState();
 
@@ -176,6 +181,14 @@ public class HomePageController {
         for (Map.Entry<String, MemoryVariable> variable : HomePageModel.getMemoryVariables().entrySet()) {
             if (variable.getKey().charAt(0) == 'T') {
                 variable.getValue().timer.stop();
+            }
+        }
+    }
+
+    public void resetTimers() {
+        for (Map.Entry<String, MemoryVariable> variable : HomePageModel.getMemoryVariables().entrySet()) {
+            if (variable.getKey().charAt(0) == 'T') {
+                variable.getValue().counter = 0;
             }
         }
     }

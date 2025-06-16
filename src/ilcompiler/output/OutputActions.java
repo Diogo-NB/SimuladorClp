@@ -11,10 +11,10 @@ public class OutputActions {
 
     static {
         for (int i = 0; i <= 7; i++) {
-            OUTPUT_IDS.add("O1." + i);
+            OUTPUT_IDS.add("Q1." + i);
         }
         for (int i = 0; i <= 7; i++) {
-            OUTPUT_IDS.add("O0." + i);
+            OUTPUT_IDS.add("Q0." + i);
         }
     }
 
@@ -26,23 +26,10 @@ public class OutputActions {
         return outputs;
     }
 
-    // "Limpa" values do hash de saída
     public static Map<String, Boolean> resetOutputs(Map<String, Boolean> outputs) {
         for (String id : OUTPUT_IDS) {
             outputs.put(id, false);
         }
         return outputs;
-    }
-
-    // Converte para inteiro considerando O1.7 ... O1.0 e O0.7 ... O0.0 como bits 15..0
-    public static int convertValueWrite(Map<String, Boolean> outputs) {
-        StringBuilder binaryString = new StringBuilder();
-
-        for (String id : OUTPUT_IDS) {
-            boolean bit = outputs.getOrDefault(id, false);
-            binaryString.append(bit ? '1' : '0');
-        }
-
-        return Integer.parseInt(binaryString.toString(), 2);
     }
 }

@@ -6,5 +6,5 @@ public class SimuladorClp {
         HomePg tela = new HomePg();
         tela.setVisible(true);
     }
-    
+
 }

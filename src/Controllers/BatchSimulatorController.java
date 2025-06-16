@@ -2,58 +2,51 @@ package Controllers;
 
 import javax.swing.*;
 import java.awt.*;
+import screens.scenes.BatchSimulationScenePanel;
 
 public class BatchSimulatorController {
 
     private Timer fillTimer;
     private Timer drainTimer;
 
-    public void drawTankFill(Graphics2D g2d, int tankX, int tankYBase, int tankWidth, int tankMaxHeight, int tankFillHeight) {
-        int gapX = tankX + 109;
-        int gapWidth = 82;
-        int fillTop = tankYBase - tankFillHeight;
-        int fillHeight = tankFillHeight;
-        int ignoreLimit = 23;
+    private static final int TANK_X = 178;
+    private static final int TANK_Y_BASE = 330;
+    private static final int TANK_WIDTH = 321;
 
-        g2d.setColor(Color.YELLOW);
+    private final BatchSimulationScenePanel panel;
 
-        if (tankFillHeight <= ignoreLimit) {
-            g2d.fillRect(tankX, fillTop, gapX - tankX, fillHeight); // esquerda
-            int rightX = gapX + gapWidth;
-            int rightWidth = (tankX + tankWidth) - rightX;
-            g2d.fillRect(rightX, fillTop, rightWidth, fillHeight); // direita
-        } else {
-            int bottomFillHeight = ignoreLimit;
-            int bottomY = tankYBase - bottomFillHeight;
-            g2d.fillRect(tankX, bottomY, gapX - tankX, bottomFillHeight); // esquerda
-            int rightX = gapX + gapWidth;
-            int rightWidth = (tankX + tankWidth) - rightX;
-            g2d.fillRect(rightX, bottomY, rightWidth, bottomFillHeight); // direita
-
-            int topFillHeight = tankFillHeight - ignoreLimit;
-            int topY = fillTop;
-            g2d.fillRect(tankX, topY, tankWidth, topFillHeight);
-        }
+    public BatchSimulatorController(BatchSimulationScenePanel panel) {
+        this.panel = panel;
     }
 
-    public void startFillAnimation(JPanel panel, IntWrapper fillHeight, int maxHeight, Runnable onComplete) {
+    public void drawTankFill(Graphics2D g2d, int tankFillHeight) {
+        int fillTop = TANK_Y_BASE - tankFillHeight;
+        int fillHeight = tankFillHeight;
+
+        g2d.setColor(new Color(255, 255, 0, 200));
+
+        g2d.fillRect(TANK_X, fillTop, TANK_WIDTH, fillHeight);
+    }
+
+    public void startFilling(FillHeight fillHeight) {
+
+        if (fillTimer != null && fillTimer.isRunning())
+            return;
+
         fillTimer = new Timer(50, e -> {
             fillHeight.value += 2;
-            if (fillHeight.value >= maxHeight) {
-                fillHeight.value = maxHeight;
-                fillTimer.stop();
-
-                // Aguarda 2s e chama o esvaziamento
-                Timer waitTimer = new Timer(2000, evt -> onComplete.run());
-                waitTimer.setRepeats(false);
-                waitTimer.start();
+            if (fillHeight.value >= FillHeight.MAX_VALUE) {
+                fillHeight.value = FillHeight.MAX_VALUE;
             }
             panel.repaint();
         });
         fillTimer.start();
     }
 
-    public void startDrainAnimation(JPanel panel, IntWrapper fillHeight) {
+    public void startDraining(FillHeight fillHeight) {
+        if (drainTimer != null && drainTimer.isRunning())
+            return;
+
         drainTimer = new Timer(50, e -> {
             fillHeight.value -= 2;
             if (fillHeight.value <= 0) {
@@ -65,13 +58,46 @@ public class BatchSimulatorController {
         drainTimer.start();
     }
 
-    // Classe simples para encapsular um inteiro mutável (por referência)
-    public static class IntWrapper {
+    public void stopFilling() {
+        if (fillTimer != null && fillTimer.isRunning()) {
+            fillTimer.stop();
+            // System.out.println(">>> Parou apenas o enchimento");
+        }
+    }
 
+    public void stopDraining() {
+        if (drainTimer != null && drainTimer.isRunning()) {
+            drainTimer.stop();
+            // System.out.println(">>> Parou apenas a drenagem");
+        }
+    }
+
+    public void stopAll() {
+        stopFilling();
+        stopDraining();
+    }
+
+    public static class FillHeight {
+
+        public static final int MAX_VALUE = 220;
         public int value;
 
-        public IntWrapper(int value) {
+        public FillHeight(int value) {
             this.value = value;
         }
+
+        public boolean isAtHighLevel() {
+            return value >= MAX_VALUE;
+        }
+
+        public boolean isAtLowLevel() {
+            return value >= 180;
+        }
+    }
+
+    public enum LedType {
+        RUN,
+        IDLE,
+        FULL
     }
 }

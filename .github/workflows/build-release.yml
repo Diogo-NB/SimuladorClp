@@ -1,0 +1,28 @@
+name: Java Build CI
+
+on:
+  release:
+    types: [created]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up JDK 22
+        uses: actions/setup-java@v4
+        with:
+          java-version: "22"
+          distribution: "temurin"
+
+      - name: Build with Ant
+        run: ant -noinput -Dplatforms.Oracle_OpenJDK_22.0.2_9.home=$JAVA_HOME -buildfile build.xml
+
+      - name: Upload JAR to release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: dist/SimuladorClp.jar
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

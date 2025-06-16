@@ -2,6 +2,8 @@ package ilcompiler.input;
 
 import java.util.*;
 
+import ilcompiler.input.Input.InputType;
+
 public class InputActions {
 
     private static final List<String> INPUT_IDS = new ArrayList<>();
@@ -23,9 +25,9 @@ public class InputActions {
         return inputs;
     }
 
-    public static Map<String, Integer> createType(Map<String, Integer> inputsType) {
+    public static Map<String, InputType> createType(Map<String, InputType> inputsType) {
         for (String id : INPUT_IDS) {
-            inputsType.put(id, 0);
+            inputsType.put(id, InputType.SWITCH);
         }
         return inputsType;
     }
