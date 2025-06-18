@@ -266,7 +266,6 @@ public final class HomePg extends javax.swing.JFrame {
                 }
             }
 
-            // Lista_de_variaveis.setText(Lista_de_variaveis.getText() + line);
         }
 
         HomePageController.updateTimerLabels(tVariables,
