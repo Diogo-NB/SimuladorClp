@@ -247,17 +247,17 @@ public class DefaultScenePanel extends javax.swing.JPanel implements IScenePanel
 
         jLabel2.setText("I0.1");
 
-        jLabel4.setText("I0.2");
+        jLabel4.setText("I0.3");
 
-        jLabel5.setText("I0.3");
+        jLabel5.setText("I0.4");
 
-        jLabel6.setText("I0.4");
+        jLabel6.setText("I0.6");
 
         jLabel7.setText("I0.5");
 
-        jLabel8.setText("I0.6");
+        jLabel8.setText("I0.7");
 
-        jLabel9.setText("I0.7");
+        jLabel9.setText("I0.2");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
