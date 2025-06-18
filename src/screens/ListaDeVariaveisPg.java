@@ -49,7 +49,7 @@ public class ListaDeVariaveisPg extends javax.swing.JFrame {
         variablesTable.setRowSorter(sorter);
 
         List<RowSorter.SortKey> sortKeys = new ArrayList<>();
-        // A coluna 0 é o "ID"
+        // A coluna 0 é o ID
         sortKeys.add(new RowSorter.SortKey(0, SortOrder.ASCENDING));
         sorter.setSortKeys(sortKeys);
         sorter.sort();
@@ -62,10 +62,10 @@ public class ListaDeVariaveisPg extends javax.swing.JFrame {
             public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
                 Component renderer = DEFAULT_RENDERER.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
 
-                if (column == 1 && value instanceof Boolean) { // Se for a coluna 'Estado'
+                if (column == 1 && value instanceof Boolean) {
                     renderer.setBackground((Boolean) value ? new Color(144, 238, 144) : new Color(255, 99, 71));
                     renderer.setForeground((Boolean) value ? Color.BLACK : Color.WHITE);
-                } else { // Cores padrão para outras colunas/seleção
+                } else {
                     renderer.setBackground(isSelected ? table.getSelectionBackground() : table.getBackground());
                     renderer.setForeground(isSelected ? table.getSelectionForeground() : table.getForeground());
                 }
@@ -80,10 +80,10 @@ public class ListaDeVariaveisPg extends javax.swing.JFrame {
         tableModel.setRowCount(0); // Limpa todas as linhas
 
         for (Map.Entry<String, Boolean> entry : inputs.entrySet()) {
-            tableModel.addRow(new Object[]{entry.getKey(), entry.getValue(), null, null, null}); // Adiciona ID e Estado dos Inputs com valores padrão para colunas restantes
+            tableModel.addRow(new Object[]{entry.getKey(), entry.getValue(), null, null, null}); // Adiciona ID e Estado com valores padrão para colunas restantes
         }
         for(Map.Entry<String, Boolean> entry : outputs.entrySet()){
-            tableModel.addRow(new Object[]{entry.getKey(), entry.getValue(), null, null, null}); // Adiciona ID e Estado dos Outputs com valores padrão para colunas restantes
+            tableModel.addRow(new Object[]{entry.getKey(), entry.getValue(), null, null, null});
         }
         
         for (Map.Entry<String, MemoryVariable> entry : HomePageModel.getMemoryVariables().entrySet()) {
