@@ -251,9 +251,9 @@ public class DefaultScenePanel extends javax.swing.JPanel implements IScenePanel
 
         jLabel5.setText("I5");
 
-        jLabel6.setText("I7");
+        jLabel6.setText("I6");
 
-        jLabel7.setText("I6");
+        jLabel7.setText("I7");
 
         jLabel8.setText("I8");
 
