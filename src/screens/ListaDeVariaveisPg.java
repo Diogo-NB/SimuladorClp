@@ -73,7 +73,7 @@ public class ListaDeVariaveisPg extends javax.swing.JFrame {
             }
         });
 
-        jScrollPane1.setViewportView(variablesTable); // Conecta a tabela ao painel de rolagem
+        jScrollPane1.setViewportView(variablesTable);
     }
 
     public void updateDataTable(Map<String, Boolean> inputs, Map<String, Boolean> outputs) {
