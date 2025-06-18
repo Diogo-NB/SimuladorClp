@@ -100,26 +100,6 @@ public class ListaDeVariaveisPg extends javax.swing.JFrame {
         }
     }
 
-    public void setText(String text) {
-        tableModel.setRowCount(0);
-        String[] rows = text.split("\n");
-        for (String row : rows) {
-            String[] parts = row.split(";");
-            if (parts.length >= 2) {
-                tableModel.addRow(new Object[]{parts[0], Boolean.parseBoolean(parts[1])});
-            }
-        }
-    }
-
-    public String getText() {
-        StringBuilder stringBuilder = new StringBuilder();
-        for (int i = 0; i < tableModel.getRowCount(); i++) {
-            stringBuilder.append(tableModel.getValueAt(i, 0)).append(";")
-                         .append(tableModel.getValueAt(i, 1)).append("\n");
-        }
-        return stringBuilder.toString();
-    }
-
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
