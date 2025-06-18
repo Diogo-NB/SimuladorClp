@@ -153,28 +153,6 @@ public class ListaDeVariaveisPg extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    public static void main(String args[]) {
-        // Bloco de configuração de look and feel (gerado automaticamente)
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ListaDeVariaveisPg.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-
-        // Inicia e exibe a janela na Event Dispatch Thread
-        java.awt.EventQueue.invokeLater(() -> {
-            Map<String, Boolean> InputsExample = new java.util.HashMap<>();
-            Map<String, Boolean> OutputsExample = new java.util.HashMap<>();
-
-            new ListaDeVariaveisPg(InputsExample, OutputsExample).setVisible(true);
-        });
-    }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextArea Lista_de_variaveis;
     private javax.swing.JScrollPane jScrollPane1;
