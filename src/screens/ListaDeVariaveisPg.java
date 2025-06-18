@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.ArrayList;
 import javax.swing.RowSorter;
 import javax.swing.SortOrder;
-import java.util.Map; // Para Map em updateDataTable
+import java.util.Map;
 
 public class ListaDeVariaveisPg extends javax.swing.JFrame {
 
@@ -29,12 +29,12 @@ public class ListaDeVariaveisPg extends javax.swing.JFrame {
     }
 
     public ListaDeVariaveisPg(Map<String, Boolean> inputs, Map<String, Boolean> outputs) {
-        this(); // Chama o construtor padrão para inicializar componentes e tabela
-        updateDataTable(inputs, outputs); // Popula a tabela com dados iniciais
+        this();
+        updateDataTable(inputs, outputs);
     }
 
     private void setupVariablesTable() {
-        String[] columns = {"ID", "CurrentValue", "Counter", "MaxTimer", "EndTimer"}; // Colunas da tabela
+        String[] columns = {"ID", "CurrentValue", "Counter", "MaxTimer", "EndTimer"};
 
         tableModel = new DefaultTableModel(columns, 0) {
             @Override
@@ -100,7 +100,6 @@ public class ListaDeVariaveisPg extends javax.swing.JFrame {
         }
     }
 
-    // Métodos setText/getText adaptados para a JTable (podem ser removidos se não forem usados)
     public void setText(String text) {
         tableModel.setRowCount(0);
         String[] rows = text.split("\n");
