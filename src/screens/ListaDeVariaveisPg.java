@@ -80,10 +80,10 @@ public class ListaDeVariaveisPg extends javax.swing.JFrame {
         tableModel.setRowCount(0); // Limpa todas as linhas
 
         for (Map.Entry<String, Boolean> entry : inputs.entrySet()) {
-            tableModel.addRow(new Object[]{entry.getKey(), entry.getValue()}); // Adiciona ID e Estado dos Inputs
+            tableModel.addRow(new Object[]{entry.getKey(), entry.getValue(), null, null, null}); // Adiciona ID e Estado dos Inputs com valores padrão para colunas restantes
         }
         for(Map.Entry<String, Boolean> entry : outputs.entrySet()){
-            tableModel.addRow(new Object[]{entry.getKey(), entry.getValue()}); // Adiciona ID e Estado dos Outputs
+            tableModel.addRow(new Object[]{entry.getKey(), entry.getValue(), null, null, null}); // Adiciona ID e Estado dos Outputs com valores padrão para colunas restantes
         }
         
         for (Map.Entry<String, MemoryVariable> entry : HomePageModel.getMemoryVariables().entrySet()) {
