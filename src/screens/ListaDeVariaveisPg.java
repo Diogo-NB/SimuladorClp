@@ -22,9 +22,10 @@ public class ListaDeVariaveisPg extends javax.swing.JFrame {
     private DefaultTableModel tableModel;
 
     public ListaDeVariaveisPg() {
-        initComponents(); // Inicializa componentes visuais (gerado pelo NetBeans)
-        setupVariablesTable(); // Configura a tabela
-        setTitle("Monitor de Variáveis"); // Define o título da janela
+        initComponents();
+        setupVariablesTable();
+        setTitle("Monitor de Variáveis");
+        this.setResizable(false);
     }
 
     public ListaDeVariaveisPg(Map<String, Boolean> inputs, Map<String, Boolean> outputs) {
