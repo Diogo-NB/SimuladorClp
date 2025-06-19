@@ -107,6 +107,17 @@ public class BatchSimulationScenePanel extends javax.swing.JPanel implements ISc
         controller.drawTankFill(g2d, tankFillHeightWrapper.value);
     }
 
+    public void resetState() {
+        controller.reset();
+        tankFillHeightWrapper.value = 0;
+
+        for (RedIndicator indicator : indicators) {
+            indicator.setActive(false);
+        }
+
+        repaint();
+    }
+
     @Override
     public void setInputListener(InputEventListener listener) {
         inputListener = listener;

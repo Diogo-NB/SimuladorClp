@@ -914,6 +914,7 @@ public final class HomePg extends javax.swing.JFrame {
 
     private void refreshBtActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_refreshBtActionPerformed
         controller.handleRefreshAction();
+        currentScenePanel.resetState();
     }// GEN-LAST:event_refreshBtActionPerformed
 
     private void simulationsComboBoxActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_simulationsComboBoxActionPerformed

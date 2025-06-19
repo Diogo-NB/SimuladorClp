@@ -61,18 +61,16 @@ public class BatchSimulatorController {
     public void stopFilling() {
         if (fillTimer != null && fillTimer.isRunning()) {
             fillTimer.stop();
-            // System.out.println(">>> Parou apenas o enchimento");
         }
     }
 
     public void stopDraining() {
         if (drainTimer != null && drainTimer.isRunning()) {
             drainTimer.stop();
-            // System.out.println(">>> Parou apenas a drenagem");
         }
     }
 
-    public void stopAll() {
+    public void reset() {
         stopFilling();
         stopDraining();
     }
@@ -93,11 +91,5 @@ public class BatchSimulatorController {
         public boolean isAtLowLevel() {
             return value >= 180;
         }
-    }
-
-    public enum LedType {
-        RUN,
-        IDLE,
-        FULL
     }
 }
