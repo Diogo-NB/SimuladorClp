@@ -16,10 +16,6 @@ jobs:
           java-version: "22"
           distribution: "temurin"
 
-      - name: Print JAVA_HOME
-        run: echo "JAVA_HOME=$Env:JAVA_HOME"
-        shell: pwsh
-
       - name: Build with Ant
         shell: pwsh
         run: |
@@ -34,14 +30,11 @@ jobs:
             --name SimuladorCLP `
             --main-jar SimuladorClp.jar `
             --main-class SimuladorClp `
-            --type exe `
+            --type app-image `
             --dest dist `
             --app-version 1.0 `
+            --class-path "lib/AbsoluteLayout.jar" `
             --win-console `
-        shell: pwsh
-
-      - name: List dist folder contents
-        run: dir dist
         shell: pwsh
 
       - name: Upload EXE as Artifact
