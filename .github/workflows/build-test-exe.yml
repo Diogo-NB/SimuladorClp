@@ -48,4 +48,4 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: SimuladorCLP.exe
-          path: dist/SimuladorCLP.exe
+          path: dist/SimuladorCLP-1.0.exe
