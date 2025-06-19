@@ -15,6 +15,7 @@
         <jar destfile="${dist.dir}/${project.name}.jar" update="true">
             <manifest>
                 <attribute name="Main-Class" value="SimuladorClp"/>
+                <attribute name="Class-Path" value="lib/AbsoluteLayout.jar"/>
                 <attribute name="Implementation-Version" value="${project.name}"/>
                 <attribute name="Implementation-Title" value="SimuladorClp"/>
             </manifest>

@@ -33,7 +33,6 @@ jobs:
             --type app-image `
             --dest dist `
             --app-version 1.0 `
-            --class-path "lib/AbsoluteLayout.jar" `
             --win-console `
         shell: pwsh
 
