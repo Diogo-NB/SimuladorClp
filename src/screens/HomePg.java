@@ -31,7 +31,6 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JTextArea;
 import javax.swing.SwingUtilities;
 import javax.swing.Timer;
 import javax.swing.text.AbstractDocument;
@@ -43,8 +42,7 @@ public final class HomePg extends javax.swing.JFrame {
 
     private final HomePageController controller;
 
-    ListaDeVariaveisPg tela2 = new ListaDeVariaveisPg();
-    private JTextArea Lista_de_variaveis = null;
+    private ListaDeVariaveisPg telaDataTable;
     private boolean updating = false;
 
     private IScenePanel currentScenePanel;
@@ -56,7 +54,6 @@ public final class HomePg extends javax.swing.JFrame {
         controller = new HomePageController(this);
 
         initComponents();
-        Lista_de_variaveis = tela2.getListaDeVariaveis();
 
         ImageIcon iconCampo = new ImageIcon(getClass().getResource("/Assets/bloco_notas.png"));
         iconCampo.setImage(iconCampo.getImage().getScaledInstance(Codigo_Camp.getWidth(), Codigo_Camp.getHeight(), 1));
@@ -116,6 +113,8 @@ public final class HomePg extends javax.swing.JFrame {
         sceneContainer.repaint();
 
         this.setResizable(false);
+
+        telaDataTable = new ListaDeVariaveisPg(HomePageModel.getInputs(), HomePageModel.getOutputs());
 
         pack();
 
@@ -219,6 +218,7 @@ public final class HomePg extends javax.swing.JFrame {
                 HomePageModel.getInputsType(),
                 HomePageModel.getInputs(),
                 HomePageModel.getOutputs());
+        telaDataTable.updateDataTable(HomePageModel.getInputs(), HomePageModel.getOutputs());
     }
 
     public void updateMode() {
@@ -239,7 +239,6 @@ public final class HomePg extends javax.swing.JFrame {
     }
 
     public void updateMemoryVariables() {
-        Lista_de_variaveis.setText("");
 
         String line = "";
         List<MemoryVariable> tVariables = new ArrayList<>();
@@ -267,7 +266,6 @@ public final class HomePg extends javax.swing.JFrame {
                 }
             }
 
-            Lista_de_variaveis.setText(Lista_de_variaveis.getText() + line);
         }
 
         HomePageController.updateTimerLabels(tVariables,
@@ -959,9 +957,9 @@ public final class HomePg extends javax.swing.JFrame {
     }// GEN-LAST:event_pauseBtActionPerformed
 
     private void dataTableBtActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_dataTableBtActionPerformed
-        tela2.setVisible(true);
-        tela2.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        tela2.setLocation(1100, 0);
+        telaDataTable.setVisible(true);
+        telaDataTable.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        telaDataTable.setLocation(1100, 0);
     }// GEN-LAST:event_dataTableBtActionPerformed
 
     private void setaCores() {

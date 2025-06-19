@@ -183,7 +183,7 @@ public class Language {
             default -> {
             }
         }
-        return "Saidas";
+        return "Saídas";
     }
 
     public static String getCodigo() {

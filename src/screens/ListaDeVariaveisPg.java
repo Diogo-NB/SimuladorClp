@@ -1,34 +1,105 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package screens;
 
-import javax.swing.JTextArea;
+import Models.HomePageModel;
+import ilcompiler.memoryvariable.MemoryVariable;
+import java.awt.Color;
+import java.awt.Component;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.TableCellRenderer;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
+import java.util.List;
+import java.util.ArrayList;
+import javax.swing.RowSorter;
+import javax.swing.SortOrder;
+import java.util.Map;
 
 public class ListaDeVariaveisPg extends javax.swing.JFrame {
 
+    private JTable variablesTable;
+    private DefaultTableModel tableModel;
+
     public ListaDeVariaveisPg() {
         initComponents();
+        setupVariablesTable();
+        setTitle("Monitor de Variáveis");
+        this.setResizable(false);
     }
 
-    public JTextArea getListaDeVariaveis() {
-        return Lista_de_variaveis;
+    public ListaDeVariaveisPg(Map<String, Boolean> inputs, Map<String, Boolean> outputs) {
+        this();
+        updateDataTable(inputs, outputs);
     }
 
-    public void setText(String text) {
-        Lista_de_variaveis.setText(text);
+    private void setupVariablesTable() {
+        String[] columns = {"ID", "CurrentValue", "Counter", "MaxTimer", "EndTimer"};
+
+        tableModel = new DefaultTableModel(columns, 0) {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false; // Impede edição direta das células
+            }
+        };
+
+        variablesTable = new JTable(tableModel);
+        
+        TableRowSorter<TableModel> sorter = new TableRowSorter<>(tableModel);
+        variablesTable.setRowSorter(sorter);
+
+        List<RowSorter.SortKey> sortKeys = new ArrayList<>();
+        // A coluna 0 é o ID
+        sortKeys.add(new RowSorter.SortKey(0, SortOrder.ASCENDING));
+        sorter.setSortKeys(sortKeys);
+        sorter.sort();
+        
+        // Renderizador para colorir o estado (verde para TRUE, vermelho para FALSE)
+        variablesTable.setDefaultRenderer(Object.class, new TableCellRenderer() {
+            private final DefaultTableCellRenderer DEFAULT_RENDERER = new DefaultTableCellRenderer();
+
+            @Override
+            public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+                Component renderer = DEFAULT_RENDERER.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+
+                if (column == 1 && value instanceof Boolean) {
+                    renderer.setBackground((Boolean) value ? new Color(144, 238, 144) : new Color(255, 99, 71));
+                    renderer.setForeground((Boolean) value ? Color.BLACK : Color.WHITE);
+                } else {
+                    renderer.setBackground(isSelected ? table.getSelectionBackground() : table.getBackground());
+                    renderer.setForeground(isSelected ? table.getSelectionForeground() : table.getForeground());
+                }
+                return renderer;
+            }
+        });
+
+        jScrollPane1.setViewportView(variablesTable);
     }
 
-    public String getText() {
-        return Lista_de_variaveis.getText();
+    public void updateDataTable(Map<String, Boolean> inputs, Map<String, Boolean> outputs) {
+        tableModel.setRowCount(0); // Limpa todas as linhas
+
+        for (Map.Entry<String, Boolean> entry : inputs.entrySet()) {
+            tableModel.addRow(new Object[]{entry.getKey(), entry.getValue(), null, null, null}); // Adiciona ID e Estado com valores padrão para colunas restantes
+        }
+        for(Map.Entry<String, Boolean> entry : outputs.entrySet()){
+            tableModel.addRow(new Object[]{entry.getKey(), entry.getValue(), null, null, null});
+        }
+        
+        for (Map.Entry<String, MemoryVariable> entry : HomePageModel.getMemoryVariables().entrySet()) {
+            switch (entry.getKey().charAt(0)) {
+                case 'T' -> {
+                    tableModel.addRow(new Object[]{entry.getKey(), entry.getValue().currentValue, 
+                        entry.getValue().counter, entry.getValue().maxTimer, entry.getValue().endTimer});
+                }
+                case 'C' -> {
+                    tableModel.addRow(new Object[]{entry.getKey(), "", entry.getValue().counter, 
+                        entry.getValue().maxTimer, entry.getValue().endTimer});
+                }
+            }
+        }
     }
 
-    /**
-     * This method is called from within the constructor to initialize the form.
-     * WARNING: Do NOT modify this code. The content of this method is always
-     * regenerated by the Form Editor.
-     */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -61,40 +132,6 @@ public class ListaDeVariaveisPg extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ListaDeVariaveisPg.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ListaDeVariaveisPg.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ListaDeVariaveisPg.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ListaDeVariaveisPg.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> {
-            new ListaDeVariaveisPg().setVisible(true);
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextArea Lista_de_variaveis;

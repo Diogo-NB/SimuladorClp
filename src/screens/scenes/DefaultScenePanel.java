@@ -115,6 +115,14 @@ public class DefaultScenePanel extends javax.swing.JPanel implements IScenePanel
         inputButton4 = new javax.swing.JLabel();
         inputButton7 = new javax.swing.JLabel();
         inputButton3 = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(142, 177, 199));
         setMaximumSize(new java.awt.Dimension(624, 394));
@@ -143,7 +151,7 @@ public class DefaultScenePanel extends javax.swing.JPanel implements IScenePanel
         inputColumnLabel.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
 
         outputColumnLabel.setFont(new java.awt.Font("Segoe UI Black", 2, 24)); // NOI18N
-        outputColumnLabel.setText("Saidas");
+        outputColumnLabel.setText("Saídas");
         outputColumnLabel.setToolTipText("");
         outputColumnLabel.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
@@ -234,6 +242,22 @@ public class DefaultScenePanel extends javax.swing.JPanel implements IScenePanel
                 inputButton3MouseReleased(evt);
             }
         });
+
+        jLabel1.setText("I0.0");
+
+        jLabel2.setText("I0.1");
+
+        jLabel4.setText("I0.3");
+
+        jLabel5.setText("I0.4");
+
+        jLabel6.setText("I0.6");
+
+        jLabel7.setText("I0.5");
+
+        jLabel8.setText("I0.7");
+
+        jLabel9.setText("I0.2");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -535,6 +559,14 @@ public class DefaultScenePanel extends javax.swing.JPanel implements IScenePanel
     private javax.swing.JLabel inputButton7;
     private javax.swing.JLabel inputButton8;
     private javax.swing.JLabel inputColumnLabel;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JLabel outputColumnLabel;
     private javax.swing.JLabel outputLed1;
     private javax.swing.JLabel outputLed2;
