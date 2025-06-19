@@ -40,6 +40,10 @@ jobs:
             --win-console `
         shell: pwsh
 
+      - name: List dist folder contents
+        run: dir dist
+        shell: pwsh
+
       - name: Upload EXE as Artifact
         uses: actions/upload-artifact@v4
         with:
