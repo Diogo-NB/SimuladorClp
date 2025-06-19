@@ -87,6 +87,11 @@ public class DefaultScenePanel extends javax.swing.JPanel implements IScenePanel
         this.inputListener = listener;
     }
 
+    @Override
+    public void resetState() {
+        /// No state to reset in this panel
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always

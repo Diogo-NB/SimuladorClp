@@ -9,5 +9,7 @@ public interface IScenePanel {
     public void updateUIState(Map<String, InputType> inputsType, Map<String, Boolean> inputs,
             Map<String, Boolean> outputs);
 
+    public void resetState();
+
     public void setInputListener(InputEventListener listener);
 }
