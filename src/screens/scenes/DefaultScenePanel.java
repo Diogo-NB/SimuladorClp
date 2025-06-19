@@ -89,6 +89,7 @@ public class DefaultScenePanel extends javax.swing.JPanel implements IScenePanel
 
     @Override
     public void resetState() {
+        /// No state to reset in this panel
     }
 
     /**
