@@ -21,8 +21,11 @@ jobs:
         shell: pwsh
 
       - name: Build with Ant
-        run: ant -noinput -Dplatforms.Oracle_OpenJDK_22.0.2_9.home="$Env:JAVA_HOME" -buildfile build.xml
         shell: pwsh
+        run: |
+          $escapedPath = $Env:JAVA_HOME -replace '\\', '\\\\'
+          Write-Host "Escaped JAVA_HOME: $escapedPath"
+          ant -noinput "-Dplatforms.Oracle_OpenJDK_22.0.2_9.home=$escapedPath" -buildfile build.xml
 
       - name: Package EXE with jpackage
         run: |
