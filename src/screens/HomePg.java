@@ -210,7 +210,10 @@ public final class HomePg extends javax.swing.JFrame {
         sceneContainer.revalidate();
         sceneContainer.repaint();
 
-        SwingUtilities.invokeLater(() -> controller.handleRefreshAction());
+        SwingUtilities.invokeLater(() -> {
+            controller.handleRefreshAction();
+            updateSceneUI();
+        });
     }
 
     public void updateSceneUI() {
