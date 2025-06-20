@@ -2,6 +2,8 @@ package ilcompiler.edit;
 
 import java.awt.Color;
 
+// TODO YURI retirar daqui e colocar no lugar certo "./colors/simcolors"
+
 public class Colors {
 
     public static Color firstColor(int color) {
