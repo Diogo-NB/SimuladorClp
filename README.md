@@ -68,11 +68,11 @@ O projeto **parte da base desenvolvida pelos alunos do semestre 2024/02**, dispo
 
 ### ✅ Ciclo de Varredura do CLP Simulado
 
-1. Inicializar o sistema
-2. Ler entradas e armazenar na memória imagem
-3. Processar o programa do usuário
-4. Atualizar as saídas com base na memória imagem de saída
-5. Retornar ao passo 2
+1. Inicializa o sistema
+2. Lê as entradas e armazena na memória imagem
+3. Processa o programa do usuário
+4. Atualiza as saídas com base na memória imagem de saída
+5. Retorna ao passo 2
 
 ### ✅ Salvamento e Carregamento de Programas
 
