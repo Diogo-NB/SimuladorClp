@@ -114,4 +114,3 @@ O projeto **parte da base desenvolvida pelos alunos do semestre 2024/02**, dispo
 
 * Projeto base: [https://github.com/IasminPieraco/Trabalho-Final-CLP](https://github.com/IasminPieraco/Trabalho-Final-CLP)
 * LogixPro Simulator: Referência visual e de comportamento de CLPs
-* Documentação Java (Swing, IO, Threads)
