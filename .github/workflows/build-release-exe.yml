@@ -1,0 +1,31 @@
+name: Build release EXE
+
+on:
+  release:
+    types: [created, published, prereleased]
+
+jobs:
+  build-windows-exe:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 22
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 22
+
+      - name: Build JAR with Ant
+        run: ant clean jar -Dproject.version=${{ github.ref_name }}
+
+      - name: Package EXE with jpackage
+        run: jpackage --type exe --input dist --name SimuladorClp --main-jar SimuladorClp.jar --main-class SimuladorClp --win-menu --win-shortcut --win-dir-chooser --java-options "-Xmx512m"
+
+      - name: Upload EXE artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: SimuladorClp-installer
+          path: SimuladorClp*.exe

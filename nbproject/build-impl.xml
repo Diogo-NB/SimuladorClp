@@ -18,7 +18,12 @@ is divided into following sections:
   - applet
   - cleanup
 
-        -->
+-->
+
+<!--
+    WARNING: This file is no longer used.
+    It is kept for reference only and should not be edited or relied upon.
+-->
 <project xmlns:if="ant:if" xmlns:j2seproject1="http://www.netbeans.org/ns/j2se-project/1" xmlns:j2seproject3="http://www.netbeans.org/ns/j2se-project/3" xmlns:jaxrpc="http://www.netbeans.org/ns/j2se-project/jax-rpc" xmlns:unless="ant:unless" basedir=".." default="default" name="SimuladorClp-impl">
     <fail message="Please build using Ant 1.8.0 or higher.">
         <condition>
