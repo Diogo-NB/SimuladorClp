@@ -89,7 +89,7 @@ public class BatchSimulatorController {
         }
 
         public boolean isAtLowLevel() {
-            return value >= 180;
+            return value >= 3;
         }
     }
 }
