@@ -19,6 +19,16 @@ public class DefaultScenePanel extends javax.swing.JPanel implements IScenePanel
     }
 
     @Override
+    public void pause() {
+
+    }
+
+    @Override
+    public void unpause() {
+
+    }
+
+    @Override
     public void updateUIState(Map<String, InputType> inputsType, Map<String, Boolean> inputs,
             Map<String, Boolean> outputs) {
         int iconWidth = outputLed1.getWidth();
@@ -89,7 +99,10 @@ public class DefaultScenePanel extends javax.swing.JPanel implements IScenePanel
 
     @Override
     public void resetState() {
-        /// No state to reset in this panel
+
+    
+
+    /// No state to reset in this panel
     }
 
     /**

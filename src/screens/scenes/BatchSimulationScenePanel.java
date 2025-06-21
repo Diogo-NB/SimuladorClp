@@ -1,6 +1,7 @@
 package screens.scenes;
 
 import Controllers.BatchSimulatorController;
+import Models.HomePageModel;
 import ilcompiler.input.Input.InputType;
 
 import java.awt.Graphics;
@@ -39,7 +40,7 @@ public class BatchSimulationScenePanel extends javax.swing.JPanel implements ISc
         startBt = new PushButton("I0.0", InputType.NO);
         stopBt = new PushButton("I0.1", InputType.NC, PushButton.ButtonPalette.RED);
 
-        buttons = new PushButton[] { startBt, stopBt };
+        buttons = new PushButton[]{startBt, stopBt};
 
         runLed = new RedIndicator("Q1.0", RedIndicator.IndicatorType.LED);
         idleLed = new RedIndicator("Q1.1", RedIndicator.IndicatorType.LED);
@@ -52,8 +53,8 @@ public class BatchSimulationScenePanel extends javax.swing.JPanel implements ISc
         hiLevelIndicator = new RedIndicator("I1.0");
         loLevelIndicator = new RedIndicator("I1.1");
 
-        indicators = new RedIndicator[] { runLed, idleLed, fullLed, pump1Indicator, pump3Indicator, mixerIndicator,
-                hiLevelIndicator, loLevelIndicator };
+        indicators = new RedIndicator[]{runLed, idleLed, fullLed, pump1Indicator, pump3Indicator, mixerIndicator,
+            hiLevelIndicator, loLevelIndicator};
 
         initComponents();
     }
@@ -77,14 +78,14 @@ public class BatchSimulationScenePanel extends javax.swing.JPanel implements ISc
 
             indicator.setActive(updatedValue);
         }
-
-        if (outputs.getOrDefault(pump1Indicator.getKey(), false)) {
+        boolean isRunning = HomePageModel.isRunning();
+        if (isRunning && outputs.getOrDefault(pump1Indicator.getKey(), false)) {
             controller.startFilling(tankFillHeightWrapper);
         } else {
             controller.stopFilling();
         }
 
-        if (outputs.getOrDefault(pump3Indicator.getKey(), false)) {
+        if (isRunning && outputs.getOrDefault(pump3Indicator.getKey(), false)) {
             controller.startDraining(tankFillHeightWrapper);
         } else {
             controller.stopDraining();
@@ -95,6 +96,17 @@ public class BatchSimulationScenePanel extends javax.swing.JPanel implements ISc
 
         inputs.put(hiLevelIndicator.getKey(), hiLevelIndicator.isActive());
         inputs.put(loLevelIndicator.getKey(), loLevelIndicator.isActive());
+    }
+
+    @Override
+    public void pause() {
+        controller.stopFilling();
+        controller.stopDraining();
+    }
+
+    @Override
+    public void unpause() {
+        
     }
 
     @Override
