@@ -19,7 +19,9 @@ jobs:
           java-version: 22
 
       - name: Build JAR with Ant
-        run: ant -Dproject.version="${{ github.ref_name }}" clean jar
+        shell: cmd
+        run: |
+          ant -Dproject.version=${{ github.ref_name }} clean jar
 
       - name: Package EXE with jpackage
         run: jpackage --type exe --input dist --name SimuladorClp --main-jar SimuladorClp.jar --main-class SimuladorClp --win-menu --win-shortcut --win-dir-chooser --java-options "-Xmx512m"
