@@ -24,7 +24,7 @@ jobs:
           ant -Dproject.version="${{ github.ref_name }}" clean jar
 
       - name: Package .exe
-        run: jpackage --type exe --input dist --name SimuladorClp --main-jar SimuladorClp.jar --main-class SimuladorClp --win-menu --win-shortcut --win-dir-chooser --java-options "-Xmx512m"
+        run: jpackage --type exe --input dist --dest dist --name SimuladorClp --main-jar SimuladorClp.jar --main-class SimuladorClp --win-menu --win-shortcut --win-dir-chooser --java-options "-Xmx512m"
 
       - name: Upload to Release
         uses: softprops/action-gh-release@v1
