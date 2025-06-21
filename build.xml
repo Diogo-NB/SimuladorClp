@@ -1,4 +1,5 @@
 <project name="SimuladorClp" basedir="." default="jar">
+    <property name="project.version" value="1.0.0-dev"/>
     <property name="src.dir" value="src"/>
     <property name="build.dir" value="build"/>
     <property name="dist.dir" value="dist"/>
@@ -34,10 +35,11 @@
             </fileset>
         </copy>
         
-        <jar destfile="${dist.dir}/SimuladorClp.jar" basedir="${build.dir}">
+        <jar destfile="${dist.dir}/SimuladorClp-${project.version}.jar" basedir="${build.dir}">
             <manifest>
                 <attribute name="Main-Class" value="${main.class}"/>
                 <attribute name="Class-Path" value="AbsoluteLayout.jar"/>
+                <attribute name="Implementation-Version" value="${project.version}"/>
             </manifest>
         </jar>
 
