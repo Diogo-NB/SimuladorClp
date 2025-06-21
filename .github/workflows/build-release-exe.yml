@@ -1,4 +1,4 @@
-name: Build release EXE
+name: Build release .exe
 
 on:
   release:
@@ -21,13 +21,14 @@ jobs:
       - name: Build JAR with Ant
         shell: cmd
         run: |
-          ant -Dproject.version=${{ github.ref_name }} clean jar
+          ant -Dproject.version="${{ github.ref_name }}" clean jar
 
-      - name: Package EXE with jpackage
+      - name: Package .exe
         run: jpackage --type exe --input dist --name SimuladorClp --main-jar SimuladorClp.jar --main-class SimuladorClp --win-menu --win-shortcut --win-dir-chooser --java-options "-Xmx512m"
 
-      - name: Upload EXE artifact
-        uses: actions/upload-artifact@v4
+      - name: Upload to Release
+        uses: softprops/action-gh-release@v1
         with:
-          name: SimuladorClp-installer
-          path: SimuladorClp*.exe
+          files: dist/SimuladorClp*.exe
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
