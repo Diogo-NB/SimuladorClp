@@ -21,17 +21,7 @@ jobs:
         run: ant clean jar
 
       - name: Package EXE with jpackage
-        run: |
-          jpackage ^
-            --type exe ^
-            --input dist ^
-            --name SimuladorClp ^
-            --main-jar SimuladorClp.jar ^
-            --main-class SimuladorClp ^
-            --win-menu ^
-            --win-shortcut ^
-            --win-dir-chooser ^
-            --java-options "-Xmx512m"
+        run: jpackage --type exe --input dist --name SimuladorClp --main-jar SimuladorClp.jar --main-class SimuladorClp --win-menu --win-shortcut --win-dir-chooser --java-options "-Xmx512m"
 
       - name: Upload EXE artifact
         uses: actions/upload-artifact@v4
