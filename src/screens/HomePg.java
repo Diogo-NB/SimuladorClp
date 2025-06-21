@@ -68,7 +68,7 @@ public final class HomePg extends javax.swing.JFrame {
         iconTimer.setImage(imgTimer);
 
         // Aplica o ícone a todos os temporizadores
-        JLabel[] timers = { Timer_1, Timer_2, Timer_3, Timer_4, Timer_5, Timer_6, Timer_7, Timer_8, Timer_9, Timer_10 };
+        JLabel[] timers = {Timer_1, Timer_2, Timer_3, Timer_4, Timer_5, Timer_6, Timer_7, Timer_8, Timer_9, Timer_10};
         for (JLabel timer : timers) {
             timer.setIcon(iconTimer);
         }
@@ -80,8 +80,8 @@ public final class HomePg extends javax.swing.JFrame {
         iconCont.setImage(imgCont);
 
         // Aplica o ícone a todos os contadores
-        JLabel[] contadores = { Contador_1, Contador_2, Contador_3, Contador_4, Contador_5, Contador_6, Contador_7,
-                Contador_8, Contador_9, Contador_10 };
+        JLabel[] contadores = {Contador_1, Contador_2, Contador_3, Contador_4, Contador_5, Contador_6, Contador_7,
+            Contador_8, Contador_9, Contador_10};
         for (JLabel contador : contadores) {
             contador.setIcon(iconCont);
         }
@@ -227,7 +227,11 @@ public final class HomePg extends javax.swing.JFrame {
     public void updateMode() {
         ExecutionMode mode = HomePageModel.getMode();
 
-        // System.out.println("Modo atual: " + mode);
+        if (mode == ExecutionMode.IDLE || mode == ExecutionMode.STOPPED) {
+            currentScenePanel.pause();
+        } else if (mode == ExecutionMode.RUNNING) {
+            currentScenePanel.unpause();
+        }
 
         boolean isRunningMode = mode == ExecutionMode.RUNNING;
 
@@ -938,7 +942,6 @@ public final class HomePg extends javax.swing.JFrame {
             }
 
             // System.out.println("Tempo de delay: " + time + "\n");
-
             Timer timer = new Timer(time, e -> controller.runCycle(e));
             timer.setInitialDelay(0);
             timer.start();

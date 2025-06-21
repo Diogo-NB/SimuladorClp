@@ -1,5 +1,7 @@
 package Controllers;
 
+import Models.ExecutionMode;
+import Models.HomePageModel;
 import javax.swing.*;
 import java.awt.*;
 import screens.scenes.BatchSimulationScenePanel;
@@ -29,9 +31,14 @@ public class BatchSimulatorController {
     }
 
     public void startFilling(FillHeight fillHeight) {
-
-        if (fillTimer != null && fillTimer.isRunning())
+        if (HomePageModel.getMode() != ExecutionMode.RUNNING) {
+            stopFilling();
             return;
+        }
+
+        if (fillTimer != null && fillTimer.isRunning()) {
+            return;
+        }
 
         fillTimer = new Timer(50, e -> {
             fillHeight.value += 2;
@@ -44,8 +51,14 @@ public class BatchSimulatorController {
     }
 
     public void startDraining(FillHeight fillHeight) {
-        if (drainTimer != null && drainTimer.isRunning())
+        if (HomePageModel.getMode() != ExecutionMode.RUNNING) {
+            stopDraining();
             return;
+        }
+
+        if (drainTimer != null && drainTimer.isRunning()) {
+            return;
+        }
 
         drainTimer = new Timer(50, e -> {
             fillHeight.value -= 2;

@@ -12,4 +12,9 @@ public interface IScenePanel {
     public void resetState();
 
     public void setInputListener(InputEventListener listener);
+
+    void pause();
+
+    void unpause();
+
 }
