@@ -1,7 +1,6 @@
 name: Build release EXE
 
 on:
-  workflow_dispatch:
   release:
     types: [published]
 
@@ -22,10 +21,10 @@ jobs:
       - name: Build JAR with Ant
         shell: cmd
         run: |
-          ant -Dproject.version="${{ github.ref_name }}" clean jar
+          ant -Dproject.version=${{ github.ref_name }} clean jar
 
       - name: Package EXE with jpackage
-        run: jpackage --type exe --input dist --name SimuladorClp --main-jar SimuladorClp.jar --main-class SimuladorClp --win-menu --win-shortcut --win-dir-chooser --win-console false --java-options "-Xmx512m"
+        run: jpackage --type exe --input dist --name SimuladorClp --main-jar SimuladorClp.jar --main-class SimuladorClp --win-menu --win-shortcut --win-dir-chooser --java-options "-Xmx512m"
 
       - name: Upload EXE artifact
         uses: actions/upload-artifact@v4
