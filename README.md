@@ -106,7 +106,7 @@ O projeto **parte da base desenvolvida pelos alunos do semestre 2024/02**, dispo
 ## ▶️ Vídeo de Demonstração
 
 📺 Veja o simulador funcionando:
-👉 [Assista no YouTube](link aqui)
+👉 [Assista no YouTube](https://www.youtube.com/watch?v=Qdy83gkzqz0)
 
 ---
 
