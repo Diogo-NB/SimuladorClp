@@ -192,10 +192,16 @@ public final class HomePg extends javax.swing.JFrame {
         }
 
         switch (scene) {
-            case DEFAULT ->
+            case DEFAULT -> {
+                var inputs = HomePageModel.getInputs();
+                inputs.put("I0.1", false);
                 currentScenePanel = new DefaultScenePanel();
-            case BATCH_SIMULATION ->
+            }
+            case BATCH_SIMULATION -> {
+                var inputs = HomePageModel.getInputs();
+                inputs.put("I0.1", true); // Stop como NC: verdadeiro por padrão apenas nessa cena
                 currentScenePanel = new BatchSimulationScenePanel();
+            }
         }
 
         var currentSceneJPanel = (JPanel) currentScenePanel;
@@ -427,14 +433,14 @@ public final class HomePg extends javax.swing.JFrame {
         setTitle("Lista de Instruçoes CLP");
         setBackground(new java.awt.Color(255, 255, 255));
 
-        Arquivar_BT.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Arquivar", "Salvar", "Carregar" }));
+        Arquivar_BT.setModel(new javax.swing.DefaultComboBoxModel<>(new String[]{"Arquivar", "Salvar", "Carregar"}));
         Arquivar_BT.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 Arquivar_BTActionPerformed(evt);
             }
         });
 
-        Editar_BT.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Editar", "Tema", "Idioma" }));
+        Editar_BT.setModel(new javax.swing.DefaultComboBoxModel<>(new String[]{"Editar", "Tema", "Idioma"}));
         Editar_BT.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 Editar_BTActionPerformed(evt);
