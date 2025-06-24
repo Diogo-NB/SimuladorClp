@@ -48,7 +48,7 @@ public class Interpreter {
 
         // Itera lista de linhas
         for (int i = 0; i < lineList.size(); i++) {
-            Integer currentLine = i + 1;
+            // Integer currentLine = i + 1;
             // System.out.println("\n-> Linha: " + currentLine.toString());
 
             // Ignora linhas vazias

@@ -232,9 +232,7 @@ public final class HomePg extends javax.swing.JFrame {
         ExecutionMode mode = HomePageModel.getMode();
 
         if (mode == ExecutionMode.IDLE || mode == ExecutionMode.STOPPED) {
-            currentScenePanel.pause();
-        } else if (mode == ExecutionMode.RUNNING) {
-            currentScenePanel.unpause();
+            currentScenePanel.stop();
         }
 
         boolean isRunningMode = mode == ExecutionMode.RUNNING;
@@ -251,26 +249,19 @@ public final class HomePg extends javax.swing.JFrame {
 
     public void updateMemoryVariables() {
 
-        String line = "";
         List<MemoryVariable> tVariables = new ArrayList<>();
         List<MemoryVariable> cVariables = new ArrayList<>();
 
         for (Map.Entry<String, MemoryVariable> variable : HomePageModel.getMemoryVariables().entrySet()) {
             switch (variable.getKey().charAt(0)) {
                 case 'M' -> {
-                    line = variable.getKey() + " = " + variable.getValue().currentValue + "\n";
                 }
                 case 'T' -> {
-                    line = variable.getKey() + " = " + variable.getValue().currentValue + ", "
-                            + variable.getValue().counter + ", " + variable.getValue().maxTimer + ", "
-                            + variable.getValue().endTimer + "\n";
                     if (tVariables.size() < 10) {
                         tVariables.add(variable.getValue());
                     }
                 }
                 case 'C' -> {
-                    line = variable.getKey() + " = " + variable.getValue().counter + ", " + variable.getValue().maxTimer
-                            + ", " + variable.getValue().endTimer + "\n";
                     if (cVariables.size() < 10) {
                         cVariables.add(variable.getValue());
                     }
@@ -923,7 +914,7 @@ public final class HomePg extends javax.swing.JFrame {
 
     private void refreshBtActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_refreshBtActionPerformed
         controller.handleRefreshAction();
-        currentScenePanel.resetState();
+        currentScenePanel.resetUIState();
     }// GEN-LAST:event_refreshBtActionPerformed
 
     private void simulationsComboBoxActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_simulationsComboBoxActionPerformed
@@ -1003,12 +994,6 @@ public final class HomePg extends javax.swing.JFrame {
 
         Sobre_BT.setText(Language.getSobre());
         delayLabel.setText(Language.getDelay());
-    }
-
-    public static void main(String args[]) {
-        java.awt.EventQueue.invokeLater(() -> {
-            new HomePg().setVisible(true);
-        });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

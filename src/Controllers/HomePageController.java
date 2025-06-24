@@ -82,7 +82,6 @@ public class HomePageController {
                     codigoCampTextArea.append("\n");
                 }
             } catch (IOException ex) {
-                // System.out.println("Erro ao carregar/salvar arquivo: " + ex.getMessage());
                 ex.printStackTrace();
             }
             arquivarComboBox.setSelectedIndex(0);
@@ -106,7 +105,6 @@ public class HomePageController {
             try {
                 Save.save(dir + "\\" + filename, memory);
             } catch (IOException ex) {
-                // System.out.println("Erro: " + ex.getMessage());
                 ex.printStackTrace();
             }
         }
