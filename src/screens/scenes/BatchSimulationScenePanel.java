@@ -106,14 +106,9 @@ public class BatchSimulationScenePanel extends javax.swing.JPanel implements ISc
     }
 
     @Override
-    public void pause() {
+    public void stop() {
         controller.stopFilling();
         controller.stopDraining();
-    }
-
-    @Override
-    public void unpause() {
-
     }
 
     @Override
@@ -127,7 +122,7 @@ public class BatchSimulationScenePanel extends javax.swing.JPanel implements ISc
     }
 
     @Override
-    public void resetState() {
+    public void resetUIState() {
         controller.reset();
         tankFillHeightWrapper.value = 0;
 

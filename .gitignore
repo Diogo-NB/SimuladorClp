@@ -1,8 +1,6 @@
 /target/
 !.mvn/wrapper/maven-wrapper.jar
 
-# Saved files
-
 ### STS ###
 .apt_generated
 .classpath
@@ -11,7 +9,6 @@
 .settings
 .springBeans
 .sts4-cache
-
 
 # Created by https://www.gitignore.io/api/git,java,maven,eclipse,windows
 

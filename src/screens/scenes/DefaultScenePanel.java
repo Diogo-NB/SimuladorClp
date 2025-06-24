@@ -27,16 +27,6 @@ public class DefaultScenePanel extends javax.swing.JPanel implements IScenePanel
     }
 
     @Override
-    public void pause() {
-
-    }
-
-    @Override
-    public void unpause() {
-
-    }
-
-    @Override
     public void updateUIState(Map<String, InputType> inputsType, Map<String, Boolean> inputs,
             Map<String, Boolean> outputs) {
         int iconWidth = outputLed1.getWidth();
@@ -85,6 +75,11 @@ public class DefaultScenePanel extends javax.swing.JPanel implements IScenePanel
         outputLed8.setIcon(getOutputIcon(outputs.get("Q0.7")));
     }
 
+    @Override
+    public void stop() {
+        // No specific stop action for this panel
+    }
+
     private ImageIcon getInputIcon(InputType inputType, boolean inputState) {
         return switch (inputType) {
             case SWITCH ->
@@ -106,8 +101,7 @@ public class DefaultScenePanel extends javax.swing.JPanel implements IScenePanel
     }
 
     @Override
-    public void resetState() {
-
+    public void resetUIState() {
         /// No state to reset in this panel
     }
 
