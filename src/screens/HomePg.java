@@ -42,6 +42,8 @@ public final class HomePg extends javax.swing.JFrame {
 
     private final HomePageController controller;
 
+    private javax.swing.JScrollPane scrollCodigoCamp;
+
     private ListaDeVariaveisPg telaDataTable;
     private boolean updating = false;
 
@@ -68,7 +70,7 @@ public final class HomePg extends javax.swing.JFrame {
         iconTimer.setImage(imgTimer);
 
         // Aplica o ícone a todos os temporizadores
-        JLabel[] timers = { Timer_1, Timer_2, Timer_3, Timer_4, Timer_5, Timer_6, Timer_7, Timer_8, Timer_9, Timer_10 };
+        JLabel[] timers = {Timer_1, Timer_2, Timer_3, Timer_4, Timer_5, Timer_6, Timer_7, Timer_8, Timer_9, Timer_10};
         for (JLabel timer : timers) {
             timer.setIcon(iconTimer);
         }
@@ -80,8 +82,8 @@ public final class HomePg extends javax.swing.JFrame {
         iconCont.setImage(imgCont);
 
         // Aplica o ícone a todos os contadores
-        JLabel[] contadores = { Contador_1, Contador_2, Contador_3, Contador_4, Contador_5, Contador_6, Contador_7,
-                Contador_8, Contador_9, Contador_10 };
+        JLabel[] contadores = {Contador_1, Contador_2, Contador_3, Contador_4, Contador_5, Contador_6, Contador_7,
+            Contador_8, Contador_9, Contador_10};
         for (JLabel contador : contadores) {
             contador.setIcon(iconCont);
         }
@@ -405,6 +407,7 @@ public final class HomePg extends javax.swing.JFrame {
         label_20 = new javax.swing.JLabel();
         Color_Camp = new javax.swing.JPanel();
         Codigo_Camp = new javax.swing.JTextArea();
+        scrollCodigoCamp = new javax.swing.JScrollPane(Codigo_Camp);
         Image_Camp = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         simulationsComboBox = new javax.swing.JComboBox<>();
@@ -422,14 +425,14 @@ public final class HomePg extends javax.swing.JFrame {
         setTitle("Lista de Instruçoes CLP");
         setBackground(new java.awt.Color(255, 255, 255));
 
-        Arquivar_BT.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Arquivar", "Salvar", "Carregar" }));
+        Arquivar_BT.setModel(new javax.swing.DefaultComboBoxModel<>(new String[]{"Arquivar", "Salvar", "Carregar"}));
         Arquivar_BT.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 Arquivar_BTActionPerformed(evt);
             }
         });
 
-        Editar_BT.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Editar", "Tema", "Idioma" }));
+        Editar_BT.setModel(new javax.swing.DefaultComboBoxModel<>(new String[]{"Editar", "Tema", "Idioma"}));
         Editar_BT.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 Editar_BTActionPerformed(evt);
@@ -726,11 +729,16 @@ public final class HomePg extends javax.swing.JFrame {
         Codigo_Camp.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         Codigo_Camp.setForeground(new java.awt.Color(255, 255, 255));
         Codigo_Camp.setRows(5);
+        Codigo_Camp.setLineWrap(true);
+        Codigo_Camp.setWrapStyleWord(true);
         Codigo_Camp.setDisabledTextColor(new java.awt.Color(255, 255, 255));
         Codigo_Camp.setDragEnabled(true);
         Codigo_Camp.setSelectedTextColor(new java.awt.Color(0, 0, 0));
         Codigo_Camp.setSelectionColor(new java.awt.Color(204, 204, 204));
-        Color_Camp.add(Codigo_Camp, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 350, 750));
+        scrollCodigoCamp.setOpaque(false);
+        scrollCodigoCamp.getViewport().setOpaque(false);
+        scrollCodigoCamp.setBorder(null);
+        Color_Camp.add(scrollCodigoCamp, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 350, 750));
         Color_Camp.add(Image_Camp, new org.netbeans.lib.awtextra.AbsoluteConstraints(-3, 6, 370, 750));
 
         simulationsComboBox.setBackground(new java.awt.Color(8, 94, 131));
