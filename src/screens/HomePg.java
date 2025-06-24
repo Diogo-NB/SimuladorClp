@@ -68,7 +68,7 @@ public final class HomePg extends javax.swing.JFrame {
         iconTimer.setImage(imgTimer);
 
         // Aplica o ícone a todos os temporizadores
-        JLabel[] timers = {Timer_1, Timer_2, Timer_3, Timer_4, Timer_5, Timer_6, Timer_7, Timer_8, Timer_9, Timer_10};
+        JLabel[] timers = { Timer_1, Timer_2, Timer_3, Timer_4, Timer_5, Timer_6, Timer_7, Timer_8, Timer_9, Timer_10 };
         for (JLabel timer : timers) {
             timer.setIcon(iconTimer);
         }
@@ -80,8 +80,8 @@ public final class HomePg extends javax.swing.JFrame {
         iconCont.setImage(imgCont);
 
         // Aplica o ícone a todos os contadores
-        JLabel[] contadores = {Contador_1, Contador_2, Contador_3, Contador_4, Contador_5, Contador_6, Contador_7,
-            Contador_8, Contador_9, Contador_10};
+        JLabel[] contadores = { Contador_1, Contador_2, Contador_3, Contador_4, Contador_5, Contador_6, Contador_7,
+                Contador_8, Contador_9, Contador_10 };
         for (JLabel contador : contadores) {
             contador.setIcon(iconCont);
         }
@@ -193,16 +193,14 @@ public final class HomePg extends javax.swing.JFrame {
 
         switch (scene) {
             case DEFAULT -> {
-                var inputs = HomePageModel.getInputs();
-                inputs.put("I0.1", false);
                 currentScenePanel = new DefaultScenePanel();
             }
             case BATCH_SIMULATION -> {
-                var inputs = HomePageModel.getInputs();
-                inputs.put("I0.1", true); // Stop como NC: verdadeiro por padrão apenas nessa cena
                 currentScenePanel = new BatchSimulationScenePanel();
             }
         }
+
+        currentScenePanel.initInputs(HomePageModel.getInputsType(), HomePageModel.getInputs());
 
         var currentSceneJPanel = (JPanel) currentScenePanel;
 
@@ -433,14 +431,14 @@ public final class HomePg extends javax.swing.JFrame {
         setTitle("Lista de Instruçoes CLP");
         setBackground(new java.awt.Color(255, 255, 255));
 
-        Arquivar_BT.setModel(new javax.swing.DefaultComboBoxModel<>(new String[]{"Arquivar", "Salvar", "Carregar"}));
+        Arquivar_BT.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Arquivar", "Salvar", "Carregar" }));
         Arquivar_BT.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 Arquivar_BTActionPerformed(evt);
             }
         });
 
-        Editar_BT.setModel(new javax.swing.DefaultComboBoxModel<>(new String[]{"Editar", "Tema", "Idioma"}));
+        Editar_BT.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Editar", "Tema", "Idioma" }));
         Editar_BT.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 Editar_BTActionPerformed(evt);
