@@ -40,7 +40,7 @@ public class BatchSimulationScenePanel extends javax.swing.JPanel implements ISc
         startBt = new PushButton("I0.0", InputType.NO);
         stopBt = new PushButton("I0.1", InputType.NC, PushButton.ButtonPalette.RED);
 
-        buttons = new PushButton[]{startBt, stopBt};
+        buttons = new PushButton[] { startBt, stopBt };
 
         runLed = new RedIndicator("Q1.0", RedIndicator.IndicatorType.LED);
         idleLed = new RedIndicator("Q1.1", RedIndicator.IndicatorType.LED);
@@ -53,19 +53,26 @@ public class BatchSimulationScenePanel extends javax.swing.JPanel implements ISc
         hiLevelIndicator = new RedIndicator("I1.0");
         loLevelIndicator = new RedIndicator("I1.1");
 
-        indicators = new RedIndicator[]{runLed, idleLed, fullLed, pump1Indicator, pump3Indicator, mixerIndicator,
-            hiLevelIndicator, loLevelIndicator};
+        indicators = new RedIndicator[] { runLed, idleLed, fullLed, pump1Indicator, pump3Indicator, mixerIndicator,
+                hiLevelIndicator, loLevelIndicator };
 
         initComponents();
     }
 
     @Override
+    public void initInputs(Map<String, InputType> inputsType, Map<String, Boolean> inputs) {
+        for (PushButton button : buttons) {
+            var key = button.getInputKey();
+            var type = button.getType();
+
+            inputsType.put(key, type);
+            inputs.put(key, type == InputType.NC);
+        }
+    }
+
+    @Override
     public void updateUIState(Map<String, InputType> inputsType, Map<String, Boolean> inputs,
             Map<String, Boolean> outputs) {
-        for (PushButton button : buttons) {
-            inputsType.put(button.getInputKey(), button.getType());
-        }
-
         for (RedIndicator indicator : indicators) {
             String key = indicator.getKey();
             boolean updatedValue = false;
@@ -106,7 +113,7 @@ public class BatchSimulationScenePanel extends javax.swing.JPanel implements ISc
 
     @Override
     public void unpause() {
-        
+
     }
 
     @Override

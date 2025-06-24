@@ -19,6 +19,14 @@ public class DefaultScenePanel extends javax.swing.JPanel implements IScenePanel
     }
 
     @Override
+    public void initInputs(Map<String, InputType> inputsType, Map<String, Boolean> inputs) {
+        for (var key : inputsType.keySet()) {
+            inputsType.put(key, InputType.SWITCH);
+            inputs.put(key, false);
+        }
+    }
+
+    @Override
     public void pause() {
 
     }
@@ -100,9 +108,7 @@ public class DefaultScenePanel extends javax.swing.JPanel implements IScenePanel
     @Override
     public void resetState() {
 
-    
-
-    /// No state to reset in this panel
+        /// No state to reset in this panel
     }
 
     /**
@@ -595,4 +601,5 @@ public class DefaultScenePanel extends javax.swing.JPanel implements IScenePanel
     private javax.swing.JLabel outputLed7;
     private javax.swing.JLabel outputLed8;
     // End of variables declaration//GEN-END:variables
+
 }

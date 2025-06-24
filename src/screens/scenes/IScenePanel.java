@@ -5,9 +5,10 @@ import java.util.Map;
 import ilcompiler.input.Input.InputType;
 
 public interface IScenePanel {
-
     public void updateUIState(Map<String, InputType> inputsType, Map<String, Boolean> inputs,
             Map<String, Boolean> outputs);
+
+    public void initInputs(Map<String, InputType> inputsType, Map<String, Boolean> inputs);
 
     public void resetState();
 
@@ -16,5 +17,4 @@ public interface IScenePanel {
     void pause();
 
     void unpause();
-
 }
