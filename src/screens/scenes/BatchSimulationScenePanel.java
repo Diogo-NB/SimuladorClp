@@ -3,16 +3,15 @@ package screens.scenes;
 import Controllers.BatchSimulatorController;
 import Models.HomePageModel;
 import ilcompiler.input.Input.InputType;
-
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.util.Map;
-
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
+import screens.HomePg;
 
 public class BatchSimulationScenePanel extends javax.swing.JPanel implements IScenePanel {
 
@@ -31,6 +30,12 @@ public class BatchSimulationScenePanel extends javax.swing.JPanel implements ISc
 
     private final RedIndicator[] indicators;
 
+    private long hiLevelActivationTime = -1;
+    private boolean alertShown = false;
+
+    private long loLevelActivationTime = -1;
+    private boolean pump3AlertShown = false;
+
     public BatchSimulationScenePanel() {
         backgroundImage = new ImageIcon(getClass().getResource("/Assets/batch_bg.png")).getImage();
 
@@ -40,7 +45,7 @@ public class BatchSimulationScenePanel extends javax.swing.JPanel implements ISc
         startBt = new PushButton("I0.0", InputType.NO);
         stopBt = new PushButton("I0.1", InputType.NC, PushButton.ButtonPalette.RED);
 
-        buttons = new PushButton[] { startBt, stopBt };
+        buttons = new PushButton[]{startBt, stopBt};
 
         runLed = new RedIndicator("Q1.0", RedIndicator.IndicatorType.LED);
         idleLed = new RedIndicator("Q1.1", RedIndicator.IndicatorType.LED);
@@ -53,8 +58,8 @@ public class BatchSimulationScenePanel extends javax.swing.JPanel implements ISc
         hiLevelIndicator = new RedIndicator("I1.0");
         loLevelIndicator = new RedIndicator("I1.1");
 
-        indicators = new RedIndicator[] { runLed, idleLed, fullLed, pump1Indicator, pump3Indicator, mixerIndicator,
-                hiLevelIndicator, loLevelIndicator };
+        indicators = new RedIndicator[]{runLed, idleLed, fullLed, pump1Indicator, pump3Indicator, mixerIndicator,
+            hiLevelIndicator, loLevelIndicator};
 
         initComponents();
     }
@@ -86,27 +91,107 @@ public class BatchSimulationScenePanel extends javax.swing.JPanel implements ISc
             indicator.setActive(updatedValue);
         }
         boolean isRunning = HomePageModel.isRunning();
-        if (isRunning && outputs.getOrDefault(pump1Indicator.getKey(), false)) {
+
+        boolean pump1On = outputs.getOrDefault(pump1Indicator.getKey(), false);
+        boolean hiLevel = tankFillHeightWrapper.isAtHighLevel();
+        boolean pump3On = outputs.getOrDefault(pump3Indicator.getKey(), false);
+        boolean loLevel = tankFillHeightWrapper.isAtLowLevel();
+
+        if (isRunning && pump1On) {
             controller.startFilling(tankFillHeightWrapper);
         } else {
             controller.stopFilling();
         }
 
-        if (isRunning && outputs.getOrDefault(pump3Indicator.getKey(), false)) {
+        if (isRunning && pump3On) {
             controller.startDraining(tankFillHeightWrapper);
         } else {
             controller.stopDraining();
         }
 
-        hiLevelIndicator.setActive(tankFillHeightWrapper.isAtHighLevel());
-        loLevelIndicator.setActive(tankFillHeightWrapper.isAtLowLevel());
+        hiLevelIndicator.setActive(hiLevel);
+        loLevelIndicator.setActive(loLevel);
+
+        pump1IsOpened(pump1On, hiLevel);
+
+        pump3IsOpened(pump3On, loLevel);
 
         inputs.put(hiLevelIndicator.getKey(), hiLevelIndicator.isActive());
         inputs.put(loLevelIndicator.getKey(), loLevelIndicator.isActive());
+
+    }
+
+    private void pump3IsOpened(boolean pump3On, boolean loLevel) {
+        if (!loLevel && pump3On) {
+            if (loLevelActivationTime == -1) {
+                loLevelActivationTime = System.currentTimeMillis();
+            } else {
+                long elapsed = System.currentTimeMillis() - loLevelActivationTime;
+                if (elapsed > 3000 && !pump3AlertShown) {
+                    pump3AlertShown = true;
+                    javax.swing.SwingUtilities.invokeLater(() -> {
+                        javax.swing.JOptionPane.showMessageDialog(
+                                this,
+                                "Não havia líquido para o esvaziamento. A bomba, pump3 (Q0.3), explodiu.",
+                                "Falha Crítica",
+                                javax.swing.JOptionPane.ERROR_MESSAGE
+                        );
+
+                        HomePg home = HomePg.getInstance();
+                        if (home != null) {
+                            home.clickPauseButton();
+                        } else {
+                            System.out.println("ERRO: HomePg.getInstance() retornou null.");
+                        }
+
+                        this.resetUIState();
+                    });
+                }
+            }
+        } else {
+            loLevelActivationTime = -1;
+            pump3AlertShown = false;
+        }
+    }
+
+    private void pump1IsOpened(boolean pump1On, boolean hiLevel) {
+
+        if (hiLevel && pump1On) {
+            if (hiLevelActivationTime == -1) {
+                hiLevelActivationTime = System.currentTimeMillis();
+            } else {
+                long elapsed = System.currentTimeMillis() - hiLevelActivationTime;
+                if (elapsed > 3000 && !alertShown) {
+                    alertShown = true;
+                    javax.swing.SwingUtilities.invokeLater(() -> {
+                        javax.swing.JOptionPane.showMessageDialog(
+                                this,
+                                "A bomba de enchimento, pump1 (Q0.1), permaneceu ligada mesmo após o tanque atingir sua capacidade máxima, resultando em um transbordamento que inundou a fábrica.",
+                                "Alerta de Segurança",
+                                javax.swing.JOptionPane.WARNING_MESSAGE
+                        );
+
+                        HomePg home = HomePg.getInstance();
+                        if (home != null) {
+                            home.clickPauseButton();
+                        } else {
+                            System.out.println("ERRO: HomePg.getInstance() retornou null.");
+                        }
+                        this.resetUIState();
+                    });
+                }
+            }
+        } else {
+            hiLevelActivationTime = -1;
+            alertShown = false;
+        }
+
     }
 
     @Override
     public void stop() {
+        hiLevelActivationTime = -1;
+        alertShown = false;
         controller.stopFilling();
         controller.stopDraining();
     }

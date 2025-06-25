@@ -51,9 +51,12 @@ public final class HomePg extends javax.swing.JFrame {
     private ScenesEnum currentScene = ScenesEnum.DEFAULT;
     private InputEventListener sceneInputEventListener;
 
+    private static HomePg instance;
+
     @SuppressWarnings("unchecked")
     public HomePg() {
         controller = new HomePageController(this);
+        instance = this;
 
         initComponents();
 
@@ -122,6 +125,10 @@ public final class HomePg extends javax.swing.JFrame {
 
         // Atualiza entradas e saídas na tela
         updateSceneUI();
+    }
+
+    public static HomePg getInstance() {
+        return instance;
     }
 
     private void handleInputButtonPressed(String inputKey, java.awt.event.MouseEvent evt) {
@@ -958,7 +965,11 @@ public final class HomePg extends javax.swing.JFrame {
         }
     }// GEN-LAST:event_startBtActionPerformed
 
-    private void pauseBtActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_pauseBtActionPerformed
+    public void clickPauseButton() {
+        pauseBt.doClick();
+    }
+
+    public void pauseBtActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_pauseBtActionPerformed
         HomePageModel.setMode(ExecutionMode.IDLE);
         controller.stopTimers();
         controller.resetTimers();
