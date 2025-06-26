@@ -51,12 +51,10 @@ public final class HomePg extends javax.swing.JFrame {
     private ScenesEnum currentScene = ScenesEnum.DEFAULT;
     private InputEventListener sceneInputEventListener;
 
-    private static HomePg instance;
 
     @SuppressWarnings("unchecked")
     public HomePg() {
         controller = new HomePageController(this);
-        instance = this;
 
         initComponents();
 

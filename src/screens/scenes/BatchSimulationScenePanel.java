@@ -140,7 +140,7 @@ public class BatchSimulationScenePanel extends javax.swing.JPanel implements ISc
                                 this,
                                 "Não havia líquido para o esvaziamento. A bomba, pump3 (Q0.3), explodiu.",
                                 "Falha Crítica",
-                                javax.swing.JOptionPane.ERROR_MESSAGE
+                                javax.swing.JOptionPane.WARNING_MESSAGE
                         );
 
                         if (onCriticalFailureCallback != null) {
