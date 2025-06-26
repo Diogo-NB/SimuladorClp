@@ -1,9 +1,8 @@
 package screens.scenes;
 
+import ilcompiler.input.Input.InputType;
 import java.util.Map;
 import javax.swing.ImageIcon;
-
-import ilcompiler.input.Input.InputType;
 
 public class DefaultScenePanel extends javax.swing.JPanel implements IScenePanel {
 
@@ -101,8 +100,15 @@ public class DefaultScenePanel extends javax.swing.JPanel implements IScenePanel
     }
 
     @Override
+    public void setOnCriticalFailureCallback(Runnable callback) {
+        // No specific critical failure behavior for this panel, but method must be present
+    }
+
+    @Override
     public void resetUIState() {
-        /// No state to reset in this panel
+    
+
+    /// No state to reset in this panel
     }
 
     /**

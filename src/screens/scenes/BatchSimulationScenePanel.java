@@ -3,12 +3,10 @@ package screens.scenes;
 import Controllers.BatchSimulatorController;
 import Models.HomePageModel;
 import ilcompiler.input.Input.InputType;
-
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.util.Map;
-
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
@@ -17,6 +15,8 @@ import javax.swing.JPanel;
 public class BatchSimulationScenePanel extends javax.swing.JPanel implements IScenePanel {
 
     private InputEventListener inputListener;
+
+    private Runnable onCriticalFailureCallback;
 
     private final Image backgroundImage;
 
@@ -31,6 +31,14 @@ public class BatchSimulationScenePanel extends javax.swing.JPanel implements ISc
 
     private final RedIndicator[] indicators;
 
+    private Long hiLevelActivationTime = null;
+    private boolean alertShown = false;
+
+    private Long loLevelActivationTime = null;
+    private boolean pump3AlertShown = false;
+
+     private static final int timerForPumpsWarning = 1500;
+
     public BatchSimulationScenePanel() {
         backgroundImage = new ImageIcon(getClass().getResource("/Assets/batch_bg.png")).getImage();
 
@@ -40,7 +48,7 @@ public class BatchSimulationScenePanel extends javax.swing.JPanel implements ISc
         startBt = new PushButton("I0.0", InputType.NO);
         stopBt = new PushButton("I0.1", InputType.NC, PushButton.ButtonPalette.RED);
 
-        buttons = new PushButton[] { startBt, stopBt };
+        buttons = new PushButton[]{startBt, stopBt};
 
         runLed = new RedIndicator("Q1.0", RedIndicator.IndicatorType.LED);
         idleLed = new RedIndicator("Q1.1", RedIndicator.IndicatorType.LED);
@@ -53,10 +61,15 @@ public class BatchSimulationScenePanel extends javax.swing.JPanel implements ISc
         hiLevelIndicator = new RedIndicator("I1.0");
         loLevelIndicator = new RedIndicator("I1.1");
 
-        indicators = new RedIndicator[] { runLed, idleLed, fullLed, pump1Indicator, pump3Indicator, mixerIndicator,
-                hiLevelIndicator, loLevelIndicator };
+        indicators = new RedIndicator[]{runLed, idleLed, fullLed, pump1Indicator, pump3Indicator, mixerIndicator,
+            hiLevelIndicator, loLevelIndicator};
 
         initComponents();
+    }
+
+    @Override
+    public void setOnCriticalFailureCallback(Runnable callback) {
+        this.onCriticalFailureCallback = callback;
     }
 
     @Override
@@ -86,27 +99,103 @@ public class BatchSimulationScenePanel extends javax.swing.JPanel implements ISc
             indicator.setActive(updatedValue);
         }
         boolean isRunning = HomePageModel.isRunning();
-        if (isRunning && outputs.getOrDefault(pump1Indicator.getKey(), false)) {
+
+        boolean pump1On = outputs.getOrDefault(pump1Indicator.getKey(), false);
+        boolean hiLevel = tankFillHeightWrapper.isAtHighLevel();
+        boolean pump3On = outputs.getOrDefault(pump3Indicator.getKey(), false);
+        boolean loLevel = tankFillHeightWrapper.isAtLowLevel();
+
+        if (isRunning && pump1On) {
             controller.startFilling(tankFillHeightWrapper);
         } else {
             controller.stopFilling();
         }
 
-        if (isRunning && outputs.getOrDefault(pump3Indicator.getKey(), false)) {
+        if (isRunning && pump3On) {
             controller.startDraining(tankFillHeightWrapper);
         } else {
             controller.stopDraining();
         }
 
-        hiLevelIndicator.setActive(tankFillHeightWrapper.isAtHighLevel());
-        loLevelIndicator.setActive(tankFillHeightWrapper.isAtLowLevel());
+        hiLevelIndicator.setActive(hiLevel);
+        loLevelIndicator.setActive(loLevel);
+
+        pump1IsOpened(pump1On, hiLevel);
+
+        pump3IsOpened(pump3On, loLevel);
 
         inputs.put(hiLevelIndicator.getKey(), hiLevelIndicator.isActive());
         inputs.put(loLevelIndicator.getKey(), loLevelIndicator.isActive());
+
+    }
+
+    private void pump3IsOpened(boolean pump3On, boolean loLevel) {
+        if (!loLevel && pump3On) {
+            if (loLevelActivationTime == null) {
+                loLevelActivationTime = System.currentTimeMillis();
+            } else {
+                long elapsed = System.currentTimeMillis() - loLevelActivationTime;
+                if (elapsed > timerForPumpsWarning && !pump3AlertShown) {
+                    pump3AlertShown = true;
+                    javax.swing.SwingUtilities.invokeLater(() -> {
+                        javax.swing.JOptionPane.showMessageDialog(
+                                this,
+                                "Não havia líquido para o esvaziamento. A bomba, pump3 (Q0.3), explodiu.",
+                                "Falha Crítica",
+                                javax.swing.JOptionPane.WARNING_MESSAGE
+                        );
+
+                        if (onCriticalFailureCallback != null) {
+                            onCriticalFailureCallback.run();
+                        }
+
+                        this.resetUIState();
+                    });
+                }
+            }
+        } else {
+            loLevelActivationTime = null;
+            pump3AlertShown = false;
+        }
+    }
+
+    private void pump1IsOpened(boolean pump1On, boolean hiLevel) {
+
+        if (hiLevel && pump1On) {
+            if (hiLevelActivationTime == null) {
+                hiLevelActivationTime = System.currentTimeMillis();
+            } else {
+                long elapsed = System.currentTimeMillis() - hiLevelActivationTime;
+                if (elapsed > timerForPumpsWarning && !alertShown) {
+                    alertShown = true;
+                    javax.swing.SwingUtilities.invokeLater(() -> {
+                        javax.swing.JOptionPane.showMessageDialog(
+                                this,
+                                "A bomba de enchimento, pump1 (Q0.1), permaneceu ligada mesmo após o tanque atingir sua capacidade máxima, resultando em um transbordamento que inundou a fábrica.",
+                                "Alerta de Segurança",
+                                javax.swing.JOptionPane.WARNING_MESSAGE
+                        );
+
+                        if (onCriticalFailureCallback != null) {
+                            onCriticalFailureCallback.run();
+                        }
+                        this.resetUIState();
+                    });
+                }
+            }
+        } else {
+            hiLevelActivationTime = null;
+            alertShown = false;
+        }
+
     }
 
     @Override
     public void stop() {
+        loLevelActivationTime = null;
+        pump3AlertShown = false;
+        hiLevelActivationTime = null;
+        alertShown = false;
         controller.stopFilling();
         controller.stopDraining();
     }

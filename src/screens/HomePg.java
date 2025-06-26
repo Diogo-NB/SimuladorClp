@@ -51,6 +51,7 @@ public final class HomePg extends javax.swing.JFrame {
     private ScenesEnum currentScene = ScenesEnum.DEFAULT;
     private InputEventListener sceneInputEventListener;
 
+
     @SuppressWarnings("unchecked")
     public HomePg() {
         controller = new HomePageController(this);
@@ -198,7 +199,11 @@ public final class HomePg extends javax.swing.JFrame {
                 currentScenePanel = new DefaultScenePanel();
             }
             case BATCH_SIMULATION -> {
-                currentScenePanel = new BatchSimulationScenePanel();
+                BatchSimulationScenePanel batchPanel = new BatchSimulationScenePanel();
+
+                batchPanel.setOnCriticalFailureCallback(() -> pauseBt.doClick());
+
+                currentScenePanel = batchPanel;
             }
         }
 
@@ -958,7 +963,11 @@ public final class HomePg extends javax.swing.JFrame {
         }
     }// GEN-LAST:event_startBtActionPerformed
 
-    private void pauseBtActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_pauseBtActionPerformed
+    public void clickPauseButton() {
+        pauseBt.doClick();
+    }
+
+    public void pauseBtActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_pauseBtActionPerformed
         HomePageModel.setMode(ExecutionMode.IDLE);
         controller.stopTimers();
         controller.resetTimers();
