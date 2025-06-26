@@ -72,7 +72,7 @@ public final class HomePg extends javax.swing.JFrame {
         iconTimer.setImage(imgTimer);
 
         // Aplica o ícone a todos os temporizadores
-        JLabel[] timers = { Timer_1, Timer_2, Timer_3, Timer_4, Timer_5, Timer_6, Timer_7, Timer_8, Timer_9, Timer_10 };
+        JLabel[] timers = {Timer_1, Timer_2, Timer_3, Timer_4, Timer_5, Timer_6, Timer_7, Timer_8, Timer_9, Timer_10};
         for (JLabel timer : timers) {
             timer.setIcon(iconTimer);
         }
@@ -84,8 +84,8 @@ public final class HomePg extends javax.swing.JFrame {
         iconCont.setImage(imgCont);
 
         // Aplica o ícone a todos os contadores
-        JLabel[] contadores = { Contador_1, Contador_2, Contador_3, Contador_4, Contador_5, Contador_6, Contador_7,
-                Contador_8, Contador_9, Contador_10 };
+        JLabel[] contadores = {Contador_1, Contador_2, Contador_3, Contador_4, Contador_5, Contador_6, Contador_7,
+            Contador_8, Contador_9, Contador_10};
         for (JLabel contador : contadores) {
             contador.setIcon(iconCont);
         }
@@ -330,6 +330,7 @@ public final class HomePg extends javax.swing.JFrame {
         Arquivar_BT = new javax.swing.JComboBox<>();
         Editar_BT = new javax.swing.JComboBox<>();
         Sobre_BT = new javax.swing.JButton();
+        Help_BT = new javax.swing.JButton();
         sceneContainer = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         Temp_parada_1 = new javax.swing.JLabel();
@@ -429,14 +430,14 @@ public final class HomePg extends javax.swing.JFrame {
         setTitle("Lista de Instruçoes CLP");
         setBackground(new java.awt.Color(255, 255, 255));
 
-        Arquivar_BT.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Arquivar", "Salvar", "Carregar" }));
+        Arquivar_BT.setModel(new javax.swing.DefaultComboBoxModel<>(new String[]{"Arquivar", "Salvar", "Carregar"}));
         Arquivar_BT.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 Arquivar_BTActionPerformed(evt);
             }
         });
 
-        Editar_BT.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Editar", "Tema", "Idioma" }));
+        Editar_BT.setModel(new javax.swing.DefaultComboBoxModel<>(new String[]{"Editar", "Tema", "Idioma"}));
         Editar_BT.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 Editar_BTActionPerformed(evt);
@@ -447,6 +448,13 @@ public final class HomePg extends javax.swing.JFrame {
         Sobre_BT.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 Sobre_BTActionPerformed(evt);
+            }
+        });
+
+        Help_BT.setText("Ajuda");
+        Help_BT.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Help_BTActionPerformed(evt);
             }
         });
 
@@ -825,6 +833,8 @@ public final class HomePg extends javax.swing.JFrame {
                                 .addComponent(Editar_BT, javax.swing.GroupLayout.PREFERRED_SIZE, 94,
                                         javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(Help_BT)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(Sobre_BT)
                                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
@@ -852,6 +862,7 @@ public final class HomePg extends javax.swing.JFrame {
                         .addGroup(layout.createSequentialGroup()
                                 .addGap(16, 16, 16)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(Help_BT)
                                         .addComponent(Sobre_BT)
                                         .addComponent(Editar_BT, javax.swing.GroupLayout.PREFERRED_SIZE,
                                                 javax.swing.GroupLayout.DEFAULT_SIZE,
@@ -881,6 +892,10 @@ public final class HomePg extends javax.swing.JFrame {
     private void Sobre_BTActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_Sobre_BTActionPerformed
         SobrePopup.mostrarSobre();
     }// GEN-LAST:event_Sobre_BTActionPerformed
+
+    private void Help_BTActionPerformed(java.awt.event.ActionEvent evt) {
+        HelpPopUp.showHelp();
+    }
 
     private void Editar_BTActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_Editar_BTActionPerformed
         if (Editar_BT.getItemAt(1) == Editar_BT.getSelectedItem().toString()) {
@@ -977,6 +992,7 @@ public final class HomePg extends javax.swing.JFrame {
         Editar_BT.setSelectedIndex(0);
 
         Sobre_BT.setText(Language.getSobre());
+        Help_BT.setText(Language.getAjudar());
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -1016,6 +1032,7 @@ public final class HomePg extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> Editar_BT;
     private javax.swing.JLabel Image_Camp;
     private javax.swing.JButton Sobre_BT;
+    private javax.swing.JButton Help_BT;
     private javax.swing.JLabel Temp_atual_1;
     private javax.swing.JLabel Temp_atual_10;
     private javax.swing.JLabel Temp_atual_2;
