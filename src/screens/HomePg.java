@@ -40,7 +40,7 @@ import screens.scenes.InputEventListener;
 
 public final class HomePg extends javax.swing.JFrame {
 
-    private static final int CYCLE_DELAY_MS = 1;
+    private static final int CYCLE_DELAY_MS = 100;
 
     private final HomePageController controller;
 
