@@ -127,10 +127,6 @@ public final class HomePg extends javax.swing.JFrame {
         updateSceneUI();
     }
 
-    public static HomePg getInstance() {
-        return instance;
-    }
-
     private void handleInputButtonPressed(String inputKey, java.awt.event.MouseEvent evt) {
         var inputs = HomePageModel.getInputs();
         var types = HomePageModel.getInputsType();
@@ -205,7 +201,11 @@ public final class HomePg extends javax.swing.JFrame {
                 currentScenePanel = new DefaultScenePanel();
             }
             case BATCH_SIMULATION -> {
-                currentScenePanel = new BatchSimulationScenePanel();
+                BatchSimulationScenePanel batchPanel = new BatchSimulationScenePanel();
+
+                batchPanel.setOnCriticalFailureCallback(() -> pauseBt.doClick());
+
+                currentScenePanel = batchPanel;
             }
         }
 

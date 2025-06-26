@@ -11,11 +11,12 @@ import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
-import screens.HomePg;
 
 public class BatchSimulationScenePanel extends javax.swing.JPanel implements IScenePanel {
 
     private InputEventListener inputListener;
+
+    private Runnable onCriticalFailureCallback;
 
     private final Image backgroundImage;
 
@@ -30,10 +31,10 @@ public class BatchSimulationScenePanel extends javax.swing.JPanel implements ISc
 
     private final RedIndicator[] indicators;
 
-    private long hiLevelActivationTime = -1;
+    private Long hiLevelActivationTime = null;
     private boolean alertShown = false;
 
-    private long loLevelActivationTime = -1;
+    private Long loLevelActivationTime = null;
     private boolean pump3AlertShown = false;
 
     public BatchSimulationScenePanel() {
@@ -62,6 +63,11 @@ public class BatchSimulationScenePanel extends javax.swing.JPanel implements ISc
             hiLevelIndicator, loLevelIndicator};
 
         initComponents();
+    }
+
+    @Override
+    public void setOnCriticalFailureCallback(Runnable callback) {
+        this.onCriticalFailureCallback = callback;
     }
 
     @Override
@@ -123,7 +129,7 @@ public class BatchSimulationScenePanel extends javax.swing.JPanel implements ISc
 
     private void pump3IsOpened(boolean pump3On, boolean loLevel) {
         if (!loLevel && pump3On) {
-            if (loLevelActivationTime == -1) {
+            if (loLevelActivationTime == null) {
                 loLevelActivationTime = System.currentTimeMillis();
             } else {
                 long elapsed = System.currentTimeMillis() - loLevelActivationTime;
@@ -137,11 +143,8 @@ public class BatchSimulationScenePanel extends javax.swing.JPanel implements ISc
                                 javax.swing.JOptionPane.ERROR_MESSAGE
                         );
 
-                        HomePg home = HomePg.getInstance();
-                        if (home != null) {
-                            home.clickPauseButton();
-                        } else {
-                            System.out.println("ERRO: HomePg.getInstance() retornou null.");
+                        if (onCriticalFailureCallback != null) {
+                            onCriticalFailureCallback.run();
                         }
 
                         this.resetUIState();
@@ -149,7 +152,7 @@ public class BatchSimulationScenePanel extends javax.swing.JPanel implements ISc
                 }
             }
         } else {
-            loLevelActivationTime = -1;
+            loLevelActivationTime = null;
             pump3AlertShown = false;
         }
     }
@@ -157,7 +160,7 @@ public class BatchSimulationScenePanel extends javax.swing.JPanel implements ISc
     private void pump1IsOpened(boolean pump1On, boolean hiLevel) {
 
         if (hiLevel && pump1On) {
-            if (hiLevelActivationTime == -1) {
+            if (hiLevelActivationTime == null) {
                 hiLevelActivationTime = System.currentTimeMillis();
             } else {
                 long elapsed = System.currentTimeMillis() - hiLevelActivationTime;
@@ -171,18 +174,15 @@ public class BatchSimulationScenePanel extends javax.swing.JPanel implements ISc
                                 javax.swing.JOptionPane.WARNING_MESSAGE
                         );
 
-                        HomePg home = HomePg.getInstance();
-                        if (home != null) {
-                            home.clickPauseButton();
-                        } else {
-                            System.out.println("ERRO: HomePg.getInstance() retornou null.");
+                        if (onCriticalFailureCallback != null) {
+                            onCriticalFailureCallback.run();
                         }
                         this.resetUIState();
                     });
                 }
             }
         } else {
-            hiLevelActivationTime = -1;
+            hiLevelActivationTime = null;
             alertShown = false;
         }
 
@@ -190,7 +190,9 @@ public class BatchSimulationScenePanel extends javax.swing.JPanel implements ISc
 
     @Override
     public void stop() {
-        hiLevelActivationTime = -1;
+        loLevelActivationTime = null;
+        pump3AlertShown = false;
+        hiLevelActivationTime = null;
         alertShown = false;
         controller.stopFilling();
         controller.stopDraining();
