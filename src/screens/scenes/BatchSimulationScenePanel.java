@@ -37,6 +37,8 @@ public class BatchSimulationScenePanel extends javax.swing.JPanel implements ISc
     private Long loLevelActivationTime = null;
     private boolean pump3AlertShown = false;
 
+     private static final int timerForPumpsWarning = 1500;
+
     public BatchSimulationScenePanel() {
         backgroundImage = new ImageIcon(getClass().getResource("/Assets/batch_bg.png")).getImage();
 
@@ -133,7 +135,7 @@ public class BatchSimulationScenePanel extends javax.swing.JPanel implements ISc
                 loLevelActivationTime = System.currentTimeMillis();
             } else {
                 long elapsed = System.currentTimeMillis() - loLevelActivationTime;
-                if (elapsed > 2000 && !pump3AlertShown) {
+                if (elapsed > timerForPumpsWarning && !pump3AlertShown) {
                     pump3AlertShown = true;
                     javax.swing.SwingUtilities.invokeLater(() -> {
                         javax.swing.JOptionPane.showMessageDialog(
@@ -164,7 +166,7 @@ public class BatchSimulationScenePanel extends javax.swing.JPanel implements ISc
                 hiLevelActivationTime = System.currentTimeMillis();
             } else {
                 long elapsed = System.currentTimeMillis() - hiLevelActivationTime;
-                if (elapsed > 2000 && !alertShown) {
+                if (elapsed > timerForPumpsWarning && !alertShown) {
                     alertShown = true;
                     javax.swing.SwingUtilities.invokeLater(() -> {
                         javax.swing.JOptionPane.showMessageDialog(
