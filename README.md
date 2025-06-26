@@ -104,7 +104,8 @@ O projeto se baseia na versão desenvolvida pelos alunos do semestre 2024/02, di
 ## ▶️ Vídeo de Demonstração
 
 📺 Veja o simulador funcionando:
-👉 [Assista no YouTube](https://www.youtube.com/watch?v=Qdy83gkzqz0)
+👉 [Assista no YouTube](https://www.youtube.com/watch?v=Qdy83gkzqz0) - Simulador Inicial.
+👉 [Assista no YouTube](https://youtu.be/e-C53fbtbfo?si=Z7wWaaKLmnXStUDl) - Simulador Final.
 
 ---
 
