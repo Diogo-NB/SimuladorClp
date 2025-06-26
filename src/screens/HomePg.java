@@ -40,6 +40,8 @@ import screens.scenes.InputEventListener;
 
 public final class HomePg extends javax.swing.JFrame {
 
+    private static final int CYCLE_DELAY_MS = 100;
+
     private final HomePageController controller;
 
     private javax.swing.JScrollPane scrollCodigoCamp;
@@ -50,7 +52,6 @@ public final class HomePg extends javax.swing.JFrame {
     private IScenePanel currentScenePanel;
     private ScenesEnum currentScene = ScenesEnum.DEFAULT;
     private InputEventListener sceneInputEventListener;
-
 
     @SuppressWarnings("unchecked")
     public HomePg() {
@@ -71,7 +72,7 @@ public final class HomePg extends javax.swing.JFrame {
         iconTimer.setImage(imgTimer);
 
         // Aplica o ícone a todos os temporizadores
-        JLabel[] timers = {Timer_1, Timer_2, Timer_3, Timer_4, Timer_5, Timer_6, Timer_7, Timer_8, Timer_9, Timer_10};
+        JLabel[] timers = { Timer_1, Timer_2, Timer_3, Timer_4, Timer_5, Timer_6, Timer_7, Timer_8, Timer_9, Timer_10 };
         for (JLabel timer : timers) {
             timer.setIcon(iconTimer);
         }
@@ -83,8 +84,8 @@ public final class HomePg extends javax.swing.JFrame {
         iconCont.setImage(imgCont);
 
         // Aplica o ícone a todos os contadores
-        JLabel[] contadores = {Contador_1, Contador_2, Contador_3, Contador_4, Contador_5, Contador_6, Contador_7,
-            Contador_8, Contador_9, Contador_10};
+        JLabel[] contadores = { Contador_1, Contador_2, Contador_3, Contador_4, Contador_5, Contador_6, Contador_7,
+                Contador_8, Contador_9, Contador_10 };
         for (JLabel contador : contadores) {
             contador.setIcon(iconCont);
         }
@@ -321,6 +322,7 @@ public final class HomePg extends javax.swing.JFrame {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated
     // <editor-fold defaultstate="collapsed" desc="Generated
+    // <editor-fold defaultstate="collapsed" desc="Generated
     // Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
@@ -420,9 +422,6 @@ public final class HomePg extends javax.swing.JFrame {
         pauseBt = new javax.swing.JButton();
         refreshBt = new javax.swing.JButton();
         dataTableBt = new javax.swing.JButton();
-        delay_panel = new javax.swing.JPanel();
-        delayLabel = new javax.swing.JLabel();
-        delaySpinner = new javax.swing.JSpinner();
 
         jMenu1.setText("jMenu1");
 
@@ -430,14 +429,14 @@ public final class HomePg extends javax.swing.JFrame {
         setTitle("Lista de Instruçoes CLP");
         setBackground(new java.awt.Color(255, 255, 255));
 
-        Arquivar_BT.setModel(new javax.swing.DefaultComboBoxModel<>(new String[]{"Arquivar", "Salvar", "Carregar"}));
+        Arquivar_BT.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Arquivar", "Salvar", "Carregar" }));
         Arquivar_BT.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 Arquivar_BTActionPerformed(evt);
             }
         });
 
-        Editar_BT.setModel(new javax.swing.DefaultComboBoxModel<>(new String[]{"Editar", "Tema", "Idioma"}));
+        Editar_BT.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Editar", "Tema", "Idioma" }));
         Editar_BT.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 Editar_BTActionPerformed(evt);
@@ -814,33 +813,27 @@ public final class HomePg extends javax.swing.JFrame {
         });
         jPanel3.add(dataTableBt);
 
-        delay_panel.setMinimumSize(new java.awt.Dimension(200, 35));
-        delay_panel.setOpaque(false);
-        delay_panel.setPreferredSize(new java.awt.Dimension(200, 35));
-
-        delayLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        delayLabel.setText("Tempo de Delay em ms:");
-        delay_panel.add(delayLabel);
-
-        delaySpinner.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        delaySpinner.setMinimumSize(new java.awt.Dimension(50, 25));
-        delaySpinner.setPreferredSize(new java.awt.Dimension(50, 25));
-        delaySpinner.setRequestFocusEnabled(false);
-        delay_panel.add(delaySpinner);
-
-        jPanel3.add(delay_panel);
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
                 layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(layout.createSequentialGroup()
-                                .addGap(41, 41, 41)
+                                .addGap(47, 47, 47)
+                                .addComponent(Arquivar_BT, javax.swing.GroupLayout.PREFERRED_SIZE, 122,
+                                        javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(12, 12, 12)
+                                .addComponent(Editar_BT, javax.swing.GroupLayout.PREFERRED_SIZE, 94,
+                                        javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(Sobre_BT)
+                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addContainerGap(43, Short.MAX_VALUE)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout
-                                                .createSequentialGroup()
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 2,
-                                                        Short.MAX_VALUE)
+                                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE,
+                                                javax.swing.GroupLayout.DEFAULT_SIZE,
+                                                javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGroup(layout.createSequentialGroup()
                                                 .addGroup(layout
                                                         .createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING,
                                                                 false)
@@ -852,23 +845,8 @@ public final class HomePg extends javax.swing.JFrame {
                                                 .addGap(18, 18, 18)
                                                 .addComponent(Color_Camp, javax.swing.GroupLayout.PREFERRED_SIZE,
                                                         javax.swing.GroupLayout.DEFAULT_SIZE,
-                                                        javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addGap(33, 33, 33))
-                                        .addGroup(layout.createSequentialGroup()
-                                                .addComponent(Arquivar_BT, javax.swing.GroupLayout.PREFERRED_SIZE, 122,
-                                                        javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(Editar_BT, javax.swing.GroupLayout.PREFERRED_SIZE, 94,
-                                                        javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                                .addComponent(Sobre_BT)
-                                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE,
-                                                        Short.MAX_VALUE))))
-                        .addGroup(layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 645,
-                                        javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE)));
+                                                        javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(33, 33, 33)));
         layout.setVerticalGroup(
                 layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(layout.createSequentialGroup()
@@ -938,24 +916,13 @@ public final class HomePg extends javax.swing.JFrame {
 
     private void startBtActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_startBtActionPerformed
         if (!HomePageModel.isRunning()) {
-            // System.out.println("\nBotão run clicado!");
             HomePageModel.setMode(ExecutionMode.RUNNING);
 
-            Integer time = controller.parseDelay(delaySpinner.getValue().toString());
-            if (time == null) {
-                HomePageModel.setMode(ExecutionMode.IDLE);
-                updateMode();
-                showErrorMessage("Tempo de delay inválido! Insira um número inteiro.");
-                return;
-            }
-
-            // System.out.println("Tempo de delay: " + time + "\n");
-            Timer timer = new Timer(time, e -> controller.runCycle(e));
+            Timer timer = new Timer(CYCLE_DELAY_MS, e -> controller.runCycle(e));
             timer.setInitialDelay(0);
             timer.start();
 
         } else {
-            // System.out.println("\nBotão stop clicado!");
             HomePageModel.setMode(ExecutionMode.STOPPED);
             controller.stopTimers();
             updateMemoryVariables();
@@ -1010,7 +977,6 @@ public final class HomePg extends javax.swing.JFrame {
         Editar_BT.setSelectedIndex(0);
 
         Sobre_BT.setText(Language.getSobre());
-        delayLabel.setText(Language.getDelay());
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -1081,9 +1047,6 @@ public final class HomePg extends javax.swing.JFrame {
     private javax.swing.JLabel Timer_8;
     private javax.swing.JLabel Timer_9;
     private javax.swing.JButton dataTableBt;
-    private javax.swing.JLabel delayLabel;
-    private javax.swing.JSpinner delaySpinner;
-    private javax.swing.JPanel delay_panel;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
