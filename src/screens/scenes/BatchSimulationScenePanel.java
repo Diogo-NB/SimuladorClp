@@ -133,7 +133,7 @@ public class BatchSimulationScenePanel extends javax.swing.JPanel implements ISc
                 loLevelActivationTime = System.currentTimeMillis();
             } else {
                 long elapsed = System.currentTimeMillis() - loLevelActivationTime;
-                if (elapsed > 3000 && !pump3AlertShown) {
+                if (elapsed > 2000 && !pump3AlertShown) {
                     pump3AlertShown = true;
                     javax.swing.SwingUtilities.invokeLater(() -> {
                         javax.swing.JOptionPane.showMessageDialog(
@@ -164,7 +164,7 @@ public class BatchSimulationScenePanel extends javax.swing.JPanel implements ISc
                 hiLevelActivationTime = System.currentTimeMillis();
             } else {
                 long elapsed = System.currentTimeMillis() - hiLevelActivationTime;
-                if (elapsed > 3000 && !alertShown) {
+                if (elapsed > 2000 && !alertShown) {
                     alertShown = true;
                     javax.swing.SwingUtilities.invokeLater(() -> {
                         javax.swing.JOptionPane.showMessageDialog(
