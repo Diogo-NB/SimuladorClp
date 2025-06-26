@@ -40,6 +40,8 @@ import screens.scenes.InputEventListener;
 
 public final class HomePg extends javax.swing.JFrame {
 
+    private static final int CYCLE_DELAY_MS = 1;
+
     private final HomePageController controller;
 
     private javax.swing.JScrollPane scrollCodigoCamp;
@@ -916,7 +918,7 @@ public final class HomePg extends javax.swing.JFrame {
         if (!HomePageModel.isRunning()) {
             HomePageModel.setMode(ExecutionMode.RUNNING);
 
-            Timer timer = new Timer(1, e -> controller.runCycle(e));
+            Timer timer = new Timer(CYCLE_DELAY_MS, e -> controller.runCycle(e));
             timer.setInitialDelay(0);
             timer.start();
 
